@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CocoSun 论文笔记</title>
-  <meta name="description" content="CocoSun 的病理 AI、空间组学与基础模型论文笔记目录。">
+  <title>CocoSun - Biomedical AI</title>
+  <meta name="description" content="CocoSun 的医学影像、数字病理、多模态组学、生物医学基础模型与 Biomedical Agents 论文笔记目录。">
   <style>
     :root {
       --ink: #172033;
@@ -67,6 +67,23 @@
       font-size: clamp(32px, 6vw, 58px);
       line-height: 1.12;
       letter-spacing: 0;
+    }
+
+    .hero-title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 14px;
+      max-width: 920px;
+    }
+
+    .hero-title .brand {
+      font-weight: 900;
+    }
+
+    .hero-title .field {
+      color: #d8fbf5;
+      font-weight: 700;
     }
 
     .hero-copy {
@@ -265,7 +282,10 @@
   <div class="page">
     <header class="hero">
       <p class="eyebrow">Paper Notes · Biomedical AI</p>
-      <h1>CocoSun Biomedical+AI论文笔记</h1>
+      <h1 class="hero-title">
+        <span class="brand">CocoSun</span>
+        <span class="field">- Biomedical AI</span>
+      </h1>
       <p class="hero-copy">
         聚焦医学影像、数字病理、多模态组学与 AI 辅助研究，持续整理生物医学基础模型与生物医学 Agents 相关论文笔记。
       </p>
