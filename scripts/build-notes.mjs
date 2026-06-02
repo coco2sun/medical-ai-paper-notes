@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { existsSync, statSync } from "node:fs";
 import { createHash } from "node:crypto";
 import path from "node:path";
@@ -32,24 +32,43 @@ const rewriteGlobalAssetPaths = (html) => html.replace(
   "url($1../../assets/"
 );
 
-const rewriteNoteAssetPaths = (html, assetsDir) => {
+const listTopLevelFileNames = async (directory) => {
+  const entries = await readdir(directory, { withFileTypes: true });
+  return entries.filter((entry) => entry.isFile()).map((entry) => entry.name);
+};
+
+const rewriteNoteAssetPaths = async (html, assetsDir) => {
   if (!assetsDir) {
     return html;
   }
 
   const assetDirName = path.basename(assetsDir);
   const escapedDir = escapeRegExp(assetDirName);
+  const assetsDirPath = path.join(root, assetsDir);
 
-  return html.replace(
+  let rewrittenHtml = html.replace(
     new RegExp(`(src|href)=("|')${escapedDir}/`, "g"),
     "$1=$2assets/"
   ).replace(
     new RegExp(`url\\((["']?)${escapedDir}/`, "g"),
     "url($1assets/"
   );
+
+  for (const fileName of await listTopLevelFileNames(assetsDirPath)) {
+    const escapedName = escapeRegExp(fileName);
+    rewrittenHtml = rewrittenHtml.replace(
+      new RegExp(`(src|href)=("|')\\.\\./\\.\\./assets/${escapedName}`, "g"),
+      `$1=$2assets/${fileName}`
+    ).replace(
+      new RegExp(`url\\((["']?)\\.\\./\\.\\./assets/${escapedName}`, "g"),
+      `url($1assets/${fileName}`
+    );
+  }
+
+  return rewrittenHtml;
 };
 
-const rewriteAssetPaths = (html, note) => rewriteNoteAssetPaths(
+const rewriteAssetPaths = async (html, note) => rewriteNoteAssetPaths(
   rewriteGlobalAssetPaths(html),
   note.assetsDir
 );
@@ -126,7 +145,7 @@ const build = async () => {
     const outputDir = path.join(root, "notes", note.slug);
     const outputPath = path.join(outputDir, "index.html");
     const sourceHtml = await readFile(sourcePath, "utf8");
-    const outputHtml = rewriteAssetPaths(sourceHtml, note);
+    const outputHtml = await rewriteAssetPaths(sourceHtml, note);
 
     await mkdir(outputDir, { recursive: true });
 

@@ -16,6 +16,7 @@
     "date": "2026-06-02",
     "slug": "disease-specific-pathology-foundation-models",
     "source": "notes/disease-specific-pathology-foundation-models/index.html",
+    "assetsDir": "incoming/Disease_Specific_Pathology_Foundation_Models_files",
     "summary": "系统梳理肺、乳腺、胃肠、泛癌实体与消化道等专有病种病理基础模型的研究现状，覆盖模型设计、训练数据、验证任务和横向比较。",
     "tags": ["pathology foundation model", "disease-specific model", "computational pathology", "review"],
     "accent": false
