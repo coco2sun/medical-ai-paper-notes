@@ -1,10 +1,12 @@
 import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { existsSync, statSync } from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const configPath = path.join(root, "notes.config.json");
+const indexPath = path.join(root, "index.html");
 const dataPath = path.join(root, "assets", "notes-data.js");
 
 const requiredFields = ["title", "type", "date", "slug", "source", "summary", "tags"];
@@ -17,6 +19,8 @@ const fail = (message) => {
 const normalizePath = (value) => value.split(path.sep).join("/");
 
 const isValidSlug = (slug) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug);
+
+const shortHash = (value) => createHash("sha256").update(value).digest("hex").slice(0, 10);
 
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -147,9 +151,17 @@ const build = async () => {
 
   const sortedNotes = builtNotes.sort((a, b) => b.date.localeCompare(a.date));
   const data = `window.NOTES = ${JSON.stringify(sortedNotes, null, 2)};\n`;
+  const dataVersion = shortHash(data);
 
   await mkdir(path.dirname(dataPath), { recursive: true });
   await writeFile(dataPath, data);
+
+  const indexHtml = await readFile(indexPath, "utf8");
+  const versionedIndexHtml = indexHtml.replace(
+    /assets\/notes-data\.js(?:\?v=[a-f0-9]+)?/g,
+    `assets/notes-data.js?v=${dataVersion}`
+  );
+  await writeFile(indexPath, versionedIndexHtml);
 
   for (const note of sortedNotes) {
     const outputPath = path.join(root, note.url, "index.html");
@@ -160,6 +172,7 @@ const build = async () => {
 
   console.log(`Built ${sortedNotes.length} notes.`);
   console.log(`Updated ${normalizePath(path.relative(root, dataPath))}.`);
+  console.log(`Updated ${normalizePath(path.relative(root, indexPath))} with notes data version ${dataVersion}.`);
 };
 
 build();
