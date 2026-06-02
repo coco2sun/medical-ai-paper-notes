@@ -28,6 +28,7 @@ The build script copies the HTML into `notes/<slug>/index.html`, rewrites local 
   "assetsDir": "incoming/New_Paper_Note_files",
   "summary": "One sentence summary.",
   "tags": ["medical imaging", "foundation model", "multimodal"],
+  "visible": true,
   "accent": false
 }
 ```
@@ -35,6 +36,7 @@ The build script copies the HTML into `notes/<slug>/index.html`, rewrites local 
 - `slug` must use lowercase letters, numbers, and hyphens.
 - `source` can point to `incoming/...` for a new note or an existing `notes/<slug>/index.html`.
 - `assetsDir` is optional. Use it when the HTML has an attachment folder, such as `incoming/New_Paper_Note_files`.
+- `visible` is optional and defaults to `true`. Set it to `false` to hide a note from the homepage while keeping `notes/<slug>/index.html` directly accessible.
 - `accent` controls the homepage card button color in the latest-notes area: `true` uses the wine accent button, `false` uses the default blue button. It does not affect the all-notes list.
 - The homepage shows the latest 6 notes and all notes based on `notes.config.json`.
 

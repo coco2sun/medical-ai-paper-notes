@@ -123,6 +123,10 @@ const validateNote = (note, index, seenSlugs) => {
     fail(`note "${note.title}" must use date format YYYY-MM-DD`);
   }
 
+  if (note.visible !== undefined && typeof note.visible !== "boolean") {
+    fail(`note "${note.title}" visible must be true or false`);
+  }
+
   const { assetsDirPath, outputAssetsDir, outputPath, sourcePath } = getNotePaths(note);
   const sourceExists = existsSync(sourcePath);
   const outputExists = existsSync(outputPath);
@@ -173,15 +177,17 @@ const build = async () => {
 
     await writeFile(outputPath, outputHtml);
 
-    builtNotes.push({
-      title: note.title,
-      type: note.type,
-      date: note.date,
-      url: `notes/${note.slug}/`,
-      summary: note.summary,
-      tags: note.tags,
-      accent: Boolean(note.accent)
-    });
+    if (note.visible !== false) {
+      builtNotes.push({
+        title: note.title,
+        type: note.type,
+        date: note.date,
+        url: `notes/${note.slug}/`,
+        summary: note.summary,
+        tags: note.tags,
+        accent: Boolean(note.accent)
+      });
+    }
   }
 
   const sortedNotes = builtNotes.sort((a, b) => b.date.localeCompare(a.date));
