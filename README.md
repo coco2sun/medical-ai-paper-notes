@@ -14,6 +14,8 @@ node scripts/build-notes.mjs
 
 The build script copies the HTML into `notes/<slug>/index.html`, rewrites local `assets/...` references to `../../assets/...`, and regenerates `assets/notes-data.js` for the homepage.
 
+`incoming/` is a local-only staging area and is ignored by Git except for `incoming/.gitkeep`. After running the build, commit the generated `notes/<slug>/...` files, `notes.config.json`, and `assets/notes-data.js`; do not commit the original incoming HTML or attachment folder.
+
 ## Note Config Fields
 
 ```json
@@ -36,3 +38,5 @@ The build script copies the HTML into `notes/<slug>/index.html`, rewrites local 
 - The homepage shows the latest 6 notes and all notes based on `notes.config.json`.
 
 When `assetsDir` is set, the build script copies that folder into `notes/<slug>/assets/` and rewrites references like `src="New_Paper_Note_files/figure1.png"` to `src="assets/figure1.png"`.
+
+If `source` or `assetsDir` no longer exists because `incoming/` was not synced, the build still works as long as the generated `notes/<slug>/index.html` and any generated `notes/<slug>/assets/` files are already present.

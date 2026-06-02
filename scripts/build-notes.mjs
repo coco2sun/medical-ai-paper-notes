@@ -37,6 +37,17 @@ const listTopLevelFileNames = async (directory) => {
   return entries.filter((entry) => entry.isFile()).map((entry) => entry.name);
 };
 
+const getNotePaths = (note) => {
+  const outputDir = path.join(root, "notes", note.slug);
+  return {
+    assetsDirPath: note.assetsDir ? path.join(root, note.assetsDir) : null,
+    outputAssetsDir: path.join(outputDir, "assets"),
+    outputDir,
+    outputPath: path.join(outputDir, "index.html"),
+    sourcePath: path.join(root, note.source)
+  };
+};
+
 const rewriteNoteAssetPaths = async (html, assetsDir) => {
   if (!assetsDir) {
     return html;
@@ -112,9 +123,12 @@ const validateNote = (note, index, seenSlugs) => {
     fail(`note "${note.title}" must use date format YYYY-MM-DD`);
   }
 
-  const sourcePath = path.join(root, note.source);
-  if (!existsSync(sourcePath)) {
-    fail(`source file does not exist for "${note.title}": ${note.source}`);
+  const { assetsDirPath, outputAssetsDir, outputPath, sourcePath } = getNotePaths(note);
+  const sourceExists = existsSync(sourcePath);
+  const outputExists = existsSync(outputPath);
+
+  if (!sourceExists && !outputExists) {
+    fail(`source file is missing and no generated note exists for "${note.title}": ${note.source}`);
   }
 
   if (note.assetsDir !== undefined) {
@@ -122,13 +136,12 @@ const validateNote = (note, index, seenSlugs) => {
       fail(`note "${note.title}" has invalid assetsDir`);
     }
 
-    const assetsDirPath = path.join(root, note.assetsDir);
-    if (!existsSync(assetsDirPath)) {
-      fail(`assetsDir does not exist for "${note.title}": ${note.assetsDir}`);
+    if (existsSync(assetsDirPath) && !statSync(assetsDirPath).isDirectory()) {
+      fail(`assetsDir is not a directory for "${note.title}": ${note.assetsDir}`);
     }
 
-    if (!statSync(assetsDirPath).isDirectory()) {
-      fail(`assetsDir is not a directory for "${note.title}": ${note.assetsDir}`);
+    if (!existsSync(assetsDirPath) && sourceExists && !existsSync(outputAssetsDir)) {
+      fail(`assetsDir does not exist for "${note.title}" and no generated assets exist: ${note.assetsDir}`);
     }
   }
 };
@@ -141,18 +154,21 @@ const build = async () => {
 
   const builtNotes = [];
   for (const note of notes) {
-    const sourcePath = path.join(root, note.source);
-    const outputDir = path.join(root, "notes", note.slug);
-    const outputPath = path.join(outputDir, "index.html");
-    const sourceHtml = await readFile(sourcePath, "utf8");
-    const outputHtml = await rewriteAssetPaths(sourceHtml, note);
+    const { assetsDirPath, outputAssetsDir, outputDir, outputPath, sourcePath } = getNotePaths(note);
+    const sourceExists = existsSync(sourcePath);
+    const assetsDirExists = note.assetsDir && existsSync(assetsDirPath);
+    const inputPath = sourceExists ? sourcePath : outputPath;
+    const inputIsGeneratedNote = path.resolve(inputPath) === path.resolve(outputPath);
+    const sourceHtml = await readFile(inputPath, "utf8");
+    const outputHtml = inputIsGeneratedNote
+      ? sourceHtml
+      : await rewriteAssetPaths(sourceHtml, assetsDirExists ? note : { ...note, assetsDir: undefined });
 
     await mkdir(outputDir, { recursive: true });
 
-    if (note.assetsDir) {
-      const noteAssetsDir = path.join(outputDir, "assets");
-      await rm(noteAssetsDir, { recursive: true, force: true });
-      await cp(path.join(root, note.assetsDir), noteAssetsDir, { recursive: true });
+    if (assetsDirExists) {
+      await rm(outputAssetsDir, { recursive: true, force: true });
+      await cp(assetsDirPath, outputAssetsDir, { recursive: true });
     }
 
     await writeFile(outputPath, outputHtml);
