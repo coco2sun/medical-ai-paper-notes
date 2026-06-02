@@ -1,5 +1,19 @@
 window.NOTES = [
   {
+    "title": "Synthetic BioMed Agent 多模态论文测试笔记",
+    "type": "测试笔记",
+    "date": "2026-06-03",
+    "url": "notes/synthetic-biomed-agent-test/",
+    "summary": "一篇虚构的多模态 Biomedical Agent 论文笔记，用于验证 HTML 附件图像目录的自动复制与路径改写流程。",
+    "tags": [
+      "biomedical agent",
+      "multimodal",
+      "workflow test",
+      "attachment assets"
+    ],
+    "accent": true
+  },
+  {
     "title": "专有病种病理基础模型综述",
     "type": "综述",
     "date": "2026-06-02",

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">Synthetic BioMed Agent workflow</title>
+  <desc id="desc">A synthetic workflow diagram for testing note attachment assets.</desc>
+  <rect width="960" height="420" fill="#f4f8fb"/>
+  <rect x="38" y="38" width="884" height="344" rx="18" fill="#ffffff" stroke="#d7e2ea"/>
+  <text x="70" y="92" fill="#174a7c" font-family="Arial, sans-serif" font-size="30" font-weight="700">Synthetic BioMed Agent Workflow</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="82" y="150" width="170" height="92" rx="12" fill="#e8f2f0" stroke="#78b8af"/>
+    <text x="167" y="188" text-anchor="middle" fill="#0f766e" font-size="19" font-weight="700">Medical Image</text>
+    <text x="167" y="216" text-anchor="middle" fill="#607086" font-size="14">CT / MRI</text>
+    <rect x="318" y="150" width="170" height="92" rx="12" fill="#eef5fb" stroke="#91b8d7"/>
+    <text x="403" y="188" text-anchor="middle" fill="#174a7c" font-size="19" font-weight="700">Pathology</text>
+    <text x="403" y="216" text-anchor="middle" fill="#607086" font-size="14">WSI patches</text>
+    <rect x="554" y="150" width="170" height="92" rx="12" fill="#fbf0f4" stroke="#d896aa"/>
+    <text x="639" y="188" text-anchor="middle" fill="#8f2444" font-size="19" font-weight="700">Omics</text>
+    <text x="639" y="216" text-anchor="middle" fill="#607086" font-size="14">RNA / Proteomics</text>
+    <rect x="370" y="292" width="220" height="62" rx="12" fill="#172033"/>
+    <text x="480" y="330" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="700">Reasoning Agent</text>
+    <path d="M252 196 H302" stroke="#607086" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M488 196 H538" stroke="#607086" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M403 242 V282" stroke="#607086" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M639 242 C639 280 590 284 560 302" fill="none" stroke="#607086" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#607086"/>
+    </marker>
+  </defs>
+</svg>
