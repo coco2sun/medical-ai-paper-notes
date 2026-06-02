@@ -1,5 +1,5 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { existsSync } from "node:fs";
+import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { existsSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -18,12 +18,36 @@ const normalizePath = (value) => value.split(path.sep).join("/");
 
 const isValidSlug = (slug) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug);
 
-const rewriteAssetPaths = (html) => html.replace(
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const rewriteGlobalAssetPaths = (html) => html.replace(
   /(src|href)=("|')assets\//g,
   "$1=$2../../assets/"
 ).replace(
   /url\((["']?)assets\//g,
   "url($1../../assets/"
+);
+
+const rewriteNoteAssetPaths = (html, assetsDir) => {
+  if (!assetsDir) {
+    return html;
+  }
+
+  const assetDirName = path.basename(assetsDir);
+  const escapedDir = escapeRegExp(assetDirName);
+
+  return html.replace(
+    new RegExp(`(src|href)=("|')${escapedDir}/`, "g"),
+    "$1=$2assets/"
+  ).replace(
+    new RegExp(`url\\((["']?)${escapedDir}/`, "g"),
+    "url($1assets/"
+  );
+};
+
+const rewriteAssetPaths = (html, note) => rewriteNoteAssetPaths(
+  rewriteGlobalAssetPaths(html),
+  note.assetsDir
 );
 
 const readConfig = async () => {
@@ -69,6 +93,21 @@ const validateNote = (note, index, seenSlugs) => {
   if (!existsSync(sourcePath)) {
     fail(`source file does not exist for "${note.title}": ${note.source}`);
   }
+
+  if (note.assetsDir !== undefined) {
+    if (typeof note.assetsDir !== "string" || !note.assetsDir.trim()) {
+      fail(`note "${note.title}" has invalid assetsDir`);
+    }
+
+    const assetsDirPath = path.join(root, note.assetsDir);
+    if (!existsSync(assetsDirPath)) {
+      fail(`assetsDir does not exist for "${note.title}": ${note.assetsDir}`);
+    }
+
+    if (!statSync(assetsDirPath).isDirectory()) {
+      fail(`assetsDir is not a directory for "${note.title}": ${note.assetsDir}`);
+    }
+  }
 };
 
 const build = async () => {
@@ -83,9 +122,16 @@ const build = async () => {
     const outputDir = path.join(root, "notes", note.slug);
     const outputPath = path.join(outputDir, "index.html");
     const sourceHtml = await readFile(sourcePath, "utf8");
-    const outputHtml = rewriteAssetPaths(sourceHtml);
+    const outputHtml = rewriteAssetPaths(sourceHtml, note);
 
     await mkdir(outputDir, { recursive: true });
+
+    if (note.assetsDir) {
+      const noteAssetsDir = path.join(outputDir, "assets");
+      await rm(noteAssetsDir, { recursive: true, force: true });
+      await cp(path.join(root, note.assetsDir), noteAssetsDir, { recursive: true });
+    }
+
     await writeFile(outputPath, outputHtml);
 
     builtNotes.push({
