@@ -44,6 +44,13 @@ When `assetsDir` is set, the build script copies that folder into `notes/<slug>/
 
 If `source` or `assetsDir` no longer exists because `incoming/` was not synced, the build still works as long as the generated `notes/<slug>/index.html` and any generated `notes/<slug>/assets/` files are already present.
 
+## Article Page Home Link
+
+- `scripts/build-notes.mjs` automatically injects a floating `← 首页` link into every generated article page.
+- The link is inserted into `notes/<slug>/index.html` during build and points to `../../`.
+- Original `incoming/` HTML files do not need to include this link.
+- The injected block is wrapped with `sun-blog-home-link` markers, so repeated builds replace the old block instead of duplicating it.
+
 ## Homepage Display Logic
 
 - `scripts/build-notes.mjs` reads `notes.config.json`, sorts notes by `date` descending, and writes the result to `assets/notes-data.js`.
