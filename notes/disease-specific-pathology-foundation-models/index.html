@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>专有病种病理基础模型综述</title>
+  <style>
+    :root {
+      --ink: #182230;
+      --muted: #5b6474;
+      --line: #d9e0e8;
+      --panel: #ffffff;
+      --soft: #f5f8fb;
+      --blue: #163b66;
+      --teal: #0f766e;
+      --wine: #8f2444;
+      --amber: #b26b14;
+      --green: #28764b;
+      --shadow: 0 18px 44px rgba(24, 34, 48, 0.10);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      background: #eef3f7;
+      line-height: 1.65;
+    }
+
+    a {
+      color: #0b5ea8;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1220px;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 0 0 1px rgba(22, 59, 102, 0.05);
+    }
+
+    .hero {
+      position: relative;
+      padding: 56px 48px 40px;
+      color: #fff;
+      background:
+        linear-gradient(132deg, rgba(18, 50, 82, 0.96), rgba(11, 111, 105, 0.88)),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 56px);
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -70px;
+      width: 360px;
+      height: 360px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transform: rotate(18deg);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 940px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #b9e7e1;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 56px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: 18px 0 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .organ-pill {
+      display: block;
+      min-height: 84px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      text-decoration: none;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .organ-pill:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.46);
+      background: rgba(255,255,255,0.16);
+      text-decoration: none;
+    }
+
+    .organ-pill:focus-visible {
+      outline: 3px solid rgba(255,255,255,0.75);
+      outline-offset: 3px;
+    }
+
+    .organ-pill strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .organ-pill span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255,255,255,0.76);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    section {
+      padding: 42px 48px;
+    }
+
+    section.band {
+      background: var(--soft);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--blue);
+      font-size: 28px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .section-note {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric {
+      position: relative;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      overflow: hidden;
+    }
+
+    .metric::after {
+      content: attr(data-icon);
+      position: absolute;
+      right: 16px;
+      top: 12px;
+      color: rgba(22, 59, 102, 0.10);
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .metric .value {
+      display: block;
+      color: var(--wine);
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .metric .label {
+      display: block;
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .model-stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .model-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      scroll-margin-top: 18px;
+    }
+
+    .model-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      padding: 24px 26px 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #f8fbfd);
+    }
+
+    .model-title h3 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .paper-title {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 13px;
+    }
+
+    .tag,
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .tag {
+      color: #123655;
+      background: #eaf2f8;
+      border: 1px solid #c9dceb;
+    }
+
+    .status.open {
+      color: #07533b;
+      background: #e5f5ef;
+      border: 1px solid #b9dfd2;
+    }
+
+    .status.closed {
+      color: #743017;
+      background: #fff1e3;
+      border: 1px solid #f0c99e;
+    }
+
+    .model-links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .model-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 24px 26px 26px;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      table-layout: fixed;
+      border: 1px solid #e6edf3;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .info-table th,
+    .info-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #e9eef3;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .info-table th {
+      width: 118px;
+      color: var(--blue);
+      font-weight: 800;
+      background: #f5f9fc;
+      border-right: 1px solid #e9eef3;
+    }
+
+    .info-table tr:last-child th,
+    .info-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 4px 0 18px;
+    }
+
+    .flow-step {
+      position: relative;
+      padding: 14px;
+      min-height: 116px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfe;
+    }
+
+    .flow-step b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--teal);
+      font-size: 13px;
+    }
+
+    .flow-step span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.48;
+    }
+
+    .method-visual {
+      margin: 2px 0 18px;
+      padding: 16px;
+      border: 1px solid #dce6ed;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(22,59,102,0.05), rgba(15,118,110,0.06)),
+        #fbfdfe;
+    }
+
+    .model-body > div {
+      min-width: 0;
+    }
+
+    .visual-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .visual-title span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: 1fr 26px 1fr 26px 1fr;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .pipe-node {
+      min-height: 96px;
+      padding: 12px;
+      border: 1px solid #cddce7;
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 8px 20px rgba(24, 34, 48, 0.06);
+    }
+
+    .pipe-node b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .pipe-node small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.38;
+    }
+
+    .pipe-arrow {
+      display: grid;
+      place-items: center;
+      color: var(--teal);
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .mini-chip-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .mini-chip {
+      padding: 8px 9px;
+      border: 1px solid #dde7ed;
+      border-radius: var(--radius);
+      background: #fff;
+      color: #405064;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .method-lanes {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .method-lane {
+      display: grid;
+      grid-template-columns: 128px 1fr;
+      gap: 12px;
+      align-items: stretch;
+      padding: 12px;
+      border: 1px solid #d8e5ec;
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .method-visual > .method-lane {
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      margin-top: 10px;
+    }
+
+    .method-visual > .method-lane:first-of-type {
+      margin-top: 0;
+    }
+
+    .lane-title {
+      grid-column: 1 / -1;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .lane-label {
+      display: grid;
+      place-items: center;
+      padding: 10px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .lane-content {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .lane-content.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .lane-content.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .method-box {
+      padding: 10px;
+      border: 1px solid #dfe8ee;
+      border-radius: var(--radius);
+      background: #f9fcfd;
+    }
+
+    .method-box b {
+      display: block;
+      color: var(--ink);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .method-box small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.38;
+    }
+
+    .formula-strip {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .formula {
+      padding: 11px 12px;
+      border-radius: var(--radius);
+      background: #eef6f4;
+      color: #244058;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .formula code {
+      display: block;
+      margin-top: 4px;
+      color: var(--wine);
+      font-weight: 800;
+      white-space: normal;
+    }
+
+    .method-detail {
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--teal);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: #f7fbfa;
+      color: #344154;
+      font-size: 14px;
+    }
+
+    .method-detail b {
+      color: var(--blue);
+    }
+
+    .paper-figure {
+      margin: 0 0 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(24, 34, 48, 0.08);
+    }
+
+    .paper-figure img {
+      display: block;
+      width: 100%;
+      max-height: 760px;
+      object-fit: contain;
+      background: #f9fbfd;
+    }
+
+    .paper-figure figcaption {
+      padding: 10px 12px;
+      border-top: 1px solid #edf1f5;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .deep-dive {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .note-panel {
+      padding: 14px;
+      border: 1px solid #dfe8ee;
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .note-panel h4 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 9px;
+      color: var(--blue);
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    .note-panel h4::before {
+      content: attr(data-icon);
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius);
+      background: #eaf2f8;
+      color: var(--teal);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .note-panel ul {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding: 0 0 0 18px;
+      color: #3a4656;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .atlas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .atlas-card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(24, 34, 48, 0.07);
+    }
+
+    .atlas-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 12px;
+      color: var(--blue);
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .icon-box {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius);
+      background: #e7f4f2;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .atlas-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .atlas-list li {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 12px;
+      padding: 8px 0;
+      border-top: 1px solid #edf1f5;
+    }
+
+    .atlas-list b {
+      color: var(--ink);
+    }
+
+    .bar {
+      display: inline-grid;
+      grid-template-columns: repeat(5, 18px);
+      gap: 3px;
+      vertical-align: middle;
+    }
+
+    .bar i {
+      height: 8px;
+      border-radius: 99px;
+      background: #dce5ec;
+    }
+
+    .bar[data-score="3"] i:nth-child(-n+3),
+    .bar[data-score="4"] i:nth-child(-n+4),
+    .bar[data-score="5"] i:nth-child(-n+5) {
+      background: var(--teal);
+    }
+
+    .results {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .results li {
+      position: relative;
+      padding-left: 18px;
+      color: #394455;
+      font-size: 14px;
+    }
+
+    .results li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.74em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--wine);
+    }
+
+    .paper-summary {
+      margin: 0 0 18px;
+      padding: 18px;
+      border: 1px solid #cfdfea;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #f7fbff, #f7fbfa);
+    }
+
+    .paper-summary h4 {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    .paper-summary p {
+      margin: 0 0 14px;
+      color: #344154;
+      font-size: 14px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .summary-item {
+      padding: 12px;
+      border: 1px solid #dfe8ee;
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .summary-item b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--teal);
+      font-size: 13px;
+    }
+
+    .summary-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.48;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .comparison {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .comparison th,
+    .comparison td {
+      padding: 14px 13px;
+      border-bottom: 1px solid #e5ebf1;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .comparison th {
+      position: sticky;
+      top: 0;
+      color: #fff;
+      background: var(--blue);
+      font-size: 12px;
+    }
+
+    .comparison tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .insight {
+      padding: 20px;
+      border-left: 4px solid var(--teal);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(24, 34, 48, 0.07);
+    }
+
+    .insight:nth-child(2) {
+      border-left-color: var(--wine);
+    }
+
+    .insight:nth-child(3) {
+      border-left-color: var(--amber);
+    }
+
+    .insight h3 {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .insight p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .timeline {
+      margin-top: 24px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .timeline-track {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      position: relative;
+    }
+
+    .timeline-item {
+      padding: 14px;
+      border-top: 4px solid var(--green);
+      background: #f7fafb;
+    }
+
+    .timeline-item b {
+      display: block;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .timeline-item span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.42;
+    }
+
+    .refs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .refs li {
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      font-size: 14px;
+    }
+
+    .footnote {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .site-credit {
+      padding: 18px 48px 24px;
+      border-top: 1px solid var(--line);
+      background: #f8fbfd;
+      color: #405064;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .site-credit strong {
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      section,
+      .site-credit {
+        padding-left: 28px;
+        padding-right: 28px;
+      }
+
+      .hero-grid,
+      .metric-grid,
+      .insight-grid,
+      .atlas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .model-body {
+        grid-template-columns: 1fr;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .deep-dive {
+        grid-template-columns: 1fr;
+      }
+
+      .pipeline {
+        grid-template-columns: 1fr;
+      }
+
+      .method-lane,
+      .lane-content,
+      .lane-content.two,
+      .lane-content.four,
+      .formula-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .pipe-arrow {
+        min-height: 20px;
+        transform: rotate(90deg);
+      }
+
+      .section-head,
+      .model-head {
+        display: block;
+      }
+
+      .model-links {
+        align-items: flex-start;
+        margin-top: 14px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero,
+      section,
+      .site-credit {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      .hero-grid,
+      .metric-grid,
+      .insight-grid,
+      .timeline-track,
+      .refs,
+      .atlas,
+      .mini-chip-grid,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .model-head,
+      .model-body {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      h2 {
+        font-size: 23px;
+      }
+
+      .info-table th {
+        width: 90px;
+      }
+
+      .atlas-list li {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .paper-figure img {
+        max-height: 420px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Disease / Organ-Specific Pathology Foundation Models</p>
+        <h1>专有病种病理基础模型综述</h1>
+        <p>
+          这 5 项工作集中体现了病理 AI 从泛癌种通用表征模型，走向单器官、单病种深度适配与真实临床工作流验证的趋势。
+          研究对象覆盖肺、乳腺、肾小球与胃肠病理，重点不再只是线性探针性能，而是诊断、分子标志物、治疗反应、预后和读片辅助的闭环验证。
+        </p>
+        <div class="hero-grid" aria-label="模型与器官分布">
+          <a class="organ-pill" href="#paper-pulmofoundation"><strong>PulmoFoundation</strong><span>肺病理 · 前/中/术后全流程</span></a>
+          <a class="organ-pill" href="#paper-brave"><strong>BRAVE</strong><span>乳腺病理 · 真实临床效用</span></a>
+          <a class="organ-pill" href="#paper-glopath"><strong>GloPath</strong><span>肾小球 · 实体中心表征</span></a>
+          <a class="organ-pill" href="#paper-bright"><strong>BRIGHT</strong><span>乳腺病理 · 通才-专才协作</span></a>
+          <a class="organ-pill" href="#paper-digepath"><strong>Digepath</strong><span>胃肠病理 · 稀疏病灶筛查</span></a>
+        </div>
+      </div>
+    </header>
+
+    <section class="band">
+      <div class="section-head">
+        <h2>整体图景</h2>
+        <p class="section-note">这些论文普遍采用大规模专科病理数据继续预训练或微调，并将评估扩展到跨中心、前瞻性、读者研究或临床模拟。</p>
+      </div>
+      <div class="metric-grid">
+        <div class="metric" data-icon="FM"><span class="value">5</span><span class="label">专科/专有病种病理基础模型工作</span></div>
+        <div class="metric" data-icon="ORG"><span class="value">4</span><span class="label">主要器官或病理方向：肺、乳腺、肾小球、胃肠</span></div>
+        <div class="metric" data-icon="TASK"><span class="value">185+</span><span class="label">合计报告下游任务或临床场景，覆盖诊断到预后</span></div>
+        <div class="metric" data-icon="CLIN"><span class="value">临床化</span><span class="label">前瞻性验证、工作流模拟和病理医生-AI 交互成为核心卖点</span></div>
+      </div>
+
+      <div class="atlas" aria-label="方法设计地图">
+        <div class="atlas-card">
+          <h3><span class="icon-box">DATA</span>数据组织方式</h3>
+          <ul class="atlas-list">
+            <li><b>WSI 级</b><span>PulmoFoundation、BRAVE、BRIGHT、Digepath 以全切片和多尺度 tiles/patches 为主体。</span></li>
+            <li><b>实体级</b><span>GloPath 将肾小球作为基本学习单元，适合细粒度病变识别。</span></li>
+            <li><b>流程级</b><span>BRAVE、PulmoFoundation 将活检、冰冻、切除标本分别纳入验证链。</span></li>
+          </ul>
+        </div>
+        <div class="atlas-card">
+          <h3><span class="icon-box">AI</span>模型适配范式</h3>
+          <ul class="atlas-list">
+            <li><b>继续预训练</b><span>用单器官大规模 H&E 数据把通用 PFM 推向亚专科。</span></li>
+            <li><b>协作专家</b><span>通才 backbone 保留泛化，专才分支或 LoRA 捕获器官特异性。</span></li>
+            <li><b>临床阈值</b><span>从概率分数走向 triage、second review、IHC defer 等可执行决策。</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>逐篇文献总结</h2>
+        <p class="section-note">每张卡片按基础信息、数据集、方法学和下游验证统一整理，便于横向比较。</p>
+      </div>
+
+      <div class="model-stack">
+        <article class="model-card" id="paper-pulmofoundation">
+          <div class="model-head">
+            <div class="model-title">
+              <h3>PulmoFoundation</h3>
+              <p class="paper-title">A Clinically Validated Foundation Model for Comprehensive Lung Pathology Interpretation</p>
+              <div class="badge-row">
+                <span class="tag">肺病理</span><span class="tag">Virchow2 适配</span><span class="tag">前瞻性验证</span><span class="tag">RCT 读片实验</span>
+                <span class="status open">Hugging Face gated 模型</span>
+              </div>
+            </div>
+            <div class="model-links">
+              <a href="https://arxiv.org/abs/2605.25878v1" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://huggingface.co/Zhengrui/PulmoFoundation" target="_blank" rel="noopener">模型页面</a>
+            </div>
+          </div>
+          <div class="model-body">
+            <table class="info-table">
+              <tr><th>基础信息</th><td>面向肺癌诊断、治疗选择与预后评估的综合肺病理基础模型。</td></tr>
+              <tr><th>数据集</th><td>基于约 40,000 张诊断 H&E WSI 做专科继续预训练；下游系统评估约 26,000 张 WSI，覆盖 32 个临床相关任务。</td></tr>
+              <tr><th>方法学</th><td>以 Virchow2 ViT-H/14 为底座，冻结原始权重并在每个 transformer block 的 query/value projection 中插入 LoRA；用 39,503 张肺 H&E WSI、约 8,800 万 foreground patches 进行 DINO teacher-student 继续自监督预训练。下游阶段冻结 PulmoFoundation encoder，按扫描倍率自适应切 patch，提取 2,560 维 patch 特征，经 ABMIL 聚合成 slide-level 表征，再训练任务头完成诊断、分子/IHC、预后和临床分诊。</td></tr>
+              <tr><th>开源</th><td>模型以 gated 方式发布在 Hugging Face，需申请访问；未见完整训练代码公开。</td></tr>
+            </table>
+            <div>
+              <figure class="paper-figure">
+                <img src="../../assets/pulmofoundation_overview.png" alt="PulmoFoundation study overview from paper">
+                <figcaption>PulmoFoundation Figure 1 主体截图：展示预训练数据来源、模型训练流程、回顾性验证、前瞻性验证和交叉随机对照读片实验的整体设计。</figcaption>
+              </figure>
+              <div class="method-visual">
+                <div class="visual-title">PulmoFoundation 详细算法示意<span>LoRA-DINO pretraining + ABMIL downstream</span></div>
+                <div class="method-lanes">
+                  <div class="method-lane">
+                    <div class="lane-label">1. Base Model</div>
+                    <div class="lane-content three">
+                      <div class="method-box"><b>Virchow2</b><small>泛癌种病理基础模型，预训练于 3.1M H&E WSI。</small></div>
+                      <div class="method-box"><b>ViT-H/14</b><small>632M 参数，32 层 transformer，hidden dim 1,280，16 heads。</small></div>
+                      <div class="method-box"><b>224×224 输入</b><small>每个输入 patch 被划分为 14×14 token，输出 [CLS] 与 patch token。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">2. Lung-Specific Continual SSL</div>
+                    <div class="lane-content three">
+                      <div class="method-box"><b>LoRA 注入</b><small>原 Virchow2 权重冻结；在每层 attention 的 Q/V projection 加低秩矩阵。</small></div>
+                      <div class="method-box"><b>参数高效</b><small>rank=8，α=16；约 2M 可训练参数，仅占 Virchow2 约 0.3%。</small></div>
+                      <div class="method-box"><b>DINO teacher-student</b><small>不同增强视图分别进入 teacher/student；teacher 由 student EMA 更新。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">3. Magnification-Aware Patching</div>
+                    <div class="lane-content three">
+                      <div class="method-box"><b>20× WSI</b><small>前景组织切为 256×256 non-overlapping patches。</small></div>
+                      <div class="method-box"><b>40× WSI</b><small>切为 512×512 patches，保持近似相同组织视野。</small></div>
+                      <div class="method-box"><b>80× WSI</b><small>切为 1024×1024 patches；统一 resize 到 224×224 输入 encoder。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">4. Frozen Encoder + ABMIL</div>
+                    <div class="lane-content two">
+                      <div class="method-box"><b>2,560-d patch feature</b><small>拼接 final layer [CLS] 1,280-d 与 mean-pooled patch-token 1,280-d。</small></div>
+                      <div class="method-box"><b>Attention MIL</b><small>每张 WSI 是 patch bag；ABMIL 为 patch 分配权重并加权求和为 slide 表征。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">5. Task Heads + Clinical Thresholds</div>
+                    <div class="lane-content four">
+                      <div class="method-box"><b>Binary tasks</b><small>sigmoid + BCE：良恶性、转移/原发、IHC 阳性等。</small></div>
+                      <div class="method-box"><b>Multi-class tasks</b><small>softmax + CE：NSCLC 亚型、细粒度鉴别诊断等。</small></div>
+                      <div class="method-box"><b>Survival tasks</b><small>离散时间 survival negative log-likelihood。</small></div>
+                      <div class="method-box"><b>Triage</b><small>PPV/NPV 安全阈值转化为二次复核减负、IHC defer 和冰冻分诊。</small></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="formula-strip">
+                  <div class="formula">ABMIL attention：对每个 patch feature h<sub>i</sub> 学习注意力权重。<code>a<sub>i</sub> = softmax(w<sup>T</sup> tanh(Vh<sub>i</sub>))</code></div>
+                  <div class="formula">Slide representation：把高权重 patch 聚合成 WSI 表征。<code>z = Σ a<sub>i</sub>h<sub>i</sub></code></div>
+                </div>
+                <div class="mini-chip-grid">
+                  <span class="mini-chip">88M foreground patches</span><span class="mini-chip">LoRA Q/V modules</span><span class="mini-chip">DINO EMA teacher</span><span class="mini-chip">ABMIL hidden=512</span>
+                </div>
+              </div>
+              <p class="method-detail"><b>方法要点：</b>PulmoFoundation 的“专科化”发生在两个层级：第一层是在 Virchow2 上用 LoRA-DINO 做肺病理继续自监督预训练，尽量保留泛癌种知识同时注入肺部形态；第二层是在下游任务中冻结 encoder，只训练 ABMIL aggregator 和轻量任务头，使所有任务共享同一肺专科 patch 表征，并用 PPV/NPV 阈值把模型分数转成临床可执行动作。</p>
+              <div class="deep-dive">
+                <div class="note-panel">
+                  <h4 data-icon="DATA">数据集细节</h4>
+                  <ul>
+                    <li>预训练强调肺部 H&E 诊断切片，约 4 万 WSI，用于把 Virchow2 的泛病理能力迁移到肺亚专科。</li>
+                    <li>系统评估约 2.6 万 WSI，按术前活检、术中冰冻、术后切除和分子/预后任务组织。</li>
+                    <li>前瞻性研究含 1,357 名患者，模拟真实临床连续入组和固定阈值使用。</li>
+                  </ul>
+                </div>
+                <div class="note-panel">
+                  <h4 data-icon="METH">方法学细节</h4>
+                  <ul>
+                    <li>Virchow2 为 ViT-H/14，632M 参数；PulmoFoundation 不全量微调，而是在 Q/V projection 加 LoRA，rank=8、α=16，约 2M 可训练参数。</li>
+                    <li>继续预训练采用 DINO self-distillation：student 匹配 teacher 输出分布，teacher 由 student 权重 EMA 更新；只使用 foreground tissue patches。</li>
+                    <li>下游阶段 encoder 冻结；每个 patch 特征为 [CLS] 1,280-d + token mean 1,280-d，拼接成 2,560-d，再由 ABMIL 聚合。</li>
+                    <li>任务头按任务类型选择 BCE、cross-entropy 或 discrete-time survival NLL；训练时只更新 ABMIL aggregator 和 prediction layer。</li>
+                  </ul>
+                </div>
+                <div class="note-panel">
+                  <h4 data-icon="VAL">验证结果细节</h4>
+                  <ul>
+                    <li>前瞻性队列包含 1,357 名连续患者：250 例活检、271 例冰冻、836 例术后切除；所有预测在最终病理诊断前盲法生成，未重新训练或调参。</li>
+                    <li>11 个前瞻性任务包括：活检良恶性、冰冻良恶性、术后 NSCLC 分类、粗粒度鉴别诊断、细粒度六分类、原发灶预测淋巴结转移，以及 TTF-1、Napsin-A、CK-7、P40、P63 五个 IHC 标志物预测。</li>
+                    <li>平均 AUC 为 0.923；关键任务包括活检良恶性 AUC 0.992、冰冻良恶性 AUC 0.970、NSCLC 分类 AUC 0.993、粗粒度亚型 AUC 0.883、细粒度亚型 AUC 0.868、淋巴结转移 AUC 0.849。</li>
+                    <li>IHC panel 平均 AUC 为 0.920：TTF-1 0.892、Napsin-A 0.922、CK-7 0.921、P40 0.921、P63 0.944。</li>
+                    <li>预设 PPV 安全阈值下，可减少 68.8% 活检二次复核、83.0% 冰冻二次复核，并延后 44.5% IHC 染色申请；交叉 RCT 中 AI 辅助准确率 83.8% → 91.7%，诊断时间减少 19.6%，一致性 κ 0.56 → 0.76。</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="paper-summary">
+                <h4>PulmoFoundation 论文概括总结</h4>
+                <p>
+                  这项工作提出的核心问题是：泛癌种病理基础模型虽然具备强迁移能力，但在肺癌围手术期全流程中，仍缺少足够的肺亚专科深度和真实临床验证。作者以 Virchow2 为底座，通过肺病理继续自监督预训练构建 PulmoFoundation，并把模型系统评估到活检、冰冻、手术切除、分子/IHC 标志物、预后预测和病理医生-AI 协作等场景。
+                </p>
+                <div class="summary-grid">
+                  <div class="summary-item"><b>研究定位</b><span>从“任务特异模型”转向“肺病理专科基础模型”，目标是覆盖一个器官系统内的连续诊疗链，而不是只解决单个分类任务。</span></div>
+                  <div class="summary-item"><b>技术贡献</b><span>采用 LoRA-DINO 方式对 Virchow2 做参数高效继续预训练，再用 frozen encoder + ABMIL 统一支持多类 slide-level / case-level 任务。</span></div>
+                  <div class="summary-item"><b>验证体系</b><span>回顾性部分覆盖 32 个临床任务，并与 UNI、Virchow2、CHIEF、GigaPath 等泛癌种模型比较；前瞻性部分在 1,357 名连续患者中固定阈值验证。</span></div>
+                  <div class="summary-item"><b>临床意义</b><span>模型不只报告 AUC，还评估二次复核减负、IHC 染色延后、冰冻分诊和 reader study 中医生准确率、效率、信心与一致性的改善。</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="model-card" id="paper-brave">
+          <div class="model-head">
+            <div class="model-title">
+              <h3>BRAVE</h3>
+              <p class="paper-title">A Breast Vision Pathology Foundation Model for Real-world Clinical Utility</p>
+              <div class="badge-row">
+                <span class="tag">乳腺病理</span><span class="tag">真实世界临床效用</span><span class="tag">34 任务</span><span class="tag">Reader Study</span>
+                <span class="status closed">未检索到明确公开代码/权重</span>
+              </div>
+            </div>
+            <div class="model-links">
+              <a href="https://arxiv.org/abs/2605.08207v1" target="_blank" rel="noopener">arXiv</a>
+            </div>
+          </div>
+          <div class="model-body">
+            <table class="info-table">
+              <tr><th>基础信息</th><td>乳腺适配病理基础模型，强调从回顾性基准到前瞻性、临床冲击模拟和病理医生交互的证据链。</td></tr>
+              <tr><th>数据集</th><td>总资源 101,638 张乳腺 WSI，来自亚洲、欧洲和北美 32 个来源；评估覆盖 82 个队列。</td></tr>
+              <tr><th>方法学</th><td>以 Virchow2 为初始化底座，冻结 backbone，并用 LoRA adaptation weights 在 57,271 张乳腺 WSI、约 1.13 亿 patches 上进行 DINO self-supervised breast-adaptive pretraining；下游阶段冻结 BRAVE encoder，提取 2,560 维 patch embedding，采用 ABMIL 聚合多张 WSI/多 patch 为 case-level 表征，再训练分类或生存任务头。评估上按临床路径组织 34 个任务，并用回顾性队列锁定阈值后进入三中心前瞻性 silent-run 和 crossover reader study。</td></tr>
+              <tr><th>开源</th><td>截至本页整理时，未检索到明确官方公开代码或模型权重入口。</td></tr>
+            </table>
+            <div>
+              <figure class="paper-figure">
+                <img src="../../assets/brave_study_design.png" alt="BRAVE study design from paper">
+                <figcaption>BRAVE Figure 1 主体截图：概括 breast-adaptive pretraining、临床路径任务、真实世界队列分布、34 个任务谱系、前瞻性验证和 reader study 证据链。</figcaption>
+              </figure>
+              <div class="method-visual">
+                <div class="visual-title">BRAVE详细算法示意<span>breast-adaptive pretraining + ABMIL downstream</span></div>
+                <div class="method-lanes">
+                  <div class="method-lane">
+                    <div class="lane-label">1. Breast Data Curation</div>
+                    <div class="lane-content three">
+                      <div class="method-box"><b>101,638 breast WSIs</b><small>来自 32 个来源，覆盖亚洲、北美和欧洲。</small></div>
+                      <div class="method-box"><b>57,271 pretraining WSIs</b><small>15 个来源，针吸活检、冰冻和手术切除均纳入。</small></div>
+                      <div class="method-box"><b>113M patches</b><small>20× 下组织区域切 non-overlapping patches；每张 WSI 最多随机采样 3,000 个 tissue patches。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">2. Breast-Adaptive Pretraining</div>
+                    <div class="lane-content three">
+                      <div class="method-box"><b>Virchow2 initialization</b><small>以泛癌种 PFM 作为 teacher/student 初始权重。</small></div>
+                      <div class="method-box"><b>DINO self-distillation</b><small>从组织 tile 采样 global/local views；student 反向传播匹配 teacher 输出。</small></div>
+                      <div class="method-box"><b>LoRA-only update</b><small>backbone 冻结，只更新轻量 adaptive weights；teacher EMA momentum=0.9995。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">3. Downstream MIL Modeling</div>
+                    <div class="lane-content three">
+                      <div class="method-box"><b>Frozen BRAVE encoder</b><small>自适应预训练后，encoder 保持冻结用于 patch-level feature extraction。</small></div>
+                      <div class="method-box"><b>2,560-d embeddings</b><small>每个 patch 输出 2,560 维表征；多 WSI 病例将所有 slides 的 patch 合并为一个 bag。</small></div>
+                      <div class="method-box"><b>ABMIL aggregation</b><small>attention-based MIL 聚合 patch features，形成 case-level representation。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">4. Workflow-Aligned Tasks</div>
+                    <div class="lane-content four">
+                      <div class="method-box"><b>Pre-operative</b><small>恶性检测、肿块鉴别、转移检测、ER/PR/HER2/Ki67、分子亚型、NAC response。</small></div>
+                      <div class="method-box"><b>Intra-operative</b><small>冰冻良恶性、肿块鉴别、切缘评估、淋巴结转移预测。</small></div>
+                      <div class="method-box"><b>Post-operative</b><small>组织学亚型、肿瘤分级、pCR、LVI/PNI/T stage、IHC/突变预测。</small></div>
+                      <div class="method-box"><b>Prognosis</b><small>术前/术后 OS、DFS 风险分层，使用 NLL survival loss。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">5. Utility Evidence Chain</div>
+                    <div class="lane-content four">
+                      <div class="method-box"><b>Retrospective benchmark</b><small>34 任务、82 队列，与 PLIP、CONCH、UNI、Virchow2 比较。</small></div>
+                      <div class="method-box"><b>Challenging scenarios</b><small>小组织、变形、artifact、biopsy-surgery discordance 等困难场景稳定性。</small></div>
+                      <div class="method-box"><b>Locked prospective thresholds</b><small>回顾性选择 rule-out/rule-in 和 second-review 阈值，前瞻性 silent-run 不调参。</small></div>
+                      <div class="method-box"><b>Reader study</b><small>8 名病理医生，3 类任务，4 周 washout，比较无 AI 与 AI 辅助。</small></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="formula-strip">
+                  <div class="formula">Downstream case representation：多张 WSI 的 patch 组成一个 case bag，由 ABMIL 赋权聚合。<code>case z = Σ a<sub>i</sub>h<sub>i</sub></code></div>
+                  <div class="formula">Training heads：分类任务使用 cross-entropy，生存任务使用 Negative Log-Likelihood。<code>encoder frozen; train ABMIL + FC head</code></div>
+                </div>
+                <div class="mini-chip-grid">
+                  <span class="mini-chip">DINO + LoRA</span><span class="mini-chip">EMA 0.9995</span><span class="mini-chip">ABMIL case bag</span><span class="mini-chip">34 tasks / 82 cohorts</span>
+                </div>
+              </div>
+              <p class="method-detail"><b>方法要点：</b>BRAVE 的核心不只是“乳腺数据继续预训练”，而是把模型嵌入乳腺病理完整临床路径：预训练阶段获得 breast-adaptive morphology representation；下游阶段用 frozen encoder + ABMIL 统一支持病例级预测；验证阶段把模型分数转成 rule-out、rule-in、second-review、clear-cut triage 和 reader assistance 等可执行工作流，并用锁定阈值进行前瞻性验证。</p>
+              <div class="deep-dive">
+                <div class="note-panel">
+                  <h4 data-icon="DATA">数据集细节</h4>
+                  <ul>
+                    <li>总资源 101,638 张 H&E 乳腺 WSI，来自 32 个来源，覆盖亚洲、北美和欧洲。</li>
+                    <li>预训练集包含 57,271 张 breast tissue WSI、约 113,016,280 个 patches，来自 15 个来源；组织类型覆盖 biopsy、frozen section 和 surgical resection。</li>
+                    <li>下游回顾性评估包含 44,367 张独立 WSI，组织成 82 个队列、34 个真实世界任务：11 个术前任务、4 个术中任务、19 个术后任务。</li>
+                    <li>前瞻性验证纳入 1,558 名患者、4,318 张 WSI，来自 3 个中心：H2 术中冰冻 390 例，H4 术前/术后队列，H6 术后队列。</li>
+                  </ul>
+                </div>
+                <div class="note-panel">
+                  <h4 data-icon="METH">方法学细节</h4>
+                  <ul>
+                    <li>以 Virchow2 为初始化模型，采用 DINO teacher-student 自监督学习；whole-slide image 先做 tissue segmentation 和 patching，再采样 global/local views。</li>
+                    <li>预训练期间 backbone weights 冻结，只更新 LoRA/adaptive weights；teacher 通过 EMA 更新，momentum coefficient=0.9995。</li>
+                    <li>训练使用 AdamW、FP16 mixed precision、8 张 80GB NVIDIA H800、batch size 384、882,000 iterations。</li>
+                    <li>下游每个 patch 通过 frozen BRAVE ViT encoder 得到 2,560 维 embedding；ABMIL 将一个病例的所有 WSI/patch 作为 bag 聚合，接 dropout=0.25 的 fully connected head。</li>
+                    <li>分类任务使用 cross-entropy，生存任务使用 NLL loss；只训练 ABMIL aggregator 和 head，保持 BRAVE encoder 冻结。</li>
+                  </ul>
+                </div>
+                <div class="note-panel">
+                  <h4 data-icon="VAL">验证结果细节</h4>
+                  <ul>
+                    <li>前瞻性验证采用 locked thresholds：阈值先在回顾性内部队列按安全/效用约束选定，前瞻性 silent-run 中不重新调参。</li>
+                    <li>术前 malignancy detection：可安全排除 76.9% 高置信阴性病例，NPV 0.953；HER2 预测参考 AUC 0.912。</li>
+                    <li>术中 frozen malignancy detection：可排除 70.1% 阴性病例，NPV 0.973；参考 AUC 0.970。</li>
+                    <li>术后 pathologic subtyping：78.8% 病例被分诊为 high-confidence clear-cut cases，NPV 1.000；参考 AUC 0.987。</li>
+                    <li>Biomarker second review 中，Ki67 阈值可 rescue 75.0% missed positive cases，NNR 2.2；ER 可 rescue 50.0%，NNR 2.5。</li>
+                    <li>Reader study 覆盖 biopsy malignancy、frozen malignancy、post-operative pCR 三个任务；8 名病理医生、3,824 次读片，balanced accuracy 0.885→0.951，confidence 8.1→9.2，reading time 158s→133s。</li>
+                    <li>预后方面，BRAVE-derived scores 独立预测 DFS 和 OS；多变量调整后 DFS HR=4.79，OS HR=8.14。</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="paper-summary">
+                <h4>BRAVE 论文概括总结</h4>
+                <p>
+                  BRAVE 的核心贡献是把乳腺病理基础模型从“回顾性 benchmark 性能”推进到“真实临床效用证据链”。论文不仅证明 breast-adaptive pretraining 相比泛癌种 PFM 在乳腺任务上更强，还将模型系统放入术前活检、术中冰冻、术后切除、分子/预后推断和病理医生-AI 协作等场景，检验模型能否产生可执行的临床工作流收益。
+                </p>
+                <div class="summary-grid">
+                  <div class="summary-item"><b>研究定位</b><span>面向乳腺癌全流程病理诊疗，强调 pre-operative、intra-operative、post-operative 三阶段连续评估，而不是单任务模型。</span></div>
+                  <div class="summary-item"><b>技术贡献</b><span>通过 Virchow2 初始化、LoRA+DINO breast-adaptive pretraining 和 frozen encoder + ABMIL，将乳腺形态知识压缩为可复用病例级表征。</span></div>
+                  <div class="summary-item"><b>验证体系</b><span>构建从回顾性 benchmark、困难场景、临床影响模拟、锁定阈值前瞻性验证到 crossover reader study 的六段式证据链。</span></div>
+                  <div class="summary-item"><b>临床意义</b><span>支持安全排除低风险病例、二次复核救援漏诊阳性、术后 clear-cut 分诊、分子检测优先级和 DFS/OS 风险分层。</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="model-card" id="paper-glopath">
+          <div class="model-head">
+            <div class="model-title">
+              <h3>GloPath</h3>
+              <p class="paper-title">GloPath: An Entity-Centric Foundation Model for Glomerular Lesion Assessment and Clinicopathological Insights</p>
+              <div class="badge-row">
+                <span class="tag">肾小球病理</span><span class="tag">实体中心</span><span class="tag">多尺度多视角 SSL</span><span class="tag">52 任务</span>
+                <span class="status closed">未检索到明确公开代码/权重</span>
+              </div>
+            </div>
+            <div class="model-links">
+              <a href="https://arxiv.org/abs/2603.02926v1" target="_blank" rel="noopener">arXiv</a>
+            </div>
+          </div>
+          <div class="model-body">
+            <table class="info-table">
+              <tr><th>基础信息</th><td>面向肾脏病理中肾小球病变评估与形态-临床洞察发现的实体中心基础模型。</td></tr>
+              <tr><th>数据集</th><td>从 14,049 例肾活检标本中提取 100 万+肾小球实体，构成预训练资源。</td></tr>
+              <tr><th>方法学</th><td>GloPath 不把 WSI 随机切成普通 patch，而是先用实体检测模型从肾活检 WSI 中定位肾小球，将每个肾小球作为生物学定义明确的 pathological entity。随后基于同一肾小球构造 global crops、local crops 和不同增强视图，进行 multi-scale / multi-view self-supervised pretraining，使模型同时学习局部微结构、肾小球整体轮廓和跨染色/跨模态稳定表征。下游阶段围绕 lesion recognition、lesion grading、cross-modality diagnosis、few-shot classification 和 clinicopathological insight 展开。</td></tr>
+              <tr><th>开源</th><td>截至本页整理时，未检索到明确官方公开代码或模型权重入口。</td></tr>
+            </table>
+            <div>
+              <figure class="paper-figure">
+                <img src="../../assets/glopath_entity_model.png?v=figure1" alt="GloPath entity-centric model figure from paper">
+                <figcaption>GloPath Figure 1 概览图：展示从 WSI 肾小球实体检测、多尺度多视角自监督预训练，到病变评估和形态-临床关联分析的整体框架。</figcaption>
+              </figure>
+              <div class="method-visual">
+                <div class="visual-title">GloPath详细算法示意<span>entity detection + multi-scale multi-view SSL</span></div>
+                <div class="method-lanes">
+                  <div class="method-lane">
+                    <div class="lane-label">1. Entity-Centric Dataset</div>
+                    <div class="lane-content three">
+                      <div class="method-box"><b>7 renal cohorts</b><small>XJ-Light-1/2、XJ-IF、AIDPATH-G、XJ-GIO、KPMP-G 等多来源队列。</small></div>
+                      <div class="method-box"><b>14,049 biopsies</b><small>覆盖慢性肾病相关肾活检标本和外部/公开验证资源。</small></div>
+                      <div class="method-box"><b>1,017,879 glomeruli</b><small>自动实体检测从 WSI 中抽取肾小球；覆盖 H&E、PAS、MT、PASM 四类染色。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">2. Glomerulus Entity Detection</div>
+                    <div class="lane-content three">
+                      <div class="method-box"><b>WSI → entity</b><small>用预训练检测模型在全切片中定位肾小球，而不是随机 patch 采样。</small></div>
+                      <div class="method-box"><b>Global crops</b><small>保留肾小球整体轮廓、Bowman 囊、tuft 和周围组织上下文。</small></div>
+                      <div class="method-box"><b>Local crops</b><small>聚焦系膜、毛细血管袢、硬化、crescent 等细粒度病变结构。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">3. Multi-Scale Multi-View SSL</div>
+                    <div class="lane-content three">
+                      <div class="method-box"><b>Augmented views</b><small>同一肾小球生成多个增强视图，保持实体语义一致。</small></div>
+                      <div class="method-box"><b>Global-local alignment</b><small>把局部微结构与整体肾小球形态约束到同一表征空间。</small></div>
+                      <div class="method-box"><b>Entity semantics</b><small>学习的是肾小球级别表征，减少背景、间质或非目标组织带来的噪声。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">4. Lesion Assessment Heads</div>
+                    <div class="lane-content four">
+                      <div class="method-box"><b>Lesion recognition</b><small>27 个识别任务，跨 PAS、MT、PASM 等染色识别 MH、SS、Cre、GS 等病变。</small></div>
+                      <div class="method-box"><b>Lesion grading</b><small>10 个分级任务，评价细粒度病变程度与进展。</small></div>
+                      <div class="method-box"><b>Cross-modality diagnosis</b><small>在免疫荧光 XJ-IF 中预测 deposition region 和 deposition pattern。</small></div>
+                      <div class="method-box"><b>Few-shot classification</b><small>在 AIDPATH-G / XJ-IF 等外部或跨模态场景用 SVM、LR、MLP 等轻量分类器评估。</small></div>
+                    </div>
+                  </div>
+                  <div class="method-lane">
+                    <div class="lane-label">5. Clinicopathological Insights</div>
+                    <div class="lane-content three">
+                      <div class="method-box"><b>Bow / tuft segmentation</b><small>量化 Bowman capsule 和 glomerular tuft 的面积、圆度、偏心率等参数。</small></div>
+                      <div class="method-box"><b>Morphology variables</b><small>构建 AreaBow、AreaTuft、Ratio、CirBow、CirTuft、EccBow、EccTuft 等形态特征。</small></div>
+                      <div class="method-box"><b>Clinical association</b><small>与年龄、性别、肌酐、蛋白尿、eGFR、疾病类型、Lee score 等临床变量相关联。</small></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="formula-strip">
+                  <div class="formula">Entity-level learning：训练样本不再是随机 patch，而是一个完整肾小球实体。<code>WSI → detection → glomerulus entity crops</code></div>
+                  <div class="formula">Multi-view constraint：同一实体的 global/local/augmented views 共享语义。<code>global morphology + local lesion details</code></div>
+                </div>
+                <div class="mini-chip-grid">
+                  <span class="mini-chip">1.02M glomeruli</span><span class="mini-chip">4 stains</span><span class="mini-chip">52 lesion tasks</span><span class="mini-chip">224 associations</span>
+                </div>
+              </div>
+              <p class="method-detail"><b>方法要点：</b>GloPath 的关键创新是把病理基础模型的最小学习单位从“图像 patch”改为“肾小球实体”。这种 entity-centric 设计直接对齐肾脏病理诊断对象，使模型能在一个完整肾小球内同时理解毛细血管袢、系膜、Bowman 囊、硬化和 crescent 等局部结构，以及整体形态组织关系；因此特别适合细粒度病变识别、跨染色泛化和形态-临床变量关联发现。</p>
+              <div class="deep-dive">
+                <div class="note-panel">
+                  <h4 data-icon="DATA">数据集细节</h4>
+                  <ul>
+                    <li>病理图像来自 7 个队列，包括 XJ-Light-1、XJ-Light-2、XJ-IF、AIDPATH-G、XJ-GIO、KPMP-G 等。</li>
+                    <li>从 14,049 例肾活检标本中自动定位并抽取 1,017,879 个肾小球实体。</li>
+                    <li>覆盖 H&E、PAS、Masson’s trichrome（MT）、PASM 四类染色；另包含免疫荧光 XJ-IF，用于跨模态诊断。</li>
+                    <li>数据不仅用于病变评估，也用于 bow / tuft 分割和形态参数定义，支撑后续 clinicopathological correlation analysis。</li>
+                  </ul>
+                </div>
+                <div class="note-panel">
+                  <h4 data-icon="METH">方法学细节</h4>
+                  <ul>
+                    <li>先执行 glomerular entity detection，将 WSI 转换为肾小球实体集合；每个训练实例对应一个生物学定义明确的病理实体。</li>
+                    <li>对同一肾小球构造 global crops、local crops 和 augmented views，进行 multi-scale / multi-view self-supervised pretraining。</li>
+                    <li>Global view 捕获整体轮廓和 Bowman 囊/tuft 关系，local view 捕获系膜增生、节段硬化、crescent、global sclerosis 等细节。</li>
+                    <li>下游用同一 encoder 表征连接 lesion recognition、lesion grading、cross-modality IF diagnosis、few-shot classification 和 morphology-clinical association。</li>
+                  </ul>
+                </div>
+                <div class="note-panel">
+                  <h4 data-icon="VAL">验证结果细节</h4>
+                  <ul>
+                    <li>52 个 lesion assessment tasks 中，GloPath 在 42 项排名第一，占 80.8%；任务包括 27 个 lesion recognition、10 个 lesion grading、cross-modality diagnosis 和 13 个 few-shot 外部/跨模态任务。</li>
+                    <li>Lesion recognition：总体 F1 的 median/mean 均超过 0.95；在 PAS、MT、PASM 中分别在 10/11、3/6、8/10 个病变类别上表现最佳。</li>
+                    <li>按染色统计，GloPath 相比 general-purpose PFMs 在 PAS、MT、PASM 上平均提升 7.10%、3.40%、2.86%；相比 RenalPath 分别提升 4.62%、3.11%、3.57%。</li>
+                    <li>Lesion grading：10 个分级任务中 6 个最佳；平均优于 RenalPath 1.80%、general-purpose PFMs 2.71%、non-pathology models 12.96%。</li>
+                    <li>Cross-modality diagnosis：在 IF deposition region / pattern 分类中均最佳；region 平均 ROC-AUC 88.66%，相对 UNI 提升 2.50% 和 1.57%。</li>
+                    <li>真实世界 open-set lesion recognition 中 ROC-AUC 91.51%，说明模型在常规临床分布和未完全闭集场景下仍具鲁棒性。</li>
+                    <li>Clinicopathological insight：在 XJ-Light-1 和 KPMP-G 中系统分析 224 组 morphology-clinical variable pairs，发现肾小球形态与肾功能、病变严重度、疾病状态等变量存在统计学显著关联。</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="paper-summary">
+                <h4>GloPath 论文概括总结</h4>
+                <p>
+                  GloPath 面向肾脏病理中最关键、也最细粒度的结构单元：肾小球。论文认为传统 patch-based PFM 难以显式建模肾小球这一生物学实体，因此提出 entity-centric foundation model，通过自动抽取百万级肾小球并做多尺度多视角自监督学习，让模型获得既能识别病变、又能解释形态-临床关系的肾小球级表征。
+                </p>
+                <div class="summary-grid">
+                  <div class="summary-item"><b>研究定位</b><span>从 WSI/patch 级病理基础模型转向 glomerulus entity 级基础模型，直接对齐肾脏病理诊断对象。</span></div>
+                  <div class="summary-item"><b>技术贡献</b><span>将实体检测、多尺度 global/local crops、多视角自监督预训练结合，形成可跨染色、跨模态和 few-shot 迁移的肾小球表征。</span></div>
+                  <div class="summary-item"><b>验证体系</b><span>覆盖 52 个 lesion assessment tasks，包括病变识别、病变分级、IF 跨模态诊断、few-shot 分类和真实世界 open-set 测试。</span></div>
+                  <div class="summary-item"><b>临床意义</b><span>不仅提升病变评估性能，还把肾小球形态参数与 eGFR、蛋白尿、肌酐、疾病类型等临床变量连接，用于病理发现和机制假设生成。</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="model-card" id="paper-bright">
+          <div class="model-head">
+            <div class="model-title">
+              <h3>BRIGHT</h3>
+              <p class="paper-title">BRIGHT: A Collaborative Generalist-Specialist Foundation Model for Breast Pathology</p>
+              <div class="badge-row">
+                <span class="tag">乳腺病理</span><span class="tag">Generalist-Specialist</span><span class="tag">LoRA Specialist</span><span class="tag">24 任务</span>
+                <span class="status closed">未检索到明确公开代码/权重</span>
+              </div>
+            </div>
+            <div class="model-links">
+              <a href="https://arxiv.org/abs/2603.03030v1" target="_blank" rel="noopener">arXiv</a>
+            </div>
+          </div>
+          <div class="model-body">
+            <table class="info-table">
+              <tr><th>基础信息</th><td>首个专门面向乳腺病理的 PFM 之一，提出通才-专才协作框架。</td></tr>
+              <tr><th>数据集</th><td>约 2.1 亿组织病理 tiles，来自 51,000+ 乳腺 WSI、40,000+ 患者和 19 家医院；下游队列超过 25,000 WSI、覆盖 10 家医院。</td></tr>
+              <tr><th>方法学</th><td>采用 collaborative generalist-specialist 双路径框架：generalist encoder 直接使用冻结的 Virchow2，保留泛癌种组织形态知识；specialist encoder 以同构 ViT-H/14 为基础，在乳腺 tiles 上用 DINOv2 自监督继续学习，并通过 LoRA 注入 Q/K/V projection 完成参数高效域适配。推理时分别提取 Virchow2 2,560 维通才特征和 BRIGHT(S) 2,560 维专才特征，拼接为 5,120 维 BRIGHT embedding，再由 CLAM MIL aggregator 训练各下游任务头。</td></tr>
+              <tr><th>开源</th><td>截至本页整理时，未检索到明确官方公开代码或模型权重入口。</td></tr>
+            </table>
+            <div>
+              <figure class="paper-figure">
+                <img src="../../assets/bright_framework.png?v=figure1" alt="BRIGHT framework figure from paper">
+                <figcaption>论文图页：BRIGHT Figure 1，展示乳腺病理临床任务谱、数据分布、Generalist/Specialist 协作框架和下游任务类型。</figcaption>
+              </figure>
+              <div class="method-visual">
+                <div class="visual-title">BRIGHT详细算法示意<span>dual encoder + LoRA specialist + CLAM MIL</span></div>
+                <div class="method-lane">
+                  <div class="lane-title">1. Breast WSI Curation</div>
+                  <div class="method-box"><b>51,836 H&E WSIs</b><small>来自 40,203 名患者、19 个独立临床中心，覆盖良性、原位癌、浸润癌和多种分子亚型。</small></div>
+                  <div class="method-box"><b>210M non-overlap tiles</b><small>WSI 先做组织区域分割，再 tessellation 为 224×224 image tiles。</small></div>
+                  <div class="method-box"><b>Held-out downstream data</b><small>下游验证 WSI 严格排除在基础模型预训练集之外，降低数据泄漏风险。</small></div>
+                </div>
+                <div class="method-lane">
+                  <div class="lane-title">2. Specialist PFM Adaptation</div>
+                  <div class="method-box"><b>Virchow2 initialization</b><small>以 3M+ pan-cancer WSI 训练的 Virchow2 ViT-H/14 作为通用底座。</small></div>
+                  <div class="method-box"><b>DINOv2 SSL</b><small>在乳腺 tiles 上继续自监督学习，使专才 encoder 捕获乳腺特异形态。</small></div>
+                  <div class="method-box"><b>LoRA Q/K/V modules</b><small>冻结 Virchow2 backbone；每层 self-attention 的 query/key/value projection 注入 rank=8 LoRA。</small></div>
+                  <div class="method-box"><b>24.45M trainable params</b><small>总参数约 655.60M，仅更新少量新增参数；训练使用 16 张 NVIDIA A800。</small></div>
+                </div>
+                <div class="method-lane">
+                  <div class="lane-title">3. Collaborative BRIGHT Embedding</div>
+                  <div class="method-box"><b>Generalist branch</b><small>冻结 Virchow2 encoder，输出 2,560 维泛化组织形态 embedding。</small></div>
+                  <div class="method-box"><b>Specialist branch</b><small>冻结 BRIGHT(S) encoder，输出 2,560 维乳腺专科 embedding。</small></div>
+                  <div class="method-box"><b>Concatenation</b><small>两路特征拼接形成 5,120 维 BRIGHT representation，兼顾 breadth 与 depth。</small></div>
+                </div>
+                <div class="method-lane">
+                  <div class="lane-title">4. Slide-Level MIL Downstream</div>
+                  <div class="method-box"><b>CLAM aggregator</b><small>把 WSI 内 tile-level features 聚合为 slide-level prediction；encoder 冻结，只训练任务 aggregator。</small></div>
+                  <div class="method-box"><b>Diagnosis heads</b><small>癌检出、10 类组织学诊断、Nottingham grade、TILs、N-stage、pTNM、BRACS。</small></div>
+                  <div class="method-box"><b>Biomarker heads</b><small>ER、PR、Ki-67、HER2 二分类/三分类、AR、CK5/6、EGFR、PD-L1、分子亚型。</small></div>
+                  <div class="method-box"><b>Treatment & survival</b><small>NAT/NIT pCR 预测；TCGA-BRCA OS/DFS 与 TNBC OS 风险分层。</small></div>
+                </div>
+                <div class="formula-strip">
+                  <div class="formula">Virchow2 tile embedding 2,560d + BRIGHT(S) tile embedding 2,560d → BRIGHT embedding 5,120d</div>
+                  <div class="formula">Frozen encoders + CLAM task aggregator → AUROC for classification / C-index for survival</div>
+                </div>
+                <div class="mini-chip-grid">
+                  <span class="mini-chip">210M tiles</span><span class="mini-chip">51,836 WSIs</span><span class="mini-chip">rank=8 LoRA</span><span class="mini-chip">5,120d embedding</span><span class="mini-chip">24 internal tasks</span>
+                </div>
+              </div>
+              <p class="method-detail"><b>方法要点：</b>BRIGHT 的核心不是简单把乳腺数据继续预训练成一个专才模型，而是把“通才”和“专才”同时保留下来：通才 Virchow2 分支提供跨癌种稳定表征，LoRA 适配后的 BRIGHT(S) 分支补充乳腺细粒度判别模式，二者拼接后再交给弱监督 MIL 聚合器完成 WSI 级临床任务。这种设计避免了单纯专科化可能遗忘泛化知识的问题，也让模型在诊断、分子、治疗反应和预后任务上共享同一套乳腺专科表征。</p>
+              <div class="deep-dive">
+                <div class="note-panel">
+                  <h4 data-icon="DATA">数据集细节</h4>
+                  <ul>
+                    <li>基础模型预训练集包含 51,836 张 H&E 乳腺 WSI、40,203 名患者、19 个临床中心，切成约 2.1 亿个 non-overlapping 224×224 tiles。</li>
+                    <li>主队列 C1.TMUCIH 为 5 年连续收集数据，含 42,876 张 WSI、32,054 名患者；另有 18 家主要机构贡献 8,960 张 WSI。</li>
+                    <li>下游 benchmarking 覆盖 24 个 private cohorts 和 2 个 public datasets：TCGA-BRCA 与 BRACS；开发和验证队列超过 25,000 张 WSI、覆盖 10 家医院。</li>
+                    <li>内部验证采用 2024 年主中心连续乳腺活检患者作为 temporal hold-out，外部验证来自 9 家外部医院；下游评估 WSI 均未进入 BRIGHT 预训练。</li>
+                    <li>标签来源包括标准化病理报告、IHC/分子检测、术后 pCR 评估和长期随访 OS/DFS。</li>
+                  </ul>
+                </div>
+                <div class="note-panel">
+                  <h4 data-icon="METH">方法学细节</h4>
+                  <ul>
+                    <li>模型采用两个结构相同的 ViT-H/14 encoder：generalist encoder 为冻结 Virchow2；specialist encoder 从 Virchow2 初始化并在乳腺 tiles 上继续学习。</li>
+                    <li>Specialist 训练使用 DINOv2 自监督策略；Virchow2 backbone 全部冻结，仅在每层 self-attention 的 Q/K/V projection 中注入 LoRA。</li>
+                    <li>LoRA rank=8；新增可训练参数 24.45M，总参数约 655.60M，在 16 张 NVIDIA A800 上训练。</li>
+                    <li>BRIGHT embedding 由两路 2,560 维 tile feature 拼接得到 5,120 维表示，显式融合 pan-cancer histomorphological primitives 与 breast-specific patterns。</li>
+                    <li>下游阶段采用 CLAM 多实例学习聚合器，把 tile-level features 汇聚为 slide-level prediction；encoders 冻结，每个任务只从头训练 aggregator。</li>
+                  </ul>
+                </div>
+                <div class="note-panel">
+                  <h4 data-icon="VAL">验证结果细节</h4>
+                  <ul>
+                    <li>总体排名：在 24 个内部任务中 top-1/top-2 分别为 21/24 和 24/24；在 10 个外部任务中 top-1/top-2 分别为 5/10 和 8/10。</li>
+                    <li>诊断域：癌检出 AUC 0.992；10 类组织学诊断 AUC 0.973、weighted F1 0.901、top-1 accuracy 0.899；Nottingham grading AUC 0.898，TILs AUC 0.967，N-stage AUC 0.968，pTNM AUC 0.661。</li>
+                    <li>分子/IHC 域：ER AUC 0.938、PR 0.912、Ki-67 0.902、HER2 二分类 0.877、HER2 三分类 0.796、AR 0.952、CK5/6 0.918、EGFR 0.864、分子亚型 AUC 0.875；PD-L1 在 289 个训练样本下 AUC 0.938。</li>
+                    <li>IHC 减免模拟：在 NPV/PPV=0.98 阈值下，潜在减少 ER 61.4%、PR 32.1%、Ki-67 30.9%、HER2 19.0%、AR 91.7%、CK5/6 13.0%、EGFR 9.1%、PD-L1 47.2% 的 IHC 检测。</li>
+                    <li>治疗反应：NAT pCR 预测内部 AUC 0.786，外部多中心 AUC 0.641；TNBC 内部/外部分别 0.766/0.642，HR+ 内部/外部分别 0.765/0.666；NIT 任务 5 折交叉验证平均 AUC 0.695。</li>
+                    <li>预后任务：TCGA-BRCA OS C-index 0.711、DFS C-index 0.768；主中心 TNBC OS C-index 0.787。BRIGHT 高风险组在多变量 Cox 中仍是独立预后因子：TCGA OS HR 2.71、DFS HR 3.08，TNBC OS HR 4.10。</li>
+                    <li>解释性：诊断热图与病理诊断区域一致，分子预测热图与对应 IHC 表达区域具有视觉一致性；NIT 响应预测可区分 immune-hot 与 immune-cold 肿瘤微环境。</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="paper-summary">
+                <h4>BRIGHT 论文概括总结</h4>
+                <p>
+                  BRIGHT 面向乳腺病理的完整临床谱系，而不是单一诊断任务。论文的关键判断是：通用 PFM 拥有广泛组织形态知识，但乳腺病理中的组织学亚型、IHC/分子状态、治疗反应和长期预后需要更强的器官特异判别能力。因此作者提出“通才-专才协作”架构，把 Virchow2 的泛化表征和 LoRA 乳腺专才表征拼接为统一 embedding，再用弱监督 MIL 支持多任务验证。
+                </p>
+                <div class="summary-grid">
+                  <div class="summary-item"><b>研究定位</b><span>从“乳腺专科 PFM”进一步推进到“乳腺肿瘤学全流程 PFM”，覆盖诊断、分子、治疗反应和预后四个域。</span></div>
+                  <div class="summary-item"><b>技术贡献</b><span>冻结 Virchow2 保留通用知识，同时用 DINOv2 + LoRA 构建 BRIGHT(S) 专才分支，并拼接为 5,120 维协作表征。</span></div>
+                  <div class="summary-item"><b>验证体系</b><span>内部 24 项任务、外部 10 项任务，与 Virchow2、UNIv2、CONCHv1.5 和 BRIGHT(S) 比较，并纳入 TCGA-BRCA、BRACS 等公开数据。</span></div>
+                  <div class="summary-item"><b>临床意义</b><span>模型不仅提升 AUROC/C-index，还评估 IHC 减免、NAT/NIT 反应预测、TNBC 风险分层和注意力热图可解释性，体现真实工作流价值。</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="model-card" id="paper-digepath">
+          <div class="model-head">
+            <div class="model-title">
+              <h3>Digepath</h3>
+              <p class="paper-title">Subspecialty-Specific Foundation Model for Intelligent Gastrointestinal Pathology</p>
+              <div class="badge-row">
+                <span class="tag">胃肠病理</span><span class="tag">ViT-L/16 + DINOv2</span><span class="tag">二阶段优化</span><span class="tag">早癌筛查</span>
+                <span class="status open">Hugging Face 模型与应用</span>
+              </div>
+            </div>
+            <div class="model-links">
+              <a href="https://arxiv.org/abs/2505.21928" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://huggingface.co/xtxx/Digepath" target="_blank" rel="noopener">Digepath</a>
+              <a href="https://huggingface.co/xtxx/DigeApplication" target="_blank" rel="noopener">DigeApplication</a>
+            </div>
+          </div>
+          <div class="model-body">
+            <table class="info-table">
+              <tr><th>基础信息</th><td>面向胃肠病理智能诊断与筛查的亚专科基础模型，尤其关注 WSI 中稀疏病灶区域检测。</td></tr>
+              <tr><th>数据集</th><td>在 210,043 张胃肠 H&E slides 上预训练，包含 3.53 亿多尺度图像；另用 471,443 个 ROI 做任务相关微调/精筛。</td></tr>
+              <tr><th>方法学</th><td>采用 dual-phase iterative optimization：Phase I 以 ViT-L/16 为编码器，在 2.5×、5×、10×、20× 多尺度 GI patch 上用 DINOv2 自监督预训练 Digepath-V1，学习胃肠黏膜从腺体结构到细胞异型性的跨尺度表征；Phase II 由专家 ROI 标注训练 tumor ROI classifier，在原始 WSI 中挖掘高价值病灶区域，构建均衡 tumor / non-tumor fine-screening 数据，继续优化得到 Digepath-V2。下游阶段使用冻结 Digepath encoder + MIL/分类/分割/生存任务头，服务诊断、分子预测、预后和早癌筛查。</td></tr>
+              <tr><th>开源</th><td>模型与应用页面已在 Hugging Face 发布；相关评测代码需以后续官方链接为准。</td></tr>
+            </table>
+            <div>
+              <figure class="paper-figure">
+                <img src="../../assets/digepath_framework.png?v=figure1" alt="Digepath framework figure from paper">
+                <figcaption>论文图页：Digepath Figure 1 附近页面，展示 GI 专科预训练、ROI mining/fine-screening、下游任务和早癌筛查工程实现。</figcaption>
+              </figure>
+              <div class="method-visual">
+                <div class="visual-title">Digepath详细算法示意<span>multi-scale SSL + ROI mining + clinical deployment</span></div>
+                <div class="method-lane">
+                  <div class="lane-title">1. GI Multi-Scale Pretraining Corpus</div>
+                  <div class="method-box"><b>210,043 H&E WSIs</b><small>覆盖食管 11,504 张、胃 101,686 张、肠 96,853 张，面向胃肠亚专科而非泛癌种混合训练。</small></div>
+                  <div class="method-box"><b>353,478,334 images</b><small>从 2.5×、5×、10×、20× 四个诊断倍率采样，模拟病理医生低倍看结构、高倍看细胞的读片流程。</small></div>
+                  <div class="method-box"><b>ViT-L/16 encoder</b><small>使用 DINOv2 self-supervised learning 训练 Digepath-V1，获得胃肠多尺度视觉底座。</small></div>
+                </div>
+                <div class="method-lane">
+                  <div class="lane-title">2. ROI Mining Fine-Screening Loop</div>
+                  <div class="method-box"><b>471,443 expert ROIs</b><small>由 10 年以上经验病理专家标注，ROI 尺寸为 2,048×2,048 pixels，来自 26,320 张 WSI。</small></div>
+                  <div class="method-box"><b>Tumor ROI classifier</b><small>用 MIL classifier 识别 WSI 中 diagnostically valuable areas，解决早癌/癌前病灶小而稀疏的问题。</small></div>
+                  <div class="method-box"><b>1,305,328 tumor regions</b><small>ROI classifier 回扫原始数据，自动挖掘肿瘤区域并转化为高质量继续训练样本。</small></div>
+                  <div class="method-box"><b>83,206,828 fine-tuning patches</b><small>肿瘤 patch 与等量 non-tumor patch 构成均衡二阶段数据，继续优化得到 Digepath-V2。</small></div>
+                </div>
+                <div class="method-lane">
+                  <div class="lane-title">3. Self-Supervised Objectives</div>
+                  <div class="method-box"><b>Global views</b><small>保留组织结构、腺体排列、浸润边界等低倍形态上下文。</small></div>
+                  <div class="method-box"><b>Local / mask views</b><small>聚焦核异型、炎症细胞、角化珠、腺体分化等高倍微结构。</small></div>
+                  <div class="method-box"><b>DINO + MIM losses</b><small>结合 teacher-student 表征对齐和 masked image modeling，使 class token 与 patch token 同时学习。</small></div>
+                </div>
+                <div class="method-lane">
+                  <div class="lane-title">4. Downstream Clinical Tasks</div>
+                  <div class="method-box"><b>Diagnosis</b><small>胃炎/萎缩/肠化、胃/肠/食管肿瘤分类、TNM staging、疑难鉴别诊断。</small></div>
+                  <div class="method-box"><b>Segmentation</b><small>CRAG 腺体分割、肠化腺体分割、ESD 肿瘤区域分割。</small></div>
+                  <div class="method-box"><b>Molecular & prognosis</b><small>PD-L1、HER2、P53、MSI、MUC16/TTN/NRAS 突变预测，以及 TCGA-COAD/READ 生存预测。</small></div>
+                  <div class="method-box"><b>Clinical deployment</b><small>早期胃癌筛查模块与 DigeTools agent：特征提取、癌检出、亚型识别、ROI 报告生成。</small></div>
+                </div>
+                <div class="formula-strip">
+                  <div class="formula">Phase I: multi-scale WSI patches + DINOv2 → Digepath-V1</div>
+                  <div class="formula">Phase II: expert ROIs → tumor classifier → mined ROIs → balanced fine-screening → Digepath-V2</div>
+                </div>
+                <div class="mini-chip-grid">
+                  <span class="mini-chip">353M images</span><span class="mini-chip">4 magnifications</span><span class="mini-chip">471,443 ROIs</span><span class="mini-chip">83M fine patches</span><span class="mini-chip">34 downstream tasks</span>
+                </div>
+              </div>
+              <p class="method-detail"><b>方法要点：</b>Digepath 的专科化不是只增加胃肠 WSI 数量，而是围绕胃肠病理的真实工作流重构训练机制：多尺度预训练覆盖“低倍结构 + 高倍细胞”的诊断需求，ROI mining 让模型从海量正常黏膜和背景中主动聚焦早癌、癌前病变与小灶肿瘤，最终形成适合临床筛查、分子预测和预后评估的胃肠专科表征。</p>
+              <div class="deep-dive">
+                <div class="note-panel">
+                  <h4 data-icon="DATA">数据集细节</h4>
+                  <ul>
+                    <li>预训练集包含 210,043 张 GI H&E slides：食管 11,504 张、胃 101,686 张、肠 96,853 张，生成 353,478,334 个多尺度图像。</li>
+                    <li>Phase I 采样 2.5×、5×、10×、20× 四个倍率，覆盖黏膜结构、腺体排列、炎症浸润、核异型和癌巢等不同尺度形态。</li>
+                    <li>Phase II 专家标注 471,443 个诊断 ROI，来自 26,320 张 WSI；ROI 尺寸为 2,048×2,048 pixels，像素尺度 0.42 μm/pixel。</li>
+                    <li>ROI classifier 从原始数据中识别 1,305,328 个 tumor regions，并拆分为 31,327,872 个 256×256 patches；再随机采样等量 non-tumor patches，形成 83,206,828 个 fine-screening patches。</li>
+                    <li>验证任务覆盖胃、肠、食管三大解剖区域，包含 24 个常规临床诊断任务、3 个分割任务、8 个分子/遗传预测任务和 2 个生存预测任务。</li>
+                  </ul>
+                </div>
+                <div class="note-panel">
+                  <h4 data-icon="METH">方法学细节</h4>
+                  <ul>
+                    <li>Phase I 使用 ViT-L encoder 和 DINOv2，在 GI 多尺度 patch 上训练 Digepath-V1，目的是获得与胃肠诊断倍率匹配的基础表征。</li>
+                    <li>多尺度策略解决常规 224×224 单尺度评测的问题：低倍看组织架构和浸润边界，高倍看核异型、炎症活动和细胞极性。</li>
+                    <li>Phase II 的 ROI mining 是“feature optimization-data refinement”闭环：先用专家 ROI 训练 tumor classifier，再用该 classifier 回到 WSI 中挖掘高价值区域。</li>
+                    <li>二阶段 fine-screening 后得到 Digepath-V2；相较 V1，四个诊断任务平均 balanced ACC 提升 3.81%，TNM staging 平均提升 4.18%。</li>
+                    <li>下游采用 MIL、linear/few-shot、分割网络或生存模型等任务头，encoder 作为共享胃肠专科特征提取器。</li>
+                  </ul>
+                </div>
+                <div class="note-panel">
+                  <h4 data-icon="VAL">验证结果细节</h4>
+                  <ul>
+                    <li>总体结果：34 个 GI pathology downstream tasks 中 33 个达到 SOTA，覆盖 pathological diagnosis、protein expression、gene mutation、prognosis 和 magnification-invariant tissue classification。</li>
+                    <li>多尺度鲁棒性：STLC 11 类胃上皮肿瘤/增生病变在 672×672 时 ACC 95.46%，跨 5 个尺度变化仅 0.91%；多尺度集成后 ACC 96.31%。</li>
+                    <li>胃部诊断：慢性胃炎 grading ACC 94.67%，急性炎症活动 88.31%，肠化 76.44%，胃上皮萎缩 86.06%。</li>
+                    <li>肠道/食管诊断：CRC-100K ACC 95.24%，UNITOPATHO 85.92%，CAMEL 92.36%，BOW-5cls 80.73%；ESO-4cls WSI-level ACC 80.41%，ENSOKRT 78.75%。</li>
+                    <li>早癌筛查任务：STMSCR ROI ACC 99.01%，BOWSCR ROI ACC 99.78%，ESO-2cls WSI ACC 99.63%。临床转化模块在 9 家医院 11,224 张 WSI 上 ACC 89.99%、敏感性 99.70%、特异性 89.30%。</li>
+                    <li>分割和分期：CRAG 腺体分割 IoU 82.21%，IM-S IoU 70.37%，STESD-S ESD 肿瘤区域 mean IoU 85.42%；胃癌 TNM ACC 68.46%，肠癌 TNM ACC 64.24%。</li>
+                    <li>分子/预后：PD-L1 ACC 74.83%，HER2 AUROC 83.27%，P53 AUROC 72.23%，MSI AUROC 88.41%；MUC16/TTN/NRAS 相关突变预测 best AUROC 为 65.61%、62.37%、60.55%；TCGA-COAD 生存预测 C-index 71.82%。</li>
+                    <li>解释性与部署：注意力热图能定位中性粒细胞、角化珠、肿瘤浸润边界、MSI 相关淋巴细胞浸润等区域；DigeTools agent 支持 WSI feature extraction、tumor detection、subtype identification 和 ROI-level report generation。</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="paper-summary">
+                <h4>Digepath 论文概括总结</h4>
+                <p>
+                  Digepath 面向胃肠病理中最实际的痛点：早癌和癌前病变常常体积极小、分布稀疏，而诊断又依赖低倍结构和高倍细胞细节的联合判断。论文通过“多尺度预训练 + ROI mining 精筛”构建胃肠专科基础模型，使模型既能覆盖食管、胃、肠的广泛病变谱，又能在临床筛查中优先捕捉少量高风险区域。
+                </p>
+                <div class="summary-grid">
+                  <div class="summary-item"><b>研究定位</b><span>从通用 PFM 转向胃肠亚专科 PFM，重点解决 GI WSI 中稀疏病灶、早癌漏检和多倍率诊断需求。</span></div>
+                  <div class="summary-item"><b>技术贡献</b><span>提出 dual-phase pretraining：先用 3.53 亿多尺度图像训练 Digepath-V1，再用专家 ROI 与 tumor classifier 挖掘高价值区域训练 Digepath-V2。</span></div>
+                  <div class="summary-item"><b>验证体系</b><span>34 个下游任务覆盖常规诊断、早癌筛查、分割、TNM staging、IHC/分子状态、基因突变、预后和 few-shot/retrieval。</span></div>
+                  <div class="summary-item"><b>临床意义</b><span>早癌筛查模块在 9 家医院达到 99.70% 敏感性，并通过 DigeTools agent 展示从 WSI 筛查到 ROI 报告生成的转化路径。</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="section-head">
+        <h2>横向对比</h2>
+        <p class="section-note">对比可见：专科 PFM 的差异不只在器官，还在数据组织粒度、临床验证强度和是否面向工作流部署。</p>
+      </div>
+      <div class="table-wrap">
+        <table class="comparison">
+          <thead>
+            <tr>
+              <th>模型</th>
+              <th>疾病/器官</th>
+              <th>基础框架</th>
+              <th>预训练数据</th>
+              <th>任务范围</th>
+              <th>临床验证亮点</th>
+              <th>验证强度</th>
+              <th>开源情况</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>PulmoFoundation</b></td>
+              <td>肺病理 / 肺癌</td>
+              <td>Virchow2 继续预训练</td>
+              <td>约 40,000 张 H&E WSI</td>
+              <td>32 项任务：诊断、分子标志物、预后、IHC 决策等</td>
+              <td>1,357 名患者前瞻性研究；8 名病理医生交叉 RCT</td>
+              <td><span class="bar" data-score="5"><i></i><i></i><i></i><i></i><i></i></span></td>
+              <td>Hugging Face gated 模型</td>
+            </tr>
+            <tr>
+              <td><b>BRAVE</b></td>
+              <td>乳腺病理 / 乳腺癌</td>
+              <td>Breast-adaptive PFM</td>
+              <td>101,638 张 WSI，32 个来源</td>
+              <td>34 项任务 / 82 个队列：活检、冰冻、切除、预后</td>
+              <td>三中心前瞻性验证；reader study；临床工作流模拟</td>
+              <td><span class="bar" data-score="5"><i></i><i></i><i></i><i></i><i></i></span></td>
+              <td>未检索到明确公开代码/权重</td>
+            </tr>
+            <tr>
+              <td><b>GloPath</b></td>
+              <td>肾小球 / 肾脏病理</td>
+              <td>实体中心多尺度多视角 SSL</td>
+              <td>14,049 例肾活检中的 100 万+肾小球</td>
+              <td>52 项任务：病变识别、分级、few-shot、跨模态诊断</td>
+              <td>真实世界病变识别 ROC-AUC 91.51%；224 组形态-临床关联</td>
+              <td><span class="bar" data-score="3"><i></i><i></i><i></i><i></i><i></i></span></td>
+              <td>未检索到明确公开代码/权重</td>
+            </tr>
+            <tr>
+              <td><b>BRIGHT</b></td>
+              <td>乳腺病理 / 乳腺肿瘤学</td>
+              <td>Collaborative generalist-specialist，含 LoRA specialist</td>
+              <td>约 2.1 亿 tiles，51,000+ WSI，19 家医院</td>
+              <td>24 项任务：诊断、标志物、治疗反应、生存预测</td>
+              <td>10 家医院、25,000+ WSI 下游队列；内外部任务系统评估</td>
+              <td><span class="bar" data-score="4"><i></i><i></i><i></i><i></i><i></i></span></td>
+              <td>未检索到明确公开代码/权重</td>
+            </tr>
+            <tr>
+              <td><b>Digepath</b></td>
+              <td>胃肠病理 / GI 疾病</td>
+              <td>ViT-L/16 + DINOv2，双阶段迭代优化</td>
+              <td>210,043 张 H&E slides，3.53 亿多尺度图像</td>
+              <td>34 项任务：诊断、蛋白表达、基因突变、预后</td>
+              <td>早癌筛查模块在 9 家机构实现 99.70% 敏感性</td>
+              <td><span class="bar" data-score="4"><i></i><i></i><i></i><i></i><i></i></span></td>
+              <td>Hugging Face 模型与应用页面</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>整体研究情况概括</h2>
+        <p class="section-note">专有病种病理基础模型正在形成较清晰的技术路线：不是替代通用 PFM，而是在通用能力之上注入亚专科深度。</p>
+      </div>
+
+      <div class="insight-grid">
+        <div class="insight">
+          <h3>1. 从泛化到专精</h3>
+          <p>通用 PFM 已能提供强表征，但单器官临床任务通常需要更细粒度的形态、亚型、分子和预后知识。PulmoFoundation、BRIGHT 等工作直接采用“通用底座 + 专科适配”的策略。</p>
+        </div>
+        <div class="insight">
+          <h3>2. 数据组织更临床化</h3>
+          <p>新模型不再只堆叠 patch 数量，而是围绕临床实体和流程组织数据。GloPath 以肾小球实体为中心，Digepath 针对稀疏病灶做精筛，BRAVE 和 PulmoFoundation 则按活检、冰冻、切除分阶段验证。</p>
+        </div>
+        <div class="insight">
+          <h3>3. 评价标准明显升级</h3>
+          <p>下游验证从 retrospective benchmark 扩展到多中心外部验证、前瞻性验证、阈值锁定、临床分诊模拟和病理医生-AI 交互研究，更接近真实转化要求。</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-track">
+          <div class="timeline-item"><b>通用 PFM</b><span>跨癌种/跨器官大规模预训练，提供可迁移组织形态表征。</span></div>
+          <div class="timeline-item"><b>专科继续预训练</b><span>引入目标病种或器官数据，提升亚型、分级和分子预测能力。</span></div>
+          <div class="timeline-item"><b>临床任务矩阵</b><span>围绕诊断、标志物、治疗反应、预后和筛查构建多任务验证。</span></div>
+          <div class="timeline-item"><b>工作流验证</b><span>前瞻性、RCT、reader study 和阈值锁定成为下一阶段核心证据。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="section-head">
+        <h2>趋势、优势与不足</h2>
+        <p class="section-note">以下概括适合在展示时作为结论页使用。</p>
+      </div>
+      <div class="insight-grid">
+        <div class="insight">
+          <h3>共同范式</h3>
+          <p>大规模专科 WSI/实体数据、自监督或继续预训练、多任务下游评估、跨中心验证，以及面向具体诊疗节点的阈值设计。</p>
+        </div>
+        <div class="insight">
+          <h3>主要优势</h3>
+          <p>相比单任务模型，专科 PFM 能在同一器官内复用表征，覆盖诊断、分子、治疗反应和预后；相比通用 PFM，则更贴近亚专科读片逻辑。</p>
+        </div>
+        <div class="insight">
+          <h3>主要不足</h3>
+          <p>多数模型尚未完全开源；外部验证和前瞻性证据仍不均衡；不同论文的任务定义、队列组成和阈值策略不完全可比。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>参考链接</h2>
+        <p class="section-note">页面内容主要依据 arXiv 摘要、论文页面与可确认的模型页面整理。未确认开源的项目已明确标注。</p>
+      </div>
+      <ul class="refs">
+        <li>PulmoFoundation：<a href="https://arxiv.org/abs/2605.25878v1" target="_blank" rel="noopener">arXiv 2605.25878v1</a> · <a href="https://huggingface.co/Zhengrui/PulmoFoundation" target="_blank" rel="noopener">Hugging Face</a></li>
+        <li>BRAVE：<a href="https://arxiv.org/abs/2605.08207v1" target="_blank" rel="noopener">arXiv 2605.08207v1</a></li>
+        <li>GloPath：<a href="https://arxiv.org/abs/2603.02926v1" target="_blank" rel="noopener">arXiv 2603.02926v1</a></li>
+        <li>BRIGHT：<a href="https://arxiv.org/abs/2603.03030v1" target="_blank" rel="noopener">arXiv 2603.03030v1</a></li>
+        <li>Digepath：<a href="https://arxiv.org/abs/2505.21928" target="_blank" rel="noopener">arXiv 2505.21928</a> · <a href="https://huggingface.co/xtxx/Digepath" target="_blank" rel="noopener">Digepath</a> · <a href="https://huggingface.co/xtxx/DigeApplication" target="_blank" rel="noopener">DigeApplication</a></li>
+      </ul>
+      <p class="footnote">整理日期：2026-06-02。若论文作者后续公开代码、权重或更新版本，建议在“开源情况”和“参考链接”中同步更新。</p>
+    </section>
+
+    <footer class="site-credit">
+      <div>AI-assisted paper analysis · Generated by <strong>Codex</strong>,</div>
+      <div>📝 Paper Analysis &amp; Curation by <strong>CocoSun</strong></div>
+    </footer>
+  </main>
+</body>
+</html>

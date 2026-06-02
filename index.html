@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CocoSun 论文笔记</title>
+  <meta name="description" content="CocoSun 的病理 AI、空间组学与基础模型论文笔记目录。">
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d9e2ec;
+      --panel: #ffffff;
+      --soft: #f5f8fb;
+      --blue: #174a7c;
+      --teal: #0f766e;
+      --wine: #8f2444;
+      --amber: #b26b14;
+      --shadow: 0 16px 44px rgba(23, 32, 51, 0.10);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      background: #edf3f7;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      background:
+        linear-gradient(180deg, rgba(237, 243, 247, 0) 0, #edf3f7 360px),
+        linear-gradient(135deg, #123252, #0c6f69 58%, #7a2443);
+    }
+
+    .hero {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 56px 24px 36px;
+      color: #fff;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #b9e7e1;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 860px;
+      margin: 0;
+      font-size: clamp(32px, 6vw, 58px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 18px;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      min-width: 144px;
+      padding: 13px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.10);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 12px;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 12px 24px 64px;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 0 0 18px;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--blue);
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .toolbar p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .note-card {
+      display: flex;
+      min-height: 330px;
+      flex-direction: column;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .note-card:hover {
+      transform: translateY(-2px);
+      transition: transform 160ms ease;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .type {
+      background: #e8f2f0;
+      color: var(--teal);
+    }
+
+    .note-card h3 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .summary {
+      margin: 14px 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: auto;
+      padding-top: 8px;
+    }
+
+    .tag {
+      padding: 4px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #4c5b70;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .open-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 40px;
+      margin-top: 22px;
+      padding: 9px 14px;
+      border-radius: var(--radius);
+      background: var(--blue);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .note-card:nth-child(2) .open-link {
+      background: var(--wine);
+    }
+
+    .footnote {
+      margin: 26px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        padding-top: 38px;
+      }
+
+      .toolbar {
+        display: block;
+      }
+
+      .toolbar p {
+        margin-top: 8px;
+        text-align: left;
+      }
+
+      .note-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .note-card {
+        min-height: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">Paper Notes · Pathology AI</p>
+      <h1>CocoSun 论文笔记</h1>
+      <p class="hero-copy">
+        聚焦病理基础模型、空间组学与 AI 辅助医学研究。这里先以完整 HTML 形式保存深度笔记，保持图表、导航和版式的可读性。
+      </p>
+      <div class="stats" aria-label="站点概览">
+        <div class="stat">
+          <strong>2</strong>
+          <span>已整理笔记</span>
+        </div>
+        <div class="stat">
+          <strong>4</strong>
+          <span>核心主题</span>
+        </div>
+        <div class="stat">
+          <strong>HTML</strong>
+          <span>当前写作格式</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="toolbar">
+        <h2>最新笔记</h2>
+        <p>第一版是轻量静态站点，可直接发布到 GitHub Pages；后续文章增多后再迁移到 Astro/MDX。</p>
+      </div>
+
+      <section class="note-grid" aria-label="论文笔记列表">
+        <article class="note-card">
+          <div class="meta-row">
+            <span class="pill type">综述</span>
+            <span class="pill">整理日期 · 2026-06-02</span>
+          </div>
+          <h3>专有病种病理基础模型综述</h3>
+          <p class="summary">
+            系统梳理肺、乳腺、胃肠、泛癌实体与消化道等专有病种病理基础模型的研究现状，覆盖模型设计、训练数据、验证任务和横向比较。
+          </p>
+          <div class="tags">
+            <span class="tag">pathology foundation model</span>
+            <span class="tag">disease-specific model</span>
+            <span class="tag">computational pathology</span>
+            <span class="tag">review</span>
+          </div>
+          <a class="open-link" href="notes/disease-specific-pathology-foundation-models/">进入文章</a>
+        </article>
+
+        <article class="note-card">
+          <div class="meta-row">
+            <span class="pill type">对比分析</span>
+            <span class="pill">整理日期 · 2026-06-02</span>
+          </div>
+          <h3>HEX vs GigaTIME 论文深度对比分析</h3>
+          <p class="summary">
+            对比 HEX 与 GigaTIME 在研究动机、空间组学技术、模型流程、下游验证和应用边界上的异同，帮助快速理解两类方法的设计哲学。
+          </p>
+          <div class="tags">
+            <span class="tag">spatial biology</span>
+            <span class="tag">mIF</span>
+            <span class="tag">CODEX</span>
+            <span class="tag">comparative analysis</span>
+          </div>
+          <a class="open-link" href="notes/hex-vs-gigatime-analysis/">进入文章</a>
+        </article>
+      </section>
+
+      <p class="footnote">Public static site ready for GitHub Pages. Add new HTML notes under <code>notes/&lt;slug&gt;/index.html</code>.</p>
+    </main>
+  </div>
+</body>
+</html>
