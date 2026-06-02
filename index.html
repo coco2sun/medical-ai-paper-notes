@@ -143,14 +143,6 @@
       letter-spacing: 0;
     }
 
-    .toolbar p {
-      max-width: 520px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      text-align: right;
-    }
-
     .note-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -332,11 +324,6 @@
         display: block;
       }
 
-      .toolbar p {
-        margin-top: 8px;
-        text-align: left;
-      }
-
       .note-grid {
         grid-template-columns: 1fr;
       }
@@ -391,7 +378,6 @@
     <main>
       <div class="toolbar">
         <h2>最新笔记</h2>
-        <p>展示最新 6 篇深度笔记，完整目录见下方列表。</p>
       </div>
 
       <section class="note-grid" id="latest-notes" aria-label="最新论文笔记"></section>
