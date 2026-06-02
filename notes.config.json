@@ -8,6 +8,7 @@
     "assetsDir": "incoming/Synthetic_BioMed_Agent_Note_files",
     "summary": "一篇虚构的多模态 Biomedical Agent 论文笔记，用于验证 HTML 附件图像目录的自动复制与路径改写流程。",
     "tags": ["biomedical agent", "multimodal", "workflow test", "attachment assets"],
+    "visible": false,
     "accent": true
   },
   {
