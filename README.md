@@ -35,8 +35,17 @@ The build script copies the HTML into `notes/<slug>/index.html`, rewrites local 
 - `slug` must use lowercase letters, numbers, and hyphens.
 - `source` can point to `incoming/...` for a new note or an existing `notes/<slug>/index.html`.
 - `assetsDir` is optional. Use it when the HTML has an attachment folder, such as `incoming/New_Paper_Note_files`.
+- `accent` controls the homepage card button color in the latest-notes area: `true` uses the wine accent button, `false` uses the default blue button. It does not affect the all-notes list.
 - The homepage shows the latest 6 notes and all notes based on `notes.config.json`.
 
 When `assetsDir` is set, the build script copies that folder into `notes/<slug>/assets/` and rewrites references like `src="New_Paper_Note_files/figure1.png"` to `src="assets/figure1.png"`.
 
 If `source` or `assetsDir` no longer exists because `incoming/` was not synced, the build still works as long as the generated `notes/<slug>/index.html` and any generated `notes/<slug>/assets/` files are already present.
+
+## Homepage Display Logic
+
+- `scripts/build-notes.mjs` reads `notes.config.json`, sorts notes by `date` descending, and writes the result to `assets/notes-data.js`.
+- `index.html` loads `assets/notes-data.js`, sorts the notes by `date` descending again, and renders:
+  - `最新笔记`: the first 6 notes from the sorted list.
+  - `全部笔记`: every note from the sorted list.
+- If multiple notes share the same date, their relative order follows their order in `notes.config.json`.
