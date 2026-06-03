@@ -1,5 +1,19 @@
 window.NOTES = [
   {
+    "title": "RadAgent：基于工具调用的 AI Agent 用于胸部 CT 逐步解读与报告生成",
+    "type": "单篇",
+    "date": "2026-06-03",
+    "url": "notes/radagent-tool-calling-chest-ct/",
+    "summary": "面向胸部 CT 的 AI Agent，通过工具调用实现逐步影像解读与自动化报告生成。",
+    "tags": [
+      "chest CT",
+      "AI Agent",
+      "report generation",
+      "tool calling"
+    ],
+    "accent": false
+  },
+  {
     "title": "APOLLO 虚拟患者基础模型",
     "type": "单篇",
     "date": "2026-06-03",

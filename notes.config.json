@@ -20,7 +20,7 @@
     "assetsDir": "incoming/RadAgent/assets",
     "summary": "面向胸部 CT 的 AI Agent，通过工具调用实现逐步影像解读与自动化报告生成。",
     "tags": ["chest CT", "AI Agent", "report generation", "tool calling"],
-    "visible": false,
+    "visible": true,
     "accent": false
   },
   {
