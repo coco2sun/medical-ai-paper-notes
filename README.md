@@ -58,3 +58,6 @@ If `source` or `assetsDir` no longer exists because `incoming/` was not synced, 
   - `最新笔记`: the first 6 notes from the sorted list.
   - `全部笔记`: every note from the sorted list.
 - If multiple notes share the same date, their relative order follows their order in `notes.config.json`.
+
+## arxiv-paper-html-notes
+`arxiv-paper-html-notes`: generates polished Chinese static HTML notes from one or more arXiv papers. https://github.com/coco2sun/arxiv-paper-html-cn-notes-skill
