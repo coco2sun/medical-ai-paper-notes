@@ -1,6 +1,6 @@
 # CocoSun - Biomedical AI Paper Notes
 
-Static GitHub Pages site for biomedical AI paper notes.
+Static GitHub Pages site for biomedical AI paper notes. https://coco2sun.github.io/medical-ai-paper-notes/
 
 ## Add a New HTML Note
 
