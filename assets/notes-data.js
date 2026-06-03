@@ -1,5 +1,19 @@
 window.NOTES = [
   {
+    "title": "APOLLO 虚拟患者基础模型",
+    "type": "单篇",
+    "date": "2026-06-03",
+    "url": "notes/apollo-virtual-patient-foundation-model/",
+    "summary": "APOLLO 在 MGB-7M 上用 33 年纵向 EHR 记录做多模态时序预训练，并在 322 个任务上验证其临床预测与相似患者检索能力。",
+    "tags": [
+      "virtual patient",
+      "foundation model",
+      "multimodal temporal pretraining",
+      "EHR representation learning"
+    ],
+    "accent": true
+  },
+  {
     "title": "专有病种病理基础模型综述",
     "type": "综述",
     "date": "2026-06-02",
