@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RadAgent：基于工具调用的 AI Agent 实现胸部 CT 逐步解读与报告生成</title>
+  <style>
+:root {
+  --ink: #182230;
+  --muted: #5b6474;
+  --line: #d9e0e8;
+  --soft: #f5f8fb;
+  --blue: #163b66;
+  --teal: #0f766e;
+  --wine: #8f2444;
+  --shadow: 0 18px 44px rgba(24, 34, 48, 0.10);
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  background: #eef3f7;
+  line-height: 1.65;
+}
+a { color: #0b5ea8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.page { max-width: 1220px; margin: 0 auto; background: #fff; }
+.hero {
+  position: relative;
+  padding: 56px 48px 40px;
+  color: #fff;
+  background: linear-gradient(132deg, rgba(18, 50, 82, 0.96), rgba(11, 111, 105, 0.88));
+  overflow: hidden;
+}
+.hero-content { position: relative; z-index: 1; max-width: 980px; }
+.eyebrow { margin: 0 0 14px; color: #b9e7e1; font-size: 14px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+h1 { margin: 0; font-size: clamp(30px, 5vw, 56px); line-height: 1.12; letter-spacing: 0; }
+.hero p { max-width: 860px; margin: 18px 0 0; color: rgba(255,255,255,0.86); font-size: 18px; }
+.hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-top: 30px; }
+.organ-pill {
+  display: block;
+  min-height: 84px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.10);
+  color: #fff;
+  text-decoration: none;
+}
+.organ-pill:hover { background: rgba(255,255,255,0.16); text-decoration: none; }
+.organ-pill strong { display: block; font-size: 18px; }
+.organ-pill span { display: block; margin-top: 4px; color: rgba(255,255,255,0.76); font-size: 12px; line-height: 1.35; }
+section { padding: 42px 48px; }
+section.band { background: var(--soft); }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+h2 { margin: 0; color: var(--blue); font-size: 28px; line-height: 1.25; letter-spacing: 0; }
+.section-note { max-width: 560px; margin: 0; color: var(--muted); font-size: 14px; }
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.metric { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.metric .value { display: block; color: var(--wine); font-size: 28px; font-weight: 900; line-height: 1.1; }
+.metric .label { display: block; margin-top: 9px; color: var(--muted); font-size: 13px; }
+.model-stack { display: grid; gap: 22px; }
+.model-card { border: 1px solid var(--line); border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); overflow: hidden; scroll-margin-top: 18px; }
+.model-head { display: grid; grid-template-columns: 1fr auto; gap: 18px; padding: 24px 26px 18px; border-bottom: 1px solid var(--line); background: linear-gradient(180deg, #fff, #f8fbfd); }
+.model-title h3 { margin: 0; color: var(--ink); font-size: 24px; line-height: 1.25; letter-spacing: 0; }
+.paper-title { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; }
+.tag, .status { display: inline-flex; align-items: center; min-height: 26px; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 800; line-height: 1.2; }
+.tag { color: #123655; background: #eaf2f8; border: 1px solid #c9dceb; }
+.status { color: #743017; background: #fff1e3; border: 1px solid #f0c99e; }
+.model-links { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 13px; font-weight: 800; }
+.model-body { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 24px 26px 26px; }
+.info-table { width: 100%; border-collapse: collapse; font-size: 14px; table-layout: fixed; border: 1px solid #e6edf3; border-radius: var(--radius); overflow: hidden; }
+.info-table th, .info-table td { padding: 12px 14px; border-bottom: 1px solid #e9eef3; vertical-align: top; text-align: left; }
+.info-table th { width: 118px; color: var(--blue); font-weight: 900; background: #f5f9fc; border-right: 1px solid #e9eef3; }
+.info-table tr:last-child th, .info-table tr:last-child td { border-bottom: 0; }
+.paper-figure { margin: 0 0 20px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; overflow: hidden; box-shadow: 0 12px 28px rgba(24,34,48,0.08); }
+.paper-figure img { display: block; width: 100%; max-height: 760px; object-fit: contain; background: #f9fbfd; }
+.paper-figure figcaption { padding: 10px 12px; border-top: 1px solid #edf1f5; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.method-visual { margin: 2px 0 18px; padding: 16px; border: 1px solid #dce6ed; border-radius: var(--radius); background: linear-gradient(135deg, rgba(22,59,102,0.05), rgba(15,118,110,0.06)), #fbfdfe; }
+.visual-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; color: var(--blue); font-size: 13px; font-weight: 900; }
+.visual-title span { color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+.method-lane { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; align-items: stretch; margin-top: 10px; padding: 12px; border: 1px solid #d8e5ec; border-radius: var(--radius); background: #fff; }
+.lane-title { grid-column: 1 / -1; padding: 10px 12px; border-radius: var(--radius); color: #fff; background: var(--blue); font-size: 13px; font-weight: 900; text-align: center; line-height: 1.3; }
+.method-box { padding: 10px; border: 1px solid #dfe8ee; border-radius: var(--radius); background: #f9fcfd; }
+.method-box b { display: block; color: var(--ink); font-size: 12px; line-height: 1.35; }
+.method-box small { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.38; }
+.formula-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-top: 12px; }
+.formula { padding: 11px 12px; border-radius: var(--radius); background: #eef6f4; color: #244058; font-size: 12px; line-height: 1.45; }
+.mini-chip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-top: 12px; }
+.mini-chip { padding: 8px 9px; border: 1px solid #dde7ed; border-radius: var(--radius); background: #fff; color: #405064; font-size: 12px; font-weight: 800; text-align: center; }
+.method-detail { margin: 0 0 18px; padding: 14px 16px; border-left: 4px solid var(--teal); border-radius: 0 var(--radius) var(--radius) 0; background: #f7fbfa; color: #344154; font-size: 14px; }
+.deep-dive { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; margin: 0 0 18px; }
+.note-panel { padding: 14px; border: 1px solid #dfe8ee; border-radius: var(--radius); background: #fff; }
+.note-panel h4 { margin: 0 0 9px; color: var(--blue); font-size: 14px; letter-spacing: 0; }
+.note-panel ul { display: grid; gap: 7px; margin: 0; padding: 0 0 0 18px; color: #3a4656; font-size: 13px; line-height: 1.5; }
+.paper-summary { margin: 0 0 18px; padding: 18px; border: 1px solid #cfdfea; border-radius: var(--radius); background: linear-gradient(135deg, #f7fbff, #f7fbfa); }
+.paper-summary h4 { margin: 0 0 10px; color: var(--blue); font-size: 17px; letter-spacing: 0; }
+.paper-summary p { margin: 0 0 14px; color: #344154; font-size: 14px; }
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.summary-item { padding: 12px; border: 1px solid #dfe8ee; border-radius: var(--radius); background: #fff; }
+.summary-item b { display: block; margin-bottom: 5px; color: var(--teal); font-size: 13px; }
+.summary-item span { display: block; color: var(--muted); font-size: 13px; line-height: 1.48; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.comparison { width: 100%; min-width: 900px; border-collapse: collapse; font-size: 13px; }
+.comparison th, .comparison td { padding: 12px 14px; border-bottom: 1px solid #edf1f5; text-align: left; vertical-align: top; }
+.comparison th { color: #fff; background: var(--blue); font-weight: 900; }
+.insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.insight { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.insight h3 { margin: 0 0 9px; color: var(--blue); font-size: 17px; }
+.insight p { margin: 0; color: var(--muted); font-size: 14px; }
+.refs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.refs li { padding: 13px 15px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; font-size: 14px; }
+.footnote { margin-top: 18px; color: var(--muted); font-size: 12px; }
+.site-credit { padding: 18px 48px 24px; border-top: 1px solid var(--line); background: #f8fbfd; color: #405064; text-align: center; font-size: 13px; line-height: 1.7; }
+.site-credit strong { color: var(--blue); font-weight: 900; }
+@media (max-width: 640px) {
+  .hero, section, .site-credit { padding-left: 18px; padding-right: 18px; }
+  .model-head { display: block; }
+  .model-links { align-items: flex-start; margin-top: 14px; }
+  .model-head, .model-body { padding-left: 18px; padding-right: 18px; }
+  .info-table th { width: 90px; }
+  .paper-figure img { max-height: 420px; }
+}
+
+  </style>
+</head>
+<body>
+  <main class="page">
+
+      <header class="hero">
+        <div class="hero-content">
+          <p class="eyebrow">Chest CT AI Agent · Radiology Report Generation</p>
+          <h1>RadAgent：基于工具调用的 AI Agent 实现胸部 CT 逐步解读与报告生成</h1>
+          <p>RadAgent 是一个基于强化学习训练的放射学 AI Agent，通过可解释的逐步工具调用流程，将胸部 CT 报告生成从黑盒预测转变为透明、可追溯的推理过程。相比基线 CT-Chat，RadAgent 在临床准确性（macro-F1 +6.0 点，相对提升 36.4%）、对抗鲁棒性（+24.7 点，相对提升 41.9%）和忠实性（37.0% vs 0.0%，首次实现量化）三个维度均显著提升。</p>
+          <div class="hero-grid" aria-label="论文导航"><a class="organ-pill" href="#paper-radagent"><strong>RadAgent</strong><span>胸部 CT · 放射学 AI Agent</span></a></div>
+        </div>
+      </header>
+      <section><div class="section-head"><h2>逐篇论文笔记</h2></div><div class="model-stack">
+      <article class="model-card" id="paper-radagent">
+        <div class="model-head">
+          <div class="model-title">
+            <h3>RadAgent</h3>
+            <p class="paper-title">RadAgent: A tool-using AI agent for stepwise interpretation of chest computed tomography</p>
+            <div class="badge-row"><span class="tag">胸部 CT · 放射学 AI Agent</span><span class="tag">v1 (最新 v2, 2026-06-01)</span><span class="status">代码已公开 GitHub，模型权重已发布 HuggingFace（radagent-qwen3-14b-lora）。工具箱使用的模型均为开源（CT-Chat、CT-CLIP、TotalSegmentator、Gemma-3-27b），基于 MCP 协议通信。</span></div>
+          </div>
+          <div class="model-links"><a href="https://arxiv.org/abs/2604.15231v1" target="_blank" rel="noopener">arXiv</a>
+<a href="https://arxiv.org/pdf/2604.15231v1" target="_blank" rel="noopener">PDF</a>
+<a href="https://github.com/eth-medical-ai-lab/rad-agent" target="_blank" rel="noopener">GitHub</a>
+<a href="https://huggingface.co/RadAgent/radagent-qwen3-14b-lora" target="_blank" rel="noopener">🤗 HuggingFace</a>
+<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">License (CC BY-NC-SA 4.0)</a></div>
+        </div>
+        <div class="model-body">
+          <table class="info-table">
+            <tr><th>基础信息</th><td>首个基于强化学习训练的胸部 CT 报告生成 Agent，通过可检查的中间推理轨迹将 3D VLM 报告生成黑盒过程透明化。</td></tr>
+            <tr><th>数据集</th><td>CT-RATE（25,692 例非增强胸部 CT，21,304 名患者，单中心；包含训练/验证/测试集）+ RadChestCT（36,316 例，Duke 大学；公开 3,632 例作为外部测试集）</td></tr>
+            <tr><th>方法学</th><td>Qwen3-14B 作为 Agent 策略核心，基于 ReAct 模式，使用 GRPO 强化学习训练工具调用策略；配备 10 个专用工具（3D/2D VQA、疾病分类、报告生成、解剖分割、积液分割、切片选择×3、CT 窗位）；通过诊断检查清单（9 大类）引导逐步推理；工具通过 MCP 协议跨多 GPU 节点通信。</td></tr>
+            <tr><th>开源</th><td>代码已公开 GitHub，模型权重已发布 HuggingFace（radagent-qwen3-14b-lora）。工具箱使用的模型均为开源（CT-Chat、CT-CLIP、TotalSegmentator、Gemma-3-27b），基于 MCP 协议通信。</td></tr>
+          </table>
+          <div>
+            
+          <figure class="paper-figure">
+            <img src="assets/paper_figure1.png" alt="RadAgent figure">
+            <figcaption>图 1 | RadAgent 系统总览。（a）给定 3D CT 体积及用户指令，RadAgent 首先生成初始报告草稿，随后进入基于诊断检查清单的 Agent 循环——每步规划诊断动作、从工具箱选取工具、以工具输出更新 Scratchpad、持续优化发现，直至证据充分后生成最终报告。（b）示例推理追踪，展示 Agent 如何通过「积液分割→2D VQA→疾病分类」等顺序工具调用来验证初步发现并累积证据。（c）训练与评估管线：临床医师审核的诊断检查清单构建 → 复合奖励课程设计 → 基于 GRPO 的多 GPU 并行 Agent 训练 → CT-RATE 内外测试集及 RadChestCT 外部泛化评估。</figcaption>
+          </figure>
+        
+            
+      <div class="method-visual" style="padding:0;border:none;background:none;">
+        <div class="visual-title" style="margin-bottom:20px;font-size:15px;">RadAgent 算法流程全景图<span style="color:#0f766e;">CT Report Generation Pipeline</span></div>
+
+        <!-- ====== PIPELINE FLOW ====== -->
+        <div style="display:grid;gap:14px;">
+
+          <!-- Stage: Input -->
+          <div style="display:flex;align-items:stretch;gap:0;">
+            <div style="width:48px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#163b66,#1a4d80);border-radius:8px 0 0 8px;color:#fff;font-size:11px;font-weight:900;writing-mode:vertical-rl;letter-spacing:2px;flex-shrink:0;">INPUT</div>
+            <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 18px;background:linear-gradient(135deg,#f0f5fa,#e8f0f6);border:1px solid #c5d5e4;border-left:none;border-radius:0 8px 8px 0;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#163b66,#0f766e);display:flex;align-items:center;justify-content:center;font-size:18px;">🫁</div>
+                <div><div style="font-weight:900;font-size:14px;color:#163b66;">3D CT Volume</div><div style="font-size:11px;color:#5b6474;">NIfTI 格式 · 非增强胸部 CT</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#8f2444,#c44569);display:flex;align-items:center;justify-content:center;font-size:18px;">💬</div>
+                <div><div style="font-weight:900;font-size:14px;color:#8f2444;">User Query</div><div style="font-size:11px;color:#5b6474;">"Generate a complete report for this CT volume"</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <div style="text-align:center;color:#163b66;font-size:20px;line-height:1;">▼</div>
+
+          <!-- Stage: Initial Draft -->
+          <div style="display:flex;align-items:stretch;gap:0;">
+            <div style="width:48px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#0f766e,#0d9488);border-radius:8px 0 0 8px;color:#fff;font-size:10px;font-weight:900;writing-mode:vertical-rl;letter-spacing:2px;flex-shrink:0;">DRAFT</div>
+            <div style="flex:1;padding:14px 18px;background:linear-gradient(135deg,#f0fdfa,#e6f7f4);border:1px solid #99d6cf;border-left:none;border-radius:0 8px 8px 0;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:14px;">R</div>
+                  <div>
+                    <div style="font-weight:900;font-size:14px;color:#0f766e;">report_generation_tool (:7006)</div>
+                    <div style="font-size:11px;color:#5b6474;">CT-Chat 2 生成初始报告草稿</div>
+                  </div>
+                </div>
+                <div style="font-size:11px;color:#0f766e;font-weight:800;background:#ccfbf1;padding:4px 10px;border-radius:99px;">Step 0</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <div style="text-align:center;color:#0f766e;font-size:20px;line-height:1;">▼</div>
+
+          <!-- Stage: Agent Loop Header -->
+          <div style="background:linear-gradient(135deg,#163b66,#1a4d80);border-radius:8px;padding:14px 18px;color:#fff;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-weight:900;font-size:16px;">🔄 Agent Loop (ReAct Pattern · 最大 30 轮)</div>
+              <div style="font-size:11px;opacity:0.8;">Qwen3-14B-Instruct · temperature=1.0 · max 4096 t/turn</div>
+            </div>
+          </div>
+
+          <!-- Agent Loop Detail: 3 columns -->
+          <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:10px;">
+
+            <!-- Left: Checklist -->
+            <div style="background:#fff;border:1px solid #d4dce6;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:6px;">
+              <div style="font-weight:900;font-size:12px;color:#163b66;margin-bottom:4px;display:flex;align-items:center;gap:6px;">
+                <span style="background:#e8f0f8;padding:2px 8px;border-radius:4px;font-size:10px;">CHECKLIST</span> 诊断检查清单 (9 类)
+              </div>
+              <div style="display:grid;gap:3px;">
+                <div style="font-size:10px;padding:3px 8px;background:#f5f8fb;border-radius:4px;color:#344154;"><b>1.</b> 气道 · 气管/支气管/扩张</div>
+                <div style="font-size:10px;padding:3px 8px;background:#f5f8fb;border-radius:4px;color:#344154;"><b>2.</b> 肺实质 · 结节/肿块/GGO</div>
+                <div style="font-size:10px;padding:3px 8px;background:#f5f8fb;border-radius:4px;color:#344154;"><b>3.</b> 胸膜 · 积液/气胸/增厚</div>
+                <div style="font-size:10px;padding:3px 8px;background:#f5f8fb;border-radius:4px;color:#344154;"><b>4.</b> 心血管 · 心包/主动脉</div>
+                <div style="font-size:10px;padding:3px 8px;background:#f5f8fb;border-radius:4px;color:#344154;"><b>5.</b> 膈肌 · 肝/脾/肾/胰腺</div>
+                <div style="font-size:10px;padding:3px 8px;background:#f5f8fb;border-radius:4px;color:#344154;"><b>6.</b> 脊柱 · 骨折/病变/狭窄</div>
+                <div style="font-size:10px;padding:3px 8px;background:#f5f8fb;border-radius:4px;color:#344154;"><b>7.</b> 胸壁 · 肌肉/肿块/气肿</div>
+                <div style="font-size:10px;padding:3px 8px;background:#f5f8fb;border-radius:4px;color:#344154;"><b>8.</b> 乳腺腋窝 · 淋巴结</div>
+                <div style="font-size:10px;padding:3px 8px;background:#f5f8fb;border-radius:4px;color:#344154;"><b>9.</b> 器械 · 导管/起搏器</div>
+              </div>
+            </div>
+
+            <!-- Center: Agent Decision Loop -->
+            <div style="background:linear-gradient(180deg,#f8fbfe,#eef5fa);border:2px solid #163b66;border-radius:8px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:10px;">
+              <div style="display:flex;align-items:center;gap:8px;width:100%;">
+                <div style="flex:1;text-align:center;background:#163b66;color:#fff;padding:10px 0;border-radius:6px;font-weight:900;font-size:13px;">🧠 Plan</div>
+                <div style="color:#163b66;font-weight:900;">→</div>
+                <div style="flex:1;text-align:center;background:#0f766e;color:#fff;padding:10px 0;border-radius:6px;font-weight:900;font-size:13px;">🔧 Call Tool</div>
+                <div style="color:#163b66;font-weight:900;">→</div>
+                <div style="flex:1;text-align:center;background:#8f2444;color:#fff;padding:10px 0;border-radius:6px;font-weight:900;font-size:13px;">📝 Update</div>
+              </div>
+              <div style="font-size:10px;color:#5b6474;text-align:center;max-width:320px;">每轮输出 JSON: <code style="background:#e8f0f6;padding:2px 5px;border-radius:3px;font-size:9px;">{reasoning, preliminary_findings, action, tool_name, arguments}</code></div>
+              <div style="display:flex;align-items:center;gap:6px;background:#fff;border:1px dashed #c5d5e4;border-radius:6px;padding:10px 14px;width:100%;">
+                <span style="font-weight:900;font-size:11px;color:#163b66;">Scratchpad:</span>
+                <span style="font-size:10px;color:#5b6474;">preliminary_findings 证据共识池 · 跨工具交叉验证 · 矛盾消解</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#0f766e;"></div>
+                <div style="font-size:10px;color:#5b6474;">证据充分 →</div>
+                <div style="font-weight:900;font-size:12px;color:#163b66;">final_answer</div>
+              </div>
+              <svg width="280" height="20" style="margin-top:-4px;"><defs><marker id="arrowLoop" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#163b66"/></marker></defs><path d="M140,2 C200,2 270,10 270,18 C270,28 200,30 140,30 C80,30 10,28 10,18 C10,10 80,2 140,2" fill="none" stroke="#163b66" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowLoop)"/></svg>
+              <div style="font-size:10px;color:#163b66;font-weight:800;">证据不足 → 继续循环</div>
+            </div>
+
+            <!-- Right: Tool Selection -->
+            <div style="background:#fff;border:1px solid #d4dce6;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:5px;">
+              <div style="font-weight:900;font-size:12px;color:#0f766e;margin-bottom:4px;display:flex;align-items:center;gap:6px;">
+                <span style="background:#e6f7f4;padding:2px 8px;border-radius:4px;font-size:10px;">SELECT</span> 工具选择
+              </div>
+              <div style="font-size:10px;padding:3px 8px;background:#f0fdfa;border-radius:4px;color:#0f766e;border-left:2px solid #0f766e;">🔍 ct_vqa — 3D 问答</div>
+              <div style="font-size:10px;padding:3px 8px;background:#f0fdfa;border-radius:4px;color:#0f766e;border-left:2px solid #0f766e;">🖼️ slice_vqa — 2D 问答</div>
+              <div style="font-size:10px;padding:3px 8px;background:#f0fdfa;border-radius:4px;color:#0f766e;border-left:2px solid #0f766e;">🏷️ classifier — 疾病分类</div>
+              <div style="font-size:10px;padding:3px 8px;background:#f0fdfa;border-radius:4px;color:#0f766e;border-left:2px solid #0f766e;">✂️ segmentation — 分割</div>
+              <div style="font-size:10px;padding:3px 8px;background:#f0fdfa;border-radius:4px;color:#0f766e;border-left:2px solid #0f766e;">📐 slice_select — 切片</div>
+              <div style="font-size:10px;padding:3px 8px;background:#f0fdfa;border-radius:4px;color:#0f766e;border-left:2px solid #0f766e;">🪟 windowing — 窗位</div>
+            </div>
+          </div>
+
+          <!-- Stage: Toolbox Grid -->
+          <div style="background:linear-gradient(135deg,#1e293b,#0f172a);border-radius:8px;padding:16px;color:#fff;">
+            <div style="font-weight:900;font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+              <span style="background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:99px;font-size:10px;">MCP GRID</span> RadAgent Toolbox · 13 FastMCP HTTP Services
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;">
+              <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:10px 12px;">
+                <div style="font-weight:900;font-size:12px;color:#7dd3fc;">ct_vqa</div>
+                <div style="font-size:10px;opacity:0.7;">CT-Chat · 3D VQA</div>
+                <div style="font-size:9px;opacity:0.5;margin-top:4px;">:6009 · GPU 1,2</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:10px 12px;">
+                <div style="font-weight:900;font-size:12px;color:#7dd3fc;">slice_vqa</div>
+                <div style="font-size:10px;opacity:0.7;">Gemini/GPT-4O · 2D</div>
+                <div style="font-size:9px;opacity:0.5;margin-top:4px;">:7016 · GPU 0,1</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:10px 12px;">
+                <div style="font-weight:900;font-size:12px;color:#fbbf24;">classifier</div>
+                <div style="font-size:10px;opacity:0.7;">CT-CLIP · 18 病变</div>
+                <div style="font-size:9px;opacity:0.5;margin-top:4px;">:7010 · GPU 2</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:10px 12px;">
+                <div style="font-weight:900;font-size:12px;color:#fbbf24;">report_gen</div>
+                <div style="font-size:10px;opacity:0.7;">CT-Chat · 草稿</div>
+                <div style="font-size:9px;opacity:0.5;margin-top:4px;">:7006 · GPU 0</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:10px 12px;">
+                <div style="font-weight:900;font-size:12px;color:#a78bfa;">seg_anatomy</div>
+                <div style="font-size:10px;opacity:0.7;">TotalSegmentator</div>
+                <div style="font-size:9px;opacity:0.5;margin-top:4px;">:7011 · GPU 2</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:10px 12px;">
+                <div style="font-weight:900;font-size:12px;color:#a78bfa;">seg_effusion</div>
+                <div style="font-size:10px;opacity:0.7;">胸膜/心包积液</div>
+                <div style="font-size:9px;opacity:0.5;margin-top:4px;">:7012 · GPU 2</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:10px 12px;">
+                <div style="font-weight:900;font-size:12px;color:#f472b6;">slice_biggest</div>
+                <div style="font-size:10px;opacity:0.7;">最大面积切面</div>
+                <div style="font-size:9px;opacity:0.5;margin-top:4px;">:7014 · GPU 0</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:10px 12px;">
+                <div style="font-weight:900;font-size:12px;color:#f472b6;">slice_multi</div>
+                <div style="font-size:10px;opacity:0.7;">等距多切片 (3)</div>
+                <div style="font-size:9px;opacity:0.5;margin-top:4px;">:7018 · GPU 0</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:10px 12px;">
+                <div style="font-weight:900;font-size:12px;color:#f472b6;">slice_extract</div>
+                <div style="font-size:10px;opacity:0.7;">均匀提取 (5)</div>
+                <div style="font-size:9px;opacity:0.5;margin-top:4px;">:7017 · GPU 0</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:10px 12px;">
+                <div style="font-weight:900;font-size:12px;color:#34d399;">windowing</div>
+                <div style="font-size:10px;opacity:0.7;">肺/骨/腹/纵隔</div>
+                <div style="font-size:9px;opacity:0.5;margin-top:4px;">:7013 · GPU 0</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <div style="text-align:center;color:#163b66;font-size:20px;line-height:1;">▼</div>
+
+          <!-- Stage: Training -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="background:linear-gradient(135deg,#fef2f2,#fdf2f8);border:1px solid #f0c9c0;border-radius:8px;padding:14px;">
+              <div style="font-weight:900;font-size:13px;color:#8f2444;margin-bottom:8px;">🎯 GRPO 训练 · Composite Reward</div>
+              <div style="display:grid;gap:5px;">
+                <div style="display:flex;justify-content:space-between;font-size:11px;background:#fff;padding:5px 10px;border-radius:4px;"><span>LLM Judge F1</span><span style="font-weight:900;color:#8f2444;">λ = 1.0</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;background:#fff;padding:5px 10px;border-radius:4px;"><span>Text Classifier F1</span><span style="font-weight:900;color:#8f2444;">λ = 1.0</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;background:#fff;padding:5px 10px;border-radius:4px;"><span>Tool Diversity + Coherence</span><span style="font-weight:900;color:#8f2444;">λ = 0.5</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;background:#fff;padding:5px 10px;border-radius:4px;"><span>Tool Success Rate</span><span style="font-weight:900;color:#8f2444;">λ = 0.1</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;background:#fff;padding:5px 10px;border-radius:4px;"><span>KL Divergence Regularization</span><span style="font-weight:900;color:#8f2444;">β = 0.01</span></div>
+              </div>
+              <div style="font-size:10px;color:#5b6474;margin-top:6px;text-align:center;">batch_size=6 · 8 rollouts/group · ART+TRL GRPOTrainer</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#f0fdfa,#e6f7f4);border:1px solid #99d6cf;border-radius:8px;padding:14px;">
+              <div style="font-weight:900;font-size:13px;color:#0f766e;margin-bottom:8px;">📊 最终报告 & 评估</div>
+              <div style="display:grid;gap:5px;">
+                <div style="font-size:11px;background:#fff;padding:5px 10px;border-radius:4px;display:flex;align-items:center;gap:6px;">
+                  <span style="background:#0f766e;color:#fff;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:900;">macro-F1</span>
+                  <span>CT-RATE Test: <b style="color:#0f766e;">+6.0 (+36.4%)</b></span>
+                </div>
+                <div style="font-size:11px;background:#fff;padding:5px 10px;border-radius:4px;display:flex;align-items:center;gap:6px;">
+                  <span style="background:#0f766e;color:#fff;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:900;">micro-F1</span>
+                  <span>CT-RATE Test: <b style="color:#0f766e;">+5.4 (+19.6%)</b></span>
+                </div>
+                <div style="font-size:11px;background:#fff;padding:5px 10px;border-radius:4px;display:flex;align-items:center;gap:6px;">
+                  <span style="background:#8f2444;color:#fff;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:900;">Robust</span>
+                  <span>对抗鲁棒性 83.7% vs CT-Chat 58.9%</span>
+                </div>
+                <div style="font-size:11px;background:#fff;padding:5px 10px;border-radius:4px;display:flex;align-items:center;gap:6px;">
+                  <span style="background:#8f2444;color:#fff;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:900;">Faith</span>
+                  <span>忠实性 37.0% vs CT-Chat 0.0%（全新能力）</span>
+                </div>
+                <div style="font-size:10px;color:#5b6474;text-align:center;">External: RadChestCT · 95% bootstrap CI · 双侧置换检验</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage: Deployment -->
+          <div style="display:flex;align-items:stretch;gap:0;">
+            <div style="width:48px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#475569,#334155);border-radius:8px 0 0 8px;color:#fff;font-size:10px;font-weight:900;writing-mode:vertical-rl;letter-spacing:2px;flex-shrink:0;">DEPLOY</div>
+            <div style="flex:1;padding:12px 18px;background:#f8fafc;border:1px solid #cbd5e1;border-left:none;border-radius:0 8px 8px 0;">
+              <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></div>
+                  <span style="font-size:12px;font-weight:800;color:#334155;">Node 1:</span>
+                  <span style="font-size:11px;color:#5b6474;">Qwen3-14B Agent</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="width:10px;height:10px;border-radius:50%;background:#3b82f6;"></div>
+                  <span style="font-size:12px;font-weight:800;color:#334155;">Node 2 (4 GPU):</span>
+                  <span style="font-size:11px;color:#5b6474;">13 MCP Tool Services</span>
+                </div>
+                <div style="font-size:11px;color:#5b6474;">|</div>
+                <div style="font-size:11px;color:#5b6474;">MultiServerManager · 心跳检测 · 训练后可精简</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="formula-strip" style="margin-top:16px;">
+          <div class="formula" style="background:#eef6f4;">🎯 R = λ₁·F1_LLM + λ₂·F1_RadBERT + λ₃·ToolDiversity + λ₄·ToolSuccess + λ₅·TrajectoryJudge − β·KL(π||π_ref)</div>
+          <div class="formula" style="background:#fef2f2;">🛡️ 对抗鲁棒性: P(ŷ_wrong = y* | ŷ_orig = y*) = 83.7% (CT-Chat: 58.9%, +24.7 pts) — hint injection 实验</div>
+          <div class="formula" style="background:#fef2f2;">🔍 Faithfulness: 37.0% — CT-Chat 为 0.0%，首次实现报告生成忠实性量化</div>
+        </div>
+      </div>
+    
+            <p class="method-detail"><b>方法要点：</b>RadAgent 通过可检查的中间推理轨迹，将 CT 报告生成从不可解释的黑盒转变为透明过程。临床医生可直接审视每一步工具调用和证据来源，验证或修正发现。这为人机协作创造了新可能——临床医生可在 Agent 环境中直接调取分割结果、可视化阳性发现，形成人机闭环工作流。</p>
+            <div class="deep-dive">
+              <div class="note-panel"><h4 data-icon="DATA">数据集细节</h4><ul><li>CT-RATE：25,692 非增强胸部 CT，21,304 名患者，单中心，含 18 种病理标签及文本分类器</li><li>训练/验证/测试切分：官方训练集 + 自留 1,000 例验证集 + 官方测试集</li><li>RadChestCT：36,316 例，Duke 大学医学中心，36 类异常标签 + 52 类解剖位置标签</li><li>外部测试：使用 RadChestCT 公开子集（3,632 例，原数据集 10%）</li><li>病灶标签：CT-RATE 提供 18 类病理多标签 + 自定义文本分类器（macro/micro-F1 标准评估）</li></ul></div>
+              <div class="note-panel"><h4 data-icon="METH">方法学细节</h4><ul><li>Agent 策略模型：Qwen3-14B-Instruct (OpenPipe)，temperature=1.0，max 4096 tokens/turn</li><li>Agent 变体：V8c（主模型，preliminary_findings 共识）&gt; V8b（无共识字段消融）&gt; V8minus（少工具消融）&gt; Vanilla（无 Agent 基线）</li><li>训练框架：ART (~openpipe/art) + TRL GRPOTrainer，batch_size=6，每场景 8 次 rollout</li><li>复合奖励权重：LLM Judge F1 λ=1.0，Text Classifier F1 λ=1.0，Manual Tool Judge λ=0.5，Tool Success λ=0.1，KL 正则 β=0.01</li><li>服务架构：13 个独立 FastMCP HTTP 服务（端口 6009-8012），通过 MultiServerManager 统一管理 + 心跳检测</li><li>Agent 循环：每轮输出 JSON {reasoning, preliminary_findings, action, tool_name, arguments}，最大 30 轮</li><li>推理部署：8 GPU 双节点；训练后可关闭不常用工具以降低计算开销</li></ul></div>
+              <div class="note-panel"><h4 data-icon="VAL">验证结果细节</h4><ul><li>CT-RATE 验证集：macro-F1 显著优于 CT-Chat 基线</li><li>CT-RATE 测试集：macro-F1 +6.0 点（+36.4% 相对），micro-F1 +5.4 点（+19.6% 相对）</li><li>RadChestCT 外部测试集：泛化性能显著优于 CT-Chat（训练后优于训练无关版本）</li><li>鲁棒性实验（1,000 例 hint injection）：83.7% vs CT-Chat 58.9%（+24.7 点，+41.9% 相对）</li><li>忠实性实验：RadAgent 37.0% vs CT-Chat 0.0% — Agent 中间追踪可区分证据驱动与提示驱动</li><li>消融实验：无序列奖励导致策略崩溃；从头序列奖励损害报告质量与探索</li></ul></div>
+            </div>
+            <div class="paper-summary">
+              <h4>RadAgent 论文概括总结</h4>
+              <p>RadAgent 是首个基于强化学习训练的胸部 CT 报告生成 AI Agent。它不依赖手工设计的固定流程或提示工程，而是通过 GRPO 自动学习最优工具调用策略。其核心创新在于：将 3D VLM 的单步黑盒报告生成，转变为包含中间证据链的透明多步推理过程。在临床准确性、对抗鲁棒性和输出忠实性三个维度，RadAgent 全面超越其基础 VLM（CT-Chat），尤其是在忠实性上实现了从无到有的突破。</p>
+              <div class="summary-grid"><div class="summary-item"><b>研究定位</b><span>解决 3D VLM 在 CT 报告生成中缺乏可解释推理轨迹的问题，构建可追溯、可验证的 Agent 系统。</span></div><div class="summary-item"><b>技术贡献</b><span>提出 RL 训练的 Agent 框架（Qwen3-14B + GRPO + 复合奖励），整合 10 个专用 CT 分析工具、诊断检查清单和 MCP 通信协议，自动学习有效工具调用策略。</span></div><div class="summary-item"><b>验证体系</b><span>CT-RATE 内外测试集 + RadChestCT 外部泛化验证 + hint injection 鲁棒性/忠实性实验 + 消融实验验证复合奖励设计必要性。使用 95% bootstrap 置信区间和双侧置换检验。</span></div><div class="summary-item"><b>临床意义</b><span>中间推理追踪使临床医生能够审视每个诊断决策的证据基础。可扩展为人在回路工作流：Agent 先出报告，医生直接调取分割结果验证发现。</span></div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div></section>
+      
+      <section><div class="section-head"><h2>综合分析</h2><p class="section-note">RadAgent 代表了放射学 AI 从「端到端黑盒预测」向「可解释 Agent 推理」的重要范式转变。通过将 3D VLM 嵌入 RL 训练的 Agent 框架，RadAgent 实现了临床准确性、鲁棒性和忠实性三方面提升。其核心启示是：结构化推理过程本身即是一种重要的临床安全机制。</p></div><div class="insight-grid"><div class="insight"><h3>从黑盒到透明推理</h3><p>传统 3D VLM 在基准测试上表现良好，但缺乏中间推理追踪。RadAgent 证明，将报告生成分解为可检查的逐步工具调用不仅能提升准确性，还首次实现了忠实性（CT-Chat 为 0%），这对临床部署至关重要。</p></div><div class="insight"><h3>RL 训练优于手工设计</h3><p>训练无关的 Agent 版本已超过 VLM 基线，但 RL 训练进一步放大了优势——尤其是在外部泛化上。复合奖励课程（诊断质量 + 工具序列连贯性）是训练成功的关键，单独使用任一奖励都会导致性能下降或策略崩溃。</p></div><div class="insight"><h3>通用 Agent + 专用工具</h3><p>RadAgent 的设计哲学——通用 LLM 作为灵活前端，动态路由子任务到最合适的专用模型——为弥合 AI 系统的广度与精度之间的长期矛盾提供了可行路径。</p></div></div></section>
+      <section class="band"><div class="section-head"><h2>参考链接</h2></div><ul class="refs"><li>RadAgent：<a href="https://arxiv.org/abs/2604.15231v1" target="_blank" rel="noopener">arXiv</a>
+<a href="https://arxiv.org/pdf/2604.15231v1" target="_blank" rel="noopener">PDF</a>
+<a href="https://github.com/eth-medical-ai-lab/rad-agent" target="_blank" rel="noopener">GitHub</a>
+<a href="https://huggingface.co/RadAgent/radagent-qwen3-14b-lora" target="_blank" rel="noopener">🤗 HuggingFace</a>
+<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">License (CC BY-NC-SA 4.0)</a></li></ul></section>
+      <footer class="site-credit"><div>AI-assisted paper analysis · Generated with <strong>GitHub Copilot</strong>,</div><div>📝 Paper Analysis &amp; Curation by <strong>CocoSun</strong></div></footer>
+    
+  </main>
+<!-- sun-blog-home-link:start -->
+<a class="sun-blog-home-link" href="../../" aria-label="返回主页">← 首页</a>
+<style>
+  .sun-blog-home-link {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 2147483647;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 8px 13px;
+    border: 1px solid rgba(23, 32, 51, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 10px 26px rgba(23, 32, 51, 0.16);
+    color: #174a7c;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+  }
+
+  .sun-blog-home-link:hover {
+    color: #8f2444;
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    .sun-blog-home-link {
+      top: 12px;
+      left: 12px;
+      min-height: 34px;
+      padding: 7px 11px;
+      font-size: 13px;
+    }
+  }
+</style>
+<!-- sun-blog-home-link:end -->
+</body>
+</html>
