@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>从多模态模型构建谈生物医学数据集缺失 — 深度综合评述</title>
+  <style>
+    :root{
+      --bg:#f6f8fc;--card:#fff;--ink:#172033;--muted:#667085;--line:#d9e2ef;
+      --blue:#2557d6;--cyan:#0b7fab;--green:#087c61;--amber:#b76b00;
+      --soft:#eef4ff;--soft2:#f5fbff;--shadow:0 16px 50px rgba(21,35,60,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;background:
+      radial-gradient(circle at 10% 0%,#e8f0ff 0,transparent 32%),
+      radial-gradient(circle at 95% 8%,#e8fff8 0,transparent 30%),var(--bg);
+      color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
+      "PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.76;
+    }
+    a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+    .wrap{max-width:1240px;margin:0 auto;padding:38px 22px 80px}
+    .hero{
+      border:1px solid var(--line);border-radius:30px;background:linear-gradient(135deg,#wrap 0%,#f2f6ff 60%,#f1fffb 100%);
+      box-shadow:var(--shadow);padding:42px 42px 34px;margin-bottom:24px;position:relative;overflow:hidden;
+      background-color:#fff;
+    }
+    .hero:after{content:"";position:absolute;right:-80px;top:-80px;width:240px;height:240px;border-radius:50%;background:rgba(37,87,214,.06)}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;background:#eaf1ff;color:var(--blue);font-weight:800;
+      padding:6px 12px;border-radius:999px;font-size:13px;margin-bottom:14px}
+    h1{font-size:clamp(30px,4.2vw,50px);line-height:1.15;margin:0 0 14px;letter-spacing:-.04em}
+    .dek{font-size:17.5px;color:#4d5b70;max-width:980px;margin:0;line-height:1.6}
+    .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+    .pill{border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:999px;color:#445066;font-size:13px;font-weight:700}
+    .layout{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start}
+    
+    /* Sticky Navigation */
+    nav{
+      position:sticky;top:18px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.9);
+      backdrop-filter:blur(12px);box-shadow:var(--shadow);padding:18px
+    }
+    nav h3{margin:0 0 10px;font-size:15px;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:8px}
+    nav a{display:block;padding:9px 10px;border-radius:10px;color:#344054;font-size:14px;transition:all 0.2s ease}
+    nav a:hover, nav a.active{background:var(--soft);text-decoration:none;color:var(--blue);font-weight:600;padding-left:14px}
+    
+    /* Main Sections */
+    section{
+      background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--radius);
+      box-shadow:var(--shadow);padding:36px;margin-bottom:28px;
+    }
+    h2{font-size:26px;line-height:1.25;margin:0 0 20px;letter-spacing:-.03em;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:10px}
+    h3{font-size:18px;margin:24px 0 12px;color:var(--ink);font-weight:700}
+    p{margin:0 0 16px;color:#374151}
+    .lead{font-size:17.5px;color:#3e4a5f;line-height:1.7}
+    
+    /* Grid & Cards */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0}
+    .card{border:1px solid var(--line);border-radius:18px;background:#fcfdff;padding:18px;transition:all 0.2s ease}
+    .card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--blue)}
+    .card b{display:block;margin-bottom:8px;color:#111827;font-size:15px}
+    .tag{display:inline-block;background:var(--soft);color:var(--blue);font-size:11px;font-weight:800;border-radius:999px;padding:3px 8px;margin-bottom:8px}
+    
+    /* Styled Quotes */
+    .quote{border-left:5px solid var(--blue);background:#f7fbff;border-radius:14px;padding:18px 20px;margin:20px 0;color:#344054}
+    .quote.warn{border-left-color:var(--amber);background:#fffaf2;color:#663c00}
+    .quote.ok{border-left-color:var(--green);background:#f2fbf7;color:#044c3b}
+    
+    /* Tables */
+    .t-wrap{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:16px}
+    table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;background:#fff}
+    th,td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:13px 15px;vertical-align:top}
+    tr:last-child td{border-bottom:0} th:last-child,td:last-child{border-right:0}
+    th{background:#f1f5fb;text-align:left;color:#243047;font-weight:900}
+    tr:hover td{background:#fafbfe}
+    
+    /* Diagrams and SVGs */
+    .diagram{background:#0f172a;color:#d9e7ff;border-radius:18px;padding:20px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.55;margin:18px 0}
+    .illus{margin:24px 0;text-align:center;border:1px solid var(--line);border-radius:18px;padding:24px;background:#fff}
+    .illus svg{max-width:100%;height:auto;display:block;margin:0 auto}
+    .illus-caption{font-size:12.5px;color:var(--muted);margin-top:12px;font-style:italic}
+    
+    /* CSS Charts */
+    .bar-chart { margin: 20px 0; border: 1px solid var(--line); border-radius: 16px; padding: 22px; background: #fff; }
+    .bar-row { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+    .bar-row:last-child { margin-bottom: 0; }
+    .bar-label { width: 140px; font-size: 12.5px; font-weight: 700; color: var(--ink); text-align: right; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 24px; background: var(--bg); border-radius: 6px; overflow: hidden; position: relative; }
+    .bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; font-size: 11px; font-weight: 700; color: white; transition: width 1s ease-in-out; }
+    .bar-fill.blue { background: var(--blue); }
+    .bar-fill.cyan { background: var(--cyan); }
+    .bar-fill.green { background: var(--green); }
+    .bar-fill.amber { background: var(--amber); }
+    .bar-fill.rose { background: #d62557; }
+    .bar-value { width: 85px; font-size: 12.5px; font-weight: 700; color: var(--ink); }
+
+    /* Comparison Row */
+    .compare-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; margin: 20px 0; align-items: stretch; }
+    .compare-side { padding: 22px; border-radius: 16px; border: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
+    .compare-side.left { background: #fff5f5; border-color: #ffd9d9; text-align: center; }
+    .compare-side.right { background: #f2fbf7; border-color: #d1f2e5; text-align: center; }
+    .compare-center { display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; color: var(--muted); }
+    .compare-title { font-weight: 700; font-size: 14px; color: var(--ink); margin-bottom: 6px; }
+    .compare-value { font-size: 30px; font-weight: 900; margin-bottom: 4px; }
+    .compare-side.left .compare-value { color: #d62557; }
+    .compare-side.right .compare-value { color: var(--green); }
+    .compare-desc { font-size: 12px; color: var(--muted); line-height: 1.4 }
+
+    /* Company Custom Cards */
+    .card-top-bar { height: 4px; margin: -18px -18px 14px -18px; border-radius: 18px 18px 0 0; }
+    .card-top-bar.blue { background: var(--blue); }
+    .card-top-bar.green { background: var(--green); }
+    .card-top-bar.amber { background: var(--amber); }
+    .card-org { font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size: 10px; font-weight: bold; margin-bottom: 4px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .card-org.blue { color: var(--blue); }
+    .card-org.green { color: var(--green); }
+    .card-org.amber { color: var(--amber); }
+    .card-name { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+    .card-stats { margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 12px; display: flex; flex-direction: column; gap: 4px; }
+    .card-stats span { font-weight: 600; color: var(--ink); }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 28px; margin: 18px 0; }
+    .timeline::before { content: ''; position: absolute; left: 9px; top: 4px; bottom: 4px; width: 2px; background: var(--line); }
+    .tl-item { position: relative; padding-bottom: 22px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot { position: absolute; left: -24px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 3px solid var(--blue); }
+    .tl-item:nth-child(2) .tl-dot { border-color: var(--cyan); }
+    .tl-item:nth-child(3) .tl-dot { border-color: var(--green); }
+    .tl-item:nth-child(4) .tl-dot { border-color: var(--amber); }
+    .tl-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; color: var(--ink); }
+    .tl-desc { font-size: 13.5px; color: var(--muted); }
+
+    /* Progress Bar */
+    .scroll-prog { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--cyan), var(--green)); z-index: 1000; width: 0%; transition: width 0.1s linear; }
+
+    /* Vertical Pipeline Flowchart */
+    .pipeline { max-width: 680px; margin: 24px 0 24px 0; display: flex; flex-direction: column; align-items: stretch; }
+    .pipe-step { display: flex; align-items: flex-start; gap: 16px; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; background: #fff; box-shadow: var(--shadow); transition: all 0.2s; }
+    .pipe-step:hover { border-color: var(--blue); transform: translateX(4px); }
+    .pipe-badge { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: ui-monospace, monospace; font-size: 13px; font-weight: 800; color: #fff; flex-shrink: 0; margin-top: 2px; }
+    .pipe-badge.blue { background: var(--blue); }
+    .pipe-badge.cyan { background: var(--cyan); }
+    .pipe-badge.green { background: var(--green); }
+    .pipe-badge.amber { background: var(--amber); }
+    .pipe-badge.rose { background: #d62557; }
+    .pipe-badge.purple { background: #8b7ec8; }
+    .pipe-content { flex: 1; }
+    .pipe-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .pipe-desc { font-size: 13px; color: var(--muted); line-height: 1.45; }
+    .pipe-arrow { text-align: center; color: var(--line); font-size: 18px; margin: 6px 0; font-weight: bold; line-height: 1; }
+
+    /* Recommendation Grid & Cards */
+    .recommend-section { display: flex; flex-direction: column; gap: 24px; margin-top: 20px; }
+    .recommend-group-title { font-size: 15px; font-weight: 800; color: var(--ink); text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 10px; margin-bottom: 12px; margin-top: 14px; }
+    .recommend-group-title::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    .recommend-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-bottom: 24px; }
+    .recommend-card { border: 1px solid var(--line); border-radius: 16px; padding: 22px; background: #ffffff; box-shadow: var(--shadow); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.25s ease; }
+    .recommend-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(37,87,214,0.06); }
+    .recommend-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .recommend-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold; flex-shrink: 0; }
+    .recommend-icon.blue { background: var(--soft); color: var(--blue); }
+    .recommend-icon.cyan { background: #e0f7f4; color: var(--cyan); }
+    .recommend-icon.green { background: #e6f6ee; color: var(--green); }
+    .recommend-icon.amber { background: var(--amber-lt); color: var(--amber); }
+    .recommend-icon.rose { background: #fff1f2; color: #d62557; }
+    .recommend-icon.purple { background: #eeeaf8; color: #8b7ec8; }
+    
+    .recommend-title { font-size: 15px; font-weight: 800; color: var(--ink); }
+    .recommend-body { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; flex-grow: 1; }
+    .recommend-body strong { color: var(--ink); font-weight: 700; }
+    .recommend-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 10px; margin-top: auto; }
+    .recommend-feasibility { font-size: 10.5px; padding: 4px 10px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; }
+    .recommend-feasibility.high { background: #e2fbf0; color: var(--green); }
+    .recommend-feasibility.medium { background: #fdf5e7; color: var(--amber); }
+    .recommend-feasibility.low { background: #fff1f1; color: #d62557; }
+    
+    @media(max-width:960px){
+      .recommend-grid { grid-template-columns: 1fr; }
+    }
+
+    @media(max-width:960px){
+      .layout{grid-template-columns:1fr}
+      nav{position:relative;top:0}
+      .grid{grid-template-columns:1fr}
+      .hero{padding:30px 24px}
+      .compare-row{grid-template-columns:1fr}
+      .compare-center{padding:10px 0}
+      .cards3{grid-template-columns:1fr}
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0 30px;
+      margin-top: 48px;
+      text-align: center;
+      color: #475467;
+      font-size: 13px;
+      line-height: 1.85;
+    }
+    footer strong {
+      color: #1b253b;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+<div class="scroll-prog" id="scrollIndicator"></div>
+
+<div class="wrap">
+  <!-- ==================== HERO ==================== -->
+  <header class="hero">
+    <div class="eyebrow">Technical Review · Biomedical AI · Multimodal Alignment</div>
+    <h1>从多模态模型构建谈生物医学数据集缺失</h1>
+    <p class="dek">
+      本文深度综合了 Biohub Virtual Biology Initiative ($500M)、Noetik 以及 Bioptimus STELA / M‑Optimus 等前沿实践，
+      深度解析当前生物医学基础模型的“数据阿喀琉斯之踵”：模型能力的瓶颈已不再是算力或算法，而是缺乏可对齐、可复用、可治理的配对多模态人类数据。
+    </p>
+    <div class="meta">
+      <span class="pill">主题：生物基础模型 (Bio-FMs)</span>
+      <span class="pill">核心命题：多模态数据集缺失</span>
+      <span class="pill">产业标杆：Biohub、Noetik、Bioptimus</span>
+      <span class="pill">技术范式：自监督掩码重建 / 空间组学对齐</span>
+    </div>
+  </header>
+
+  <!-- ==================== LAYOUT ==================== -->
+  <div class="layout">
+    <!-- Sidebar Navigation -->
+    <nav id="sidebarNav">
+      <h3>文章大纲</h3>
+      <a href="#thesis">01 核心结论：可学习的对齐数据是瓶颈</a>
+      <a href="#rise">02 多模态基础模型的兴起与必然</a>
+      <a href="#gaps">03 结构性缺口：数据集缺失的八大维度</a>
+      <a href="#tensions">04 多模态建模中的六大核心数据张力</a>
+      <a href="#strategies">05 弥合断裂的六大前沿技术策略</a>
+      <a href="#data-os">06 面向未来的生物数据操作系统</a>
+      <a href="#recommendations">07 建议与行动框架</a>
+      <a href="#refs">参考来源与文献</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+      <!-- SECTION 1 -->
+      <section id="thesis">
+        <h2>01｜核心结论：稀缺的不是“数据”，而是“可学习的对齐数据”</h2>
+        <p class="lead">
+          当前生物医学多模态模型的核心限制，既非算法表达力的短缺，亦非算力算网的不足，而是<strong>不同模态数据之间的“配对密度 (Alignment Density)”</strong>。
+          只有当形态学、分子图谱与临床终点在同一患者、同一细胞、同一时间轴上交汇，数据才能转化为模型可训练的“生物世界规律”。
+        </p>
+        
+        <!-- Compare Box -->
+        <div class="compare-row">
+          <div class="compare-side left">
+            <div class="compare-title">自然语言与互联网数据</div>
+            <div class="compare-value">数万亿</div>
+            <div class="compare-desc"><strong>Token / 图像对</strong><br>网络公开可爬取，单样本生成边际成本趋近于 0。各模态共享语义空间。</div>
+          </div>
+          <div class="compare-center">VS</div>
+          <div class="compare-side right">
+            <div class="compare-title">生物医学多模态数据</div>
+            <div class="compare-value">数千例</div>
+            <div class="compare-desc"><strong>同患者空间配准样本</strong><br>依赖高复杂度手术与前沿测序，单样本边际成本高达 $10K+，物理空间存在孤岛。</div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <span class="tag">系统挑战</span>
+            <b>模型能力受制于配对密度</b>
+            H&amp;E 图像、空间转录组、蛋白表达、基因组变异和临床结局如果无法高度配对，模型只能学习到局部投影，无法还原疾病系统。
+          </div>
+          <div class="card">
+            <span class="tag">现实困境</span>
+            <b>临床数据天然呈现碎片化</b>
+            不同模态产生于截然不同的医疗流程和法规边界。多数数据仅有静态诊断时刻的快照，缺乏后续治疗追踪。
+          </div>
+          <div class="card">
+            <span class="tag">发展共识</span>
+            <b>数据工程已成核心壁垒</b>
+            前沿机构正将工作重心从算法魔改转向高深度对齐的数据积累。数据即护城河成为共识。
+          </div>
+        </div>
+
+        <div class="quote ok">
+          <strong>一句话判断：</strong>真正具有长周期战略价值的生物数据项目，不在于样本数量的单纯扩张，而在于<strong>配对密度 (Alignment Density)</strong>、<strong>人群广度 (Population Breadth)</strong>、<strong>纵向深度 (Longitudinal Depth)</strong> 与<strong>合规复用性 (Consent Portability)</strong> 的深度重塑。
+        </div>
+      </section>
+
+      <!-- SECTION 2 -->
+      <section id="rise">
+        <h2>02｜多模态基础模型的兴起与必然</h2>
+        <p>
+          人类疾病并不是一个单一模态的产物。一个肿瘤微环境中，物理形态、局部细胞空间邻域、基因组突变、RNA 转录状态和蛋白质表达共同构成了疾病状态的全部维度。
+          单一模态（如仅有 Bulk RNA 测序或仅有 H&amp;E 染色切片）只能提供局部的二维折射。
+          生物医学基础模型 (FMs) 必须具备跨尺度的融合能力，才能从相关性走向因果机制的推断。
+        </p>
+
+        <!-- Figure 1: Universal Medical Foundation Model -->
+        <div class="illus" style="margin-bottom: 28px;">
+          <img src="./assets/universal_medical_foundation_model.png" alt="通用医学多模态基础模型架构" style="max-width: 92%; height: auto; border-radius: 12px; border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(0,0,0,0.04); display: block; margin: 0 auto 8px;" />
+          <div class="illus-caption">图 1 — 通用医学多模态基础模型 (Universal Medical Foundation Model) 跨尺度整合架构：汇聚病理、影像、生理波形与高维多组学特征，实现跨模态语义特征对齐与全局表征。</div>
+        </div>
+
+        <!-- Node Case Cards -->
+        <div class="cards3">
+          <div class="card">
+            <div class="card-top-bar blue"></div>
+            <div class="card-org blue">CZ Biohub</div>
+            <div class="card-name">Virtual Biology Initiative</div>
+            <div class="card-body">投入 5 亿美元，联合 Broad、Sanger 等顶尖机构，打造面向全球科学界的虚拟细胞开放数据公地与基准测评底座。</div>
+            <div class="card-stats">
+              <span>· 资金：$500M 承诺</span>
+              <span>· 特性：完全开放与开源共享</span>
+              <span>· 目标：虚拟细胞预测模型</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-top-bar green"></div>
+            <div class="card-org green">Noetik</div>
+            <div class="card-name">多模态人类数据平台</div>
+            <div class="card-body">垂直自建 TMA (组织微阵列) 高通量数据工厂。在同一肿瘤核心样本上同步提取 H&amp;E、空间蛋白、空间转录组和 DNA。</div>
+            <div class="card-stats">
+              <span>· 规模：2.9 PB 数据 / 4.5 亿细胞</span>
+              <span>· 核心：同一样本空间精确配准</span>
+              <span>· 训练：掩码重建无监督预训练</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-top-bar amber"></div>
+            <div class="card-org amber">Bioptimus</div>
+            <div class="card-name">STELA &amp; M-Optimus</div>
+            <div class="card-body">STELA 计划跨越各大洲收集配对图谱。其训练的 M-Optimus 通用模型可实现从病理 H&amp;E 直接精准预测 2 万个基因的空间表达。</div>
+            <div class="card-stats">
+              <span>· 表现：空间基因预测 +60% 飞跃</span>
+              <span>· 突破：多模态反向增益单模态性能</span>
+              <span>· 架构：零样本泛化至未见组织类型</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Figure 2: M-Optimus Model Architecture -->
+        <div class="illus" style="margin-bottom: 28px;">
+          <img src="./assets/M-Optimus_model.png" alt="M-Optimus大模型架构" style="max-width: 92%; height: auto; border-radius: 12px; border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(0,0,0,0.04); display: block; margin: 0 auto 8px;" />
+          <div class="illus-caption">图 2 — Bioptimus 开发的 M-Optimus 多领域与多尺度多模态通用模型架构：利用自监督预训练，从形态学特征块 (Pathology Patches) 中跨尺度预测高维基因空间表达，实现单/多模态信息互补增益。</div>
+        </div>
+
+        <!-- Ecosystem Map SVG -->
+        <div class="illus">
+          <svg viewBox="0 0 920 360" xmlns="http://www.w3.org/2000/svg" style="background:#fafbfd; border-radius: 16px;">
+            <defs>
+              <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="125%">
+                <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#15233c" flood-opacity="0.05" />
+              </filter>
+              <linearGradient id="centerGlow" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#2557d6" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="#0b7fab" stop-opacity="0.05"/>
+              </linearGradient>
+              <pattern id="gridPattern" width="30" height="30" patternUnits="userSpaceOnUse">
+                <path d="M30 0L0 0 0 30" fill="none" stroke="#eef2f8" stroke-width="1"/>
+              </pattern>
+              <marker id="arrowHeadBlue" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+                <path d="M0 0 L10 4 L0 8 Z" fill="#2557d6"/>
+              </marker>
+              <marker id="arrowHeadGreen" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+                <path d="M0 0 L10 4 L0 8 Z" fill="#087c61"/>
+              </marker>
+              <marker id="arrowHeadAmber" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+                <path d="M0 0 L10 4 L0 8 Z" fill="#b76b00"/>
+              </marker>
+            </defs>
+            <!-- Background Grid -->
+            <rect width="920" height="360" fill="url(#gridPattern)" />
+            <rect width="920" height="360" fill="none" stroke="#d9e2ef" stroke-width="1" rx="16"/>
+
+            <!-- Connecting Lines with Gradients and Markers -->
+            <!-- Bioptimus to Center -->
+            <path d="M 285 110 Q 375 110, 410 150" fill="none" stroke="#2557d6" stroke-width="2" marker-end="url(#arrowHeadBlue)" stroke-dasharray="3 3"/>
+            <!-- Noetik to Center -->
+            <path d="M 635 110 Q 545 110, 510 150" fill="none" stroke="#087c61" stroke-width="2" marker-end="url(#arrowHeadGreen)" stroke-dasharray="3 3"/>
+            <!-- Biohub to Center -->
+            <path d="M 460 255 L 460 215" fill="none" stroke="#b76b00" stroke-width="2" marker-end="url(#arrowHeadAmber)" stroke-dasharray="3 3"/>
+
+            <!-- Center Multimodal Hub -->
+            <circle cx="460" cy="180" r="54" fill="url(#centerGlow)" stroke="#2557d6" stroke-width="2" />
+            <circle cx="460" cy="180" r="44" fill="#ffffff" stroke="#2557d6" stroke-width="1" stroke-dasharray="4 2"/>
+            <text x="460" y="174" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="800" font-size="11" fill="#2557d6" letter-spacing="1.5">多模态对齐</text>
+            <text x="460" y="188" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="900" font-size="10" fill="#0b7fab" letter-spacing="1">ALIGNMENT</text>
+            <text x="460" y="200" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8.5" fill="#667085" font-weight="700">BIOMEDICAL AI</text>
+
+            <!-- Pulse rings on central hub -->
+            <circle cx="460" cy="180" r="62" fill="none" stroke="#2557d6" stroke-width="1" opacity="0.15"/>
+            <circle cx="460" cy="180" r="70" fill="none" stroke="#0b7fab" stroke-width="1" opacity="0.08"/>
+
+            <!-- Left Card: Bioptimus (Model Focus) -->
+            <g transform="translate(45, 45)" filter="url(#cardShadow)">
+              <rect x="0" y="0" width="240" height="135" rx="16" fill="#ffffff" stroke="#e1e8f5" stroke-width="1" />
+              <path d="M 0 16 A 16 16 0 0 1 16 0 L 224 0 A 16 16 0 0 1 240 16 L 240 28 L 0 28 Z" fill="#2557d6" />
+              <!-- Card Header Icon & Text -->
+              <text x="16" y="19" font-family="-apple-system, sans-serif" font-weight="800" font-size="12" fill="#ffffff">模型主导型极 (Model-Driven)</text>
+              <text x="16" y="52" font-family="-apple-system, sans-serif" font-weight="900" font-size="16" fill="#172033">Bioptimus</text>
+              <text x="16" y="70" font-family="-apple-system, sans-serif" font-size="9.5" fill="#667085" font-weight="700">M-OPTIMUS-1 / STELA</text>
+              <text x="16" y="92" font-family="-apple-system, sans-serif" font-size="11" fill="#374151">H&amp;E + Bulk RNA + 空间转录组</text>
+              <!-- Highlight Badge -->
+              <rect x="16" y="104" width="208" height="20" rx="6" fill="#f2fbf7"/>
+              <text x="24" y="118" font-family="-apple-system, sans-serif" font-weight="800" font-size="10.5" fill="#087c61">★ 预测准确率提升 +60%</text>
+            </g>
+
+            <!-- Right Card: Noetik (Data-First Factory) -->
+            <g transform="translate(635, 45)" filter="url(#cardShadow)">
+              <rect x="0" y="0" width="240" height="135" rx="16" fill="#ffffff" stroke="#e2eee8" stroke-width="1" />
+              <path d="M 0 16 A 16 16 0 0 1 16 0 L 224 0 A 16 16 0 0 1 240 16 L 240 28 L 0 28 Z" fill="#087c61" />
+              <text x="16" y="19" font-family="-apple-system, sans-serif" font-weight="800" font-size="12" fill="#ffffff">数据自研型极 (Data-Factory)</text>
+              <text x="16" y="52" font-family="-apple-system, sans-serif" font-weight="900" font-size="16" fill="#172033">Noetik</text>
+              <text x="16" y="70" font-family="-apple-system, sans-serif" font-size="9.5" fill="#667085" font-weight="700">HIGH-THROUGHPUT TMA PLATFORM</text>
+              <text x="16" y="92" font-family="-apple-system, sans-serif" font-size="11" fill="#374151">自研高深度空间四模态</text>
+              <!-- Highlight Badge -->
+              <rect x="16" y="104" width="208" height="20" rx="6" fill="#eef4ff"/>
+              <text x="24" y="118" font-family="-apple-system, sans-serif" font-weight="800" font-size="10.5" fill="#2557d6">★ 2.9 PB 数据 / 4.5亿细胞</text>
+            </g>
+
+            <!-- Bottom Card: CZ Biohub (Infrastructure) -->
+            <g transform="translate(340, 255)" filter="url(#cardShadow)">
+              <rect x="0" y="0" width="240" height="85" rx="16" fill="#ffffff" stroke="#fdf4e7" stroke-width="1" />
+              <path d="M 0 16 A 16 16 0 0 1 16 0 L 224 0 A 16 16 0 0 1 240 16 L 240 28 L 0 28 Z" fill="#b76b00" />
+              <text x="16" y="19" font-family="-apple-system, sans-serif" font-weight="800" font-size="12" fill="#ffffff">公共数据底座极 (Infrastructure)</text>
+              <text x="16" y="50" font-family="-apple-system, sans-serif" font-weight="800" font-size="14" fill="#172033">CZ Biohub</text>
+              <text x="16" y="68" font-family="-apple-system, sans-serif" font-size="11" fill="#374151">Virtual Biology Initiative · $500M</text>
+            </g>
+
+            <!-- Flow Descriptions along the path -->
+            <rect x="290" y="132" width="76" height="18" rx="4" fill="#ffffff" stroke="#d9e2ef" stroke-width="1" />
+            <text x="328" y="144" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" fill="#667085">性能验证 ↗</text>
+
+            <rect x="554" y="132" width="76" height="18" rx="4" fill="#ffffff" stroke="#d9e2ef" stroke-width="1" />
+            <text x="592" y="144" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" fill="#667085">↖ 数据回流</text>
+
+            <rect x="422" y="222" width="76" height="18" rx="4" fill="#ffffff" stroke="#d9e2ef" stroke-width="1" />
+            <text x="460" y="234" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" fill="#667085">↑ 开放协同</text>
+          </svg>
+          <div class="illus-caption">图 3 — 2026 年生物医学多模态 AI 生态三极：模型主导（Bioptimus）、数据自研（Noetik）与全球公共基础设施（CZ Biohub VBI）</div>
+        </div>
+      </section>
+
+      <!-- SECTION 3 -->
+      <section id="gaps">
+        <h2>03｜结构性缺口：生物医学数据集缺失的八大维度</h2>
+        <p>
+          生物医学的“数据缺口”不仅表现为简单的数量不充裕。在临床合规、物理对齐、纵向追踪以及元数据质量等八个关键维度，均存在系统性短缺：
+        </p>
+
+        <!-- 8 Gaps Table -->
+        <div class="t-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>缺失维度</th>
+                <th>临床实际表现（融合“病理、影像与生理”）</th>
+                <th>对模型开发的影响</th>
+                <th>推荐解决/质控指标</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>模态缺失 (Modal Gap)</b></td>
+                <td>只拥有临床病历，缺乏配对的组学与病理图像；**临床上大量的CT/MRI/PET影像及ECG/EEG高频生理信号与病理、基因组等高维组学数据处于极度割裂状态，配对患者比例不足1%**。</td>
+                <td>模型无法建立“宏观解剖(影像) - 细胞结构(病理) - 分子机制(组学)”的跨尺度关联，也无法捕捉“动态时序(生理) - 静态分子快照”的跨时间隐性对齐。</td>
+                <td>各模态样本共现度、多模态配对完整比、多向稀疏表对齐率。</td>
+              </tr>
+              <tr>
+                <td><b>标签稀疏 (Outcome Scarcity)</b></td>
+                <td>患者随访不全，治疗终点数据缺失或标准异质；**影像报告多为定性描述，缺乏精准的RECIST肿瘤体积变化定量标签；生理信号监测记录中缺乏心脏骤停或癫痫发作等临床危机事件的精准时间戳标注**。</td>
+                <td>缺乏高质量 Ground Truth，导致自监督模型学到的影像三维特征或高频生理波形难以有效微调，无法稳定预测精确预后或药物动力学反应。</td>
+                <td>随访终点完整率、定量影像指标标注覆盖率、时序事件标注精度。</td>
+              </tr>
+              <tr>
+                <td><b>空间错位 (Spatial Mismatch)</b></td>
+                <td>组织切片取样点与空间转录组学测序点发生微米级物理错位；**三维医学影像的毫米级体素(Voxel)与组织切片（微米级）和组学点（亚微米级）存在极端的尺度跨越，活检穿刺路径在影像上的空间定位往往存在物理偏差**。</td>
+                <td>跨模态对比学习噪声急剧上升，像素级或体素级跨尺度对齐几乎不可能，强行对齐极易拟合因组织剪切、缩水或穿刺形变引入的空间噪声。</td>
+                <td>物理配准重叠百分比、多物理尺度分辨率差值、穿刺误差三维向量偏角。</td>
+              </tr>
+              <tr>
+                <td><b>纵向缺失 (Longitudinal Gap)</b></td>
+                <td>标本仅为诊断时刻的单点切除切片；**高频生理电信号（如ECG/EEG，毫秒级时序）与诊断瞬间的“静态组学/病理快照”之间存在严重的时间尺度不匹配，且极度缺乏治疗前、中、后多时点影像随访数据**。</td>
+                <td>模型沦为静态分类器，无法捕捉到生理波形中瞬态发生的疾病突变前兆，也无法在统一时间轴上建立从宏观病变进展到微观分子演变的因果追踪链条。</td>
+                <td>前瞻性多时点随访密度、高频时序采样时长、多时段影像复查匹配度。</td>
+              </tr>
+              <tr>
+                <td><b>人群偏倚 (Population Bias)</b></td>
+                <td>数据主体局限于少数发达地区三甲中心，缺乏发展中地区和少数族裔代表；**高端多导联生理监测和高场强MRI设备在基层不普及，导致样本严重偏向特定病人群体，影像与生理数据存在隐性的“设备-人群 confounds”**。</td>
+                <td>模型外部泛化极差。影像和生理模型在跨设备（如低端CT/便携式ECG）和非特异性基层人群部署时，由于数据分布发生强烈漂移，导致假阳性和假阴性率剧增。</td>
+                <td>亚组覆盖率、不同设备制造商样本熵、多中心外部验证泛化指数。</td>
+              </tr>
+              <tr>
+                <td><b>元数据不足 (Metadata Scarcity)</b></td>
+                <td>缺少详细溯源记录；**影像DICOM中常缺失扫描仪磁场强度(1.5T/3T)、扫描层厚、对比剂注射时相；生理信号中常缺少通道电极阻抗、硬件滤波参数、电极贴敷解剖部位等核心元数据**。</td>
+                <td>模型极易产生“捷径学习”(Shortcut Learning)，即通过拟合特定品牌扫描仪的重建算子噪声、或特定心电仪器的电磁滤波杂音来取得虚高表现，而非学习真实的病理特征。</td>
+                <td>关键实验/影像元数据完整率、生理电参数标定比、标准OMOP/FHIR映射率。</td>
+              </tr>
+              <tr>
+                <td><b>溯源追踪缺失 (Provenance Mismatch)</b></td>
+                <td>最初取材到生成特征嵌入的阶段版本混沌不清；**影像在PACS传输中常遭遇有损压缩失真，生理信号在降阶采样、带通滤波、去除肌电/基线漂移等预处理过程中的运行脚本和参数无法回溯**。</td>
+                <td>实验结果不可复现，无法审计数据处理流水线中人为过滤所带来的信息丢失或噪音伪影，导致模型评估无法排除预处理步骤带来的虚假关联。</td>
+                <td>数据谱系(Lineage)节点完整性、信号预处理 pipeline 版本一致性。</td>
+              </tr>
+              <tr>
+                <td><b>同意权与使用范围限制 (Consent Limitation)</b></td>
+                <td>伦理同意不明确且缺少机器可读性；**三维面部CT/MRI重建具有肖像隐私泄漏风险，DICOM元数据中易残留PHI；生理电信号（如EEG）甚至包含了高度个性化的脑波生物特征指纹**。</td>
+                <td>数据跨境流通与跨中心共享阻力极大，多中心影像与生理序列模型无法通过简单的数据聚拢进行大规模预训练，阻碍了“大模型飞轮”的建立。</td>
+                <td>机器可读Consent覆盖率、隐私脱敏核查通过率、去隐私化重构抵抗力。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>临床前沿模态解构：影像数据与生理信号的缺口剖析</h3>
+        <p>
+          除了组织病理切片 and 高维分子组学外，宏观维度的<strong>临床影像数据（如 CT、MRI、PET-CT）</strong>与高频时序维度的<strong>生理信号（如 ECG 心电图、EEG 脑电图、监护仪时序数据）</strong>也是生物医学多模态模型不可或缺的拼图，然而它们在数据融合与对齐中面临特殊的缺失与工程瓶颈：
+        </p>
+
+        <div class="grid" style="margin-bottom: 24px;">
+          <!-- Card 1 -->
+          <div class="card">
+            <span class="tag">影像数据</span>
+            <b>宏观三维放射影像与微观组学的尺度断裂 (Macro-Micro Scale Disconnect)</b>
+            <p style="margin-top: 8px; font-size: 0.88rem; line-height: 1.65; color: var(--muted); margin-bottom: 0;">
+              临床CT/MRI/PET等影像的三维空间分辨率多为<strong>毫米级 (Voxel-level)</strong>，而病理切片（微米级）和空间转录组/蛋白质组学（亚细胞级）则是<strong>微米至纳米级</strong>。物理尺度跨越了近千倍。从物理学来看，一个1 mm³的影像体素中包含约 10<sup>5</sup> - 10<sup>6</sup> 个形态异质的混合细胞（包含肿瘤实质、免疫微环境、血管基质等）。试图用影像像素强度特征预测局部高维分子表达是一个数学上严重**病态的逆问题 (Ill-posed Inverse Problem)**。此外，活检穿刺取样缺乏3D高精度配准记录，使得直观的体素对齐病理图像几乎不可实现。
+            </p>
+          </div>
+          <!-- Card 2 -->
+          <div class="card">
+            <span class="tag">生理信号</span>
+            <b>超高频波动电信号与静态组学快照的时间极性错位 (Temporal Scale Disconnect)</b>
+            <p style="margin-top: 8px; font-size: 0.88rem; line-height: 1.65; color: var(--muted); margin-bottom: 0;">
+              心电图(ECG)、脑电图(EEG)等生理信号属于<strong>超高频时序信号（毫秒至秒级波动）</strong>，反映的是人体动态的神经体液调节与生理反射。而与之相对的基因组突变或RNA转录测序往往属于疾病进程中某一瞬间的**“静态生命科学快照”**。这种时间尺度上的极端极性错位（毫秒 vs. 月/年），使得直接联合训练由于缺乏物理实体媒介而难以建立实质性的关联，往往需经由中间的**功能性血液指标或心脏泵血动力学表征**进行多阶对齐。同时，海量生理信号患者队列（如 MIMIC 数据库）极少具备配对的基因及空间转录组检测。
+            </p>
+          </div>
+          <!-- Card 3 -->
+          <div class="card">
+            <span class="tag">隐私与噪声</span>
+            <b>高风险生物特征隐私暴露与设备批次伪影 (Biometric Privacy & Hardware Artefacts)</b>
+            <p style="margin-top: 8px; font-size: 0.88rem; line-height: 1.65; color: var(--muted); margin-bottom: 0;">
+              由于三维高分辨头颅MRI/CT能够通过面部表面重建(Face Reconstruction)高精度还原患者的外貌，构成了严重的患者肖像隐私泄露风险；而脑电信号作为“神经指纹”，易被逆向工程还原出个人认知状态或独特生物身份。此外，不同品牌采集设备（GE、Siemens、迈瑞等）的采集噪声、电极贴敷电阻、CT管电压重建核等差异巨大，导致预训练网络在无法获得标定参数时，极易退化为识别仪器型号的“捷径分类器”而非真实疾病诊断器。
+            </p>
+          </div>
+        </div>
+
+        <h3>数据可用性阶梯与成本对比</h3>
+        <p>
+          生物医学领域的尴尬现实是：<strong>临床上越容易获取的数据，信息维度越低；而信息维度高、能够支撑对齐的模型训练数据，边际成本呈指数级攀升。</strong>
+        </p>
+        <p>
+          从可用性与成本的双重维度审视，生物医学数据呈现出显著的<strong>两极化分布</strong>：
+        </p>
+        <div class="quote ok" style="margin: 16px 0;">
+          <strong>数据经济学双极：</strong>
+          <ul>
+            <li><strong>高可用、低边际成本的“临床常规模态”：</strong>常规病理 H&amp;E 切片（约 $10/样本）、多导联心电图 ECG（约 $20/次）以及三维影像 CT/MRI（约 $150-$400/次）。这些模态在临床存量极巨，是日常诊断的基石。然而，它们面临严重的<strong>机构壁垒与隐私限制</strong>（如 DICOM 中的 PHI 残留、脑电波的生物指纹性），且与分子组学的配对比例极低（小于 1%）。</li>
+            <li><strong>高成本、低可用性的“前沿分子与空间组学”：</strong>单细胞转录组（约 $1,000-$2,000/样本）及空间转录组（约 $10,000/张切片）能提供高精度的生物学本质，但高昂的试剂与人工使得全球总样本量目前停留在数万例级。</li>
+          </ul>
+          因此，多模态 AI 模型的工程核心在于：利用极少数高成本的“桥接对齐数据集”（如 TMA 精确配准多模态），训练出跨尺度的映射表征，进而<strong>反向激活海量、低成本的影像和生理常规数据</strong>。
+        </div>
+
+        <!-- Availability CSS Chart -->
+        <div class="bar-chart">
+          <h4>生物医学主要数据模态全球可用性估算（相对饱和度）</h4>
+          <div class="bar-row">
+            <div class="bar-label">临床文本 / EHR</div>
+            <div class="bar-track"><div class="bar-fill blue" style="width: 75%">75%</div></div>
+            <div class="bar-value">总量大·壁垒多</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">影像数据 (CT/MRI)</div>
+            <div class="bar-track"><div class="bar-fill cyan" style="width: 65%">65%</div></div>
+            <div class="bar-value">归类充沛·PHI脱敏难</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">病理图像 H&amp;E</div>
+            <div class="bar-track"><div class="bar-fill cyan" style="width: 58%">58%</div></div>
+            <div class="bar-value">档案充沛·无标注</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">生理信号 (ECG/EEG)</div>
+            <div class="bar-track"><div class="bar-fill cyan" style="width: 50%">50%</div></div>
+            <div class="bar-value">时序丰富·组学对齐极低</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">全基因组 WGS</div>
+            <div class="bar-track"><div class="bar-fill green" style="width: 42%">42%</div></div>
+            <div class="bar-value">队列广·单模态</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">单细胞转录组 scRNA</div>
+            <div class="bar-track"><div class="bar-fill amber" style="width: 25%">25%</div></div>
+            <div class="bar-value">无空间·成本高</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">配对空间对齐多模态</div>
+            <div class="bar-track"><div class="bar-fill rose" style="width: 4%">4%</div></div>
+            <div class="bar-value">极度匮乏</div>
+          </div>
+        </div>
+
+        <!-- Cost CSS Chart -->
+        <div class="bar-chart">
+          <h4>单样本检测成本级差分析</h4>
+          <div class="bar-row">
+            <div class="bar-label">常规病理 H&amp;E 切片</div>
+            <div class="bar-track"><div class="bar-fill green" style="width: 2%"></div></div>
+            <div class="bar-value">~$10</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">常规多导联心电图 (ECG)</div>
+            <div class="bar-track"><div class="bar-fill green" style="width: 3%"></div></div>
+            <div class="bar-value">~$20</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">常规 CT/MRI 三维扫描</div>
+            <div class="bar-track"><div class="bar-fill green" style="width: 6%"></div></div>
+            <div class="bar-value">~$150-$400</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Bulk RNA-seq 测序</div>
+            <div class="bar-track"><div class="bar-fill blue" style="width: 8%"></div></div>
+            <div class="bar-value">~$350</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">全空间蛋白质组组学</div>
+            <div class="bar-track"><div class="bar-fill amber" style="width: 25%"></div></div>
+            <div class="bar-value">~$2,500</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">单切片空间转录组测序</div>
+            <div class="bar-track"><div class="bar-fill rose" style="width: 100%"></div></div>
+            <div class="bar-value">~$10,000</div>
+          </div>
+        </div>
+
+        <!-- Figure 4: Multimodal Alignment Dataset Structure -->
+        <div class="illus" style="margin-top: 28px; margin-bottom: 24px;">
+          <img src="./assets/Biomedical_Multimodal_Alignment_Dataset.png" alt="生物医学多模态对齐数据集结构" style="max-width: 92%; height: auto; border-radius: 12px; border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(0,0,0,0.04); display: block; margin: 0 auto 8px;" />
+          <div class="illus-caption">图 4 — 多中心、跨尺度生物医学多模态对齐数据集结构：融合宏观放射影像、微观病理切片、连续生理时序信号及超微空间转录组/基因组突变的高清空间三维坐标对准。</div>
+        </div>
+      </section>
+
+      <!-- SECTION 4 -->
+      <section id="tensions">
+        <h2>04｜多模态建模中的六大核心数据张力</h2>
+        <p>
+          数据本身的缺损与实验限制，在模型开发的过程中引发了深刻的架构与工程妥协。以下六个维度的张力体现了当前的开发两难：
+        </p>
+
+        <!-- 6 Tensions Table -->
+        <div class="t-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>张力维度</th>
+                <th>数据端技术妥协</th>
+                <th>模型端架构牺牲</th>
+                <th>典型前沿案例与事实</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>配对稀缺 vs. 单模态丰富</b></td>
+                <td>配对多模态元组规模极小，不得不退守至单模态无标签集合。</td>
+                <td>模型极难直接学习到真正的跨模态对齐映射，容易陷入孤立的特征塌陷。</td>
+                <td>M-Optimus 将训练转化为利用廉价形态学去估算/预测稀缺分子组学的代理学习。</td>
+              </tr>
+              <tr>
+                <td><b>空间分辨率 vs. 覆盖广度</b></td>
+                <td>高分辨率测序技术仅覆盖微小组织核心点位，无法实现大片组织全切片分析。</td>
+                <td>模型必须在大全局形态学(Large Context)与微观亚细胞特征之间做特征蒸馏折中。</td>
+                <td>STELA 计划选择将有限的资源集中配置于小点位的极高深度对齐。</td>
+              </tr>
+              <tr>
+                <td><b>通用性 vs. 专科性</b></td>
+                <td>多适应症混合数据噪声大，罕见疾病亚型数据覆盖极其薄弱。</td>
+                <td>通用大模型泛化性能虽好，但在部分生物学起源独特的系统上弱于专科模型。</td>
+                <td>M-Optimus 在泛组织评测中领先，但在胶质母细胞瘤等独特肿瘤中低于专科小模型。</td>
+              </tr>
+              <tr>
+                <td><b>开放公地 vs. 商业护城河</b></td>
+                <td>高价值、高配对度的人类临床队列资产化，阻碍了研究界的公共获取。</td>
+                <td>学术界开发的模型难以超越具有雄厚资金支撑的商业实验室。</td>
+                <td>CZ Biohub 倡导全开源数据公地，而 Noetik 与 Bioptimus 将配对数据定义为私有核心资产。</td>
+              </tr>
+              <tr>
+                <td><b>自监督学习 vs. 标注依赖</b></td>
+                <td>专业病理诊断专家标注时间成本高昂，标注质量标准难以高度统一。</td>
+                <td>架构依赖海量自监督预训练重建隐式分布，但在面对下游精细临床任务时仍受限于样本小标签。</td>
+                <td>Noetik 提出掩码预测学习，其根本假设是生物系统的干预机制已天然编码在人类组织中。</td>
+              </tr>
+              <tr>
+                <td><b>数据量 scaling vs. 物理测量上限</b></td>
+                <td>即便无限制增加数据，生物检测硬件本身固有的杂音和信噪比限制无法消除。</td>
+                <td>模型的测试准确度在达到特定阈值后会由于技术引入的测量漂移而进入平台期。</td>
+                <td>STELA 项目直接参与了测序仪测量层面的标准化改造，以此提升理论上限本身。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tension Spectrum SVG -->
+        <div class="illus">
+          <svg viewBox="0 0 920 280" xmlns="http://www.w3.org/2000/svg" style="background:#fafbfd; border-radius: 16px;">
+            <defs>
+              <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#2557d6"/>
+                <stop offset="25%" stop-color="#0b7fab"/>
+                <stop offset="50%" stop-color="#087c61"/>
+                <stop offset="75%" stop-color="#b76b00"/>
+                <stop offset="100%" stop-color="#d62557"/>
+              </linearGradient>
+              <pattern id="minorGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f2f5fa" stroke-width="1"/>
+              </pattern>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            <!-- Grid -->
+            <rect width="920" height="280" fill="url(#minorGrid)" />
+            <rect width="920" height="280" fill="none" stroke="#d9e2ef" stroke-width="1" rx="16"/>
+
+            <!-- Chart Title -->
+            <text x="460" y="32" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" fill="#172033" letter-spacing="1">多模态生物基础模型核心数据张力与妥协光谱图</text>
+            
+            <!-- Axis Baseline -->
+            <line x1="80" y1="160" x2="840" y2="160" stroke="#e1e8f5" stroke-width="6" stroke-linecap="round"/>
+            <line x1="80" y1="160" x2="840" y2="160" stroke="url(#waveGrad)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+
+            <!-- Curved Tension Wave Line -->
+            <path d="M 120 160 C 200 60, 240 60, 300 160 C 360 260, 440 260, 480 160 C 520 60, 620 60, 660 160 C 700 260, 780 260, 800 160" fill="none" stroke="url(#waveGrad)" stroke-width="3" filter="url(#glow)"/>
+
+            <!-- Axis Nodes with labels and metrics -->
+            <!-- Node 1: 配对对齐 -->
+            <g transform="translate(120, 160)">
+              <circle cx="0" cy="0" r="14" fill="#ffffff" stroke="#2557d6" stroke-width="3" filter="url(#glow)"/>
+              <circle cx="0" cy="0" r="6" fill="#2557d6" />
+              <!-- Upper labels -->
+              <rect x="-60" y="-85" width="120" height="38" rx="8" fill="#ffffff" stroke="#2557d6" stroke-width="1" />
+              <text x="0" y="-70" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="800" font-size="10.5" fill="#2557d6">配对稀缺对齐</text>
+              <text x="0" y="-56" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#667085">M-Optimus 代理蒸馏</text>
+              <path d="M 0 -47 L 0 -18" stroke="#2557d6" stroke-width="1" stroke-dasharray="2 2" />
+              
+              <!-- Lower metrics -->
+              <text x="0" y="30" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="900" font-size="12" fill="#172033">仅 &lt;3%</text>
+              <text x="0" y="44" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#667085">配对测序数据</text>
+            </g>
+
+            <!-- Node 2: 空间分辨率 -->
+            <g transform="translate(300, 160)">
+              <circle cx="0" cy="0" r="14" fill="#ffffff" stroke="#0b7fab" stroke-width="3" filter="url(#glow)"/>
+              <circle cx="0" cy="0" r="6" fill="#0b7fab" />
+              <!-- Upper labels -->
+              <rect x="-60" y="-85" width="120" height="38" rx="8" fill="#ffffff" stroke="#0b7fab" stroke-width="1" />
+              <text x="0" y="-70" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="800" font-size="10.5" fill="#0b7fab">高空间分辨率</text>
+              <text x="0" y="-56" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#667085">单点亚细胞测序</text>
+              <path d="M 0 -47 L 0 -18" stroke="#0b7fab" stroke-width="1" stroke-dasharray="2 2" />
+              
+              <text x="0" y="30" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="900" font-size="12" fill="#172033">亚微米级</text>
+              <text x="0" y="44" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#667085">高成本采样限制</text>
+            </g>
+
+            <!-- Node 3: 泛组织通识 -->
+            <g transform="translate(480, 160)">
+              <circle cx="0" cy="0" r="14" fill="#ffffff" stroke="#087c61" stroke-width="3" filter="url(#glow)"/>
+              <circle cx="0" cy="0" r="6" fill="#087c61" />
+              <!-- Upper labels -->
+              <rect x="-60" y="-85" width="120" height="38" rx="8" fill="#ffffff" stroke="#087c61" stroke-width="1" />
+              <text x="0" y="-70" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="800" font-size="10.5" fill="#087c61">泛组织通识</text>
+              <text x="0" y="-56" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#667085">机制保守跨器官</text>
+              <path d="M 0 -47 L 0 -18" stroke="#087c61" stroke-width="1" stroke-dasharray="2 2" />
+              
+              <text x="0" y="30" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="900" font-size="12" fill="#172033">泛癌通用</text>
+              <text x="0" y="44" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#667085">孤儿病零样本泛化</text>
+            </g>
+
+            <!-- Node 4: 自监督重建 -->
+            <g transform="translate(660, 160)">
+              <circle cx="0" cy="0" r="14" fill="#ffffff" stroke="#b76b00" stroke-width="3" filter="url(#glow)"/>
+              <circle cx="0" cy="0" r="6" fill="#b76b00" />
+              <!-- Upper labels -->
+              <rect x="-60" y="-85" width="120" height="38" rx="8" fill="#ffffff" stroke="#b76b00" stroke-width="1" />
+              <text x="0" y="-70" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="800" font-size="10.5" fill="#b76b00">自监督掩码</text>
+              <text x="0" y="-56" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#667085">无标签组织自编码</text>
+              <path d="M 0 -47 L 0 -18" stroke="#b76b00" stroke-width="1" stroke-dasharray="2 2" />
+              
+              <text x="0" y="30" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="900" font-size="12" fill="#172033">无标签特征</text>
+              <text x="0" y="44" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#667085">隐式编码药物反应</text>
+            </g>
+
+            <!-- Node 5: 物理测量上限 -->
+            <g transform="translate(800, 160)">
+              <circle cx="0" cy="0" r="14" fill="#ffffff" stroke="#d62557" stroke-width="3" filter="url(#glow)"/>
+              <circle cx="0" cy="0" r="6" fill="#d62557" />
+              <!-- Upper labels -->
+              <rect x="-60" y="-85" width="120" height="38" rx="8" fill="#ffffff" stroke="#d62557" stroke-width="1" />
+              <text x="0" y="-70" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="800" font-size="10.5" fill="#d62557">测量技术上限</text>
+              <text x="0" y="-56" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#667085">实验信噪比硬上限</text>
+              <path d="M 0 -47 L 0 -18" stroke="#d62557" stroke-width="1" stroke-dasharray="2 2" />
+              
+              <text x="0" y="30" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="900" font-size="12" fill="#172033">物理瓶颈</text>
+              <text x="0" y="44" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#667085">仪器背景杂音限制</text>
+            </g>
+          </svg>
+          <div class="illus-caption">图 5 — 核心数据妥协光谱：模型架构为了容忍噪声和缺失而不断妥协的过程</div>
+        </div>
+      </section>
+
+      <!-- SECTION 5 -->
+      <section id="strategies">
+        <h2>05｜应对数据缺失的六大前沿策略</h2>
+        <p>
+          面对数据稀缺带来的底层限制，生物 AI 业界并没有停滞，而是积极探索出以下六种差异化的破局通路：
+        </p>
+
+        <!-- Timeline of 6 strategies -->
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-title">S1. 跨模态代理学习 (Cross-Modal Proxy Learning)</div>
+            <div class="tl-desc">
+              M-Optimus 的核心方法。利用机器学习在少量深度配对数据中训练出“代理映射”，在下游任务中仅需使用单价 <strong>$10</strong> 的常规 H&amp;E 切片，即可自动反向虚拟重构出单价 <strong>$10,000</strong> 的空间基因组分布。这种信息套利极大地盘活了现有低成本临床病理数据。
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-title">S2. 自监督掩码重建 (Masked Reconstruction)</div>
+            <div class="tl-desc">
+              Noetik 的核心方案。模型通过破坏并复原患者组织中的分子或形态斑块来学习通用生物语法。该策略巧妙利用了生物学自带的约束：<strong>在没有显式临床结局标签的情况下，肿瘤组织内的空间几何与突变图谱本就编码了其对化疗或靶向药敏感性的决定性特征。</strong>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-title">S3. 动态数据飞轮机制 (STELA Data Flywheel)</div>
+            <div class="tl-desc">
+              Bioptimus 建设的临床循环。通过建立与全球多中心医院的联合开发网络，Bioptimus 资助医院测序并建立 STELA 图谱，训练的 M-Optimus 大模型提升了对患者预后预测的精确度，精准预测反流至临床实践中，以此激发合作机构源源不断地提供前瞻性队列。
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-title">S4. 泛组织通识学习 (Pan-Tissue Generalism)</div>
+            <div class="tl-desc">
+              跨适应症迁移路线。通过将肺癌、乳腺癌、肠癌甚至健康正常器官的多模态数据融于一炉，模型学到的是免疫激活、血管增生和结缔组织病理变化的“通用跨组织语法”。这使得模型在面对没有测序数据的<strong>罕见孤儿疾病</strong>时也能实现惊人的零样本(Zero-Shot)泛化。
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-title">S5. 联邦隐私计算与偏移抑制</div>
+            <div class="tl-desc">
+              跨越数据孤岛的安全训练方案。通过在各医院子节点保留敏感临床病理数据，仅将脱敏的模型权值与梯度在主节点汇总，破解法规门槛。针对跨医院染色差异带来的批次偏移，在模型底层引入对抗学习和分布校正机制，以此强化跨中心对齐稳定性。
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-title">S6. 沉睡病理队列回溯性开发 (Retrospective Mining)</div>
+            <div class="tl-desc">
+              医院病理科累积了数十年的大批病理标本切片，这部分切片由于此前技术限制或组织早已退化无法再做单细胞级高维测序。利用多模态对齐模型充当“虚拟放大镜”，能在常规低价 H&amp;E 切片上虚拟丰富缺失的转录本图谱，使数万例的大样本分析首次具备物理和财务上的可行性。
+            </div>
+          </div>
+        </div>
+
+        <!-- Flywheel SVG -->
+        <div class="illus">
+          <svg viewBox="0 0 920 300" xmlns="http://www.w3.org/2000/svg" style="background:#fafbfd; border-radius: 16px;">
+            <defs>
+              <filter id="nodeShadow" x="-10%" y="-10%" width="120%" height="125%">
+                <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#15233c" flood-opacity="0.05" />
+              </filter>
+              <pattern id="flyGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+                <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#eef2f8" stroke-width="1" />
+              </pattern>
+              <!-- Arrow Marker definitions -->
+              <marker id="fwArrowBlue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#2557d6" />
+              </marker>
+              <marker id="fwArrowGreen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#087c61" />
+              </marker>
+              <marker id="fwArrowAmber" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#b76b00" />
+              </marker>
+            </defs>
+            <rect width="920" height="300" fill="url(#flyGrid)" />
+            <rect width="920" height="300" fill="none" stroke="#d9e2ef" stroke-width="1" rx="16"/>
+
+            <!-- Central Badge with Spinning Symbol -->
+            <circle cx="460" cy="165" r="42" fill="#ffffff" stroke="#d9e2ef" stroke-width="1.5" filter="url(#nodeShadow)"/>
+            <circle cx="460" cy="165" r="34" fill="#eef4ff" />
+            <text x="460" y="160" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="900" font-size="9" fill="#2557d6" letter-spacing="1">数据飞轮</text>
+            <text x="460" y="172" text-anchor="middle" font-family="-apple-system, sans-serif" font-weight="800" font-size="8" fill="#0b7fab" letter-spacing="0.5">FLYWHEEL</text>
+            <text x="460" y="186" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" fill="#2557d6">⟳</text>
+
+            <!-- Flows / Curved connections -->
+            <!-- Step 1 to 2: Clinic to Profiling Lab -->
+            <path d="M 270 120 Q 460 30, 640 100" fill="none" stroke="#087c61" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#fwArrowGreen)"/>
+            <rect x="415" y="55" width="90" height="18" rx="4" fill="#ffffff" stroke="#087c61" stroke-width="1" />
+            <text x="460" y="67" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="700" fill="#087c61">1. 供给患者样本 →</text>
+
+            <!-- Step 2 to 3: Profiling Lab to Model Training -->
+            <path d="M 725 180 Q 780 230, 630 250" fill="none" stroke="#b76b00" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#fwArrowAmber)"/>
+            <rect x="680" y="210" width="90" height="18" rx="4" fill="#ffffff" stroke="#b76b00" stroke-width="1" />
+            <text x="725" y="222" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="700" fill="#b76b00">2. 生成训练组学 →</text>
+
+            <!-- Step 3 to 1: Model Training back to Clinic -->
+            <path d="M 450 250 Q 150 230, 185 185" fill="none" stroke="#2557d6" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#fwArrowBlue)"/>
+            <rect x="195" y="210" width="90" height="18" rx="4" fill="#ffffff" stroke="#2557d6" stroke-width="1" />
+            <text x="240" y="222" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="700" fill="#2557d6">← 3. 算法精度授权</text>
+
+            <!-- Node 1: 临床中心伙伴 (Left) -->
+            <g transform="translate(60, 105)" filter="url(#nodeShadow)">
+              <rect x="0" y="0" width="190" height="75" rx="14" fill="#ffffff" stroke="#e1e8f5" stroke-width="1" />
+              <path d="M 0 12 A 12 12 0 0 1 12 0 L 178 0 A 12 12 0 0 1 190 12 L 190 20 L 0 20 Z" fill="#2557d6" />
+              <text x="12" y="14" font-family="-apple-system, sans-serif" font-weight="800" font-size="10.5" fill="#ffffff">临床机构节点</text>
+              <text x="12" y="38" font-family="-apple-system, sans-serif" font-weight="800" font-size="13" fill="#172033">临床中心伙伴</text>
+              <text x="12" y="52" font-family="-apple-system, sans-serif" font-size="9.5" fill="#667085">提供患者组织与生存记录</text>
+              <text x="12" y="64" font-family="-apple-system, sans-serif" font-size="9.5" fill="#667085">沉睡切片回溯性联合提取</text>
+            </g>
+
+            <!-- Node 2: 组学实验室 (Right) -->
+            <g transform="translate(670, 105)" filter="url(#nodeShadow)">
+              <rect x="0" y="0" width="190" height="75" rx="14" fill="#ffffff" stroke="#e2eee8" stroke-width="1" />
+              <path d="M 0 12 A 12 12 0 0 1 12 0 L 178 0 A 12 12 0 0 1 190 12 L 190 20 L 0 20 Z" fill="#087c61" />
+              <text x="12" y="14" font-family="-apple-system, sans-serif" font-weight="800" font-size="10.5" fill="#ffffff">多组学测序节点</text>
+              <text x="12" y="38" font-family="-apple-system, sans-serif" font-weight="800" font-size="13" fill="#087c61">Bioptimus组学实验室</text>
+              <text x="12" y="52" font-family="-apple-system, sans-serif" font-size="9.5" fill="#667085">进行高一致性空间组学测定</text>
+              <text x="12" y="64" font-family="-apple-system, sans-serif" font-size="9.5" fill="#667085">H&amp;E ↔ 空间对齐图谱库</text>
+            </g>
+
+            <!-- Node 3: M-Optimus 模型 (Bottom Center) -->
+            <g transform="translate(365, 215)" filter="url(#nodeShadow)">
+              <rect x="0" y="0" width="190" height="70" rx="14" fill="#ffffff" stroke="#fdf4e7" stroke-width="1" />
+              <path d="M 0 12 A 12 12 0 0 1 12 0 L 178 0 A 12 12 0 0 1 190 12 L 190 20 L 0 20 Z" fill="#b76b00" />
+              <text x="12" y="14" font-family="-apple-system, sans-serif" font-weight="800" font-size="10.5" fill="#ffffff">大基础大模型节点</text>
+              <text x="12" y="38" font-family="-apple-system, sans-serif" font-weight="800" font-size="13" fill="#b76b00">M-Optimus 大模型</text>
+              <text x="12" y="52" font-family="-apple-system, sans-serif" font-size="9.5" fill="#667085">自监督对齐训练更新权重</text>
+            </g>
+          </svg>
+          <div class="illus-caption">图 6 — STELA 闭环：患者样本供给与模型诊断决策优化反馈构成的螺旋上升循环</div>
+        </div>
+      </section>
+
+      <!-- SECTION 6 -->
+      <section id="data-os">
+        <h2>06｜面向未来的生物数据操作系统</h2>
+        <p>
+          传统的生物医学研发往往将数据视为一次性消耗的“静态 Dataset”，通过购买数据库和标注，训练完一次模型后即丢弃或封存。
+          但在多模态大基础模型时代，这极易引发模型退化和灾难性遗忘。
+          <strong>下一代基础设施应当是持续运转的“数据操作系统 (Data OS)”</strong>，其核心特征包括：
+        </p>
+        
+        <div class="grid">
+          <div class="card">
+            <span class="tag">系统核心一</span>
+            <b>高一致性规范与语义层</b>
+            全面统一对齐 FHIR、OMOP 等临床病理元数据，并结合 OME-NGFF 等最新的多尺度空间组学存储框架，在数据存取阶段直接消除批次效应。
+          </div>
+          <div class="card">
+            <span class="tag">系统核心二</span>
+            <b>可计算合规与动态同意</b>
+            弃用静态纸质纸伦理声明。基于类似 GA4GH DUO (数据使用本体) 的智能伦理标签机制，使伦理审查、出入境管控能被算法自动处理。
+          </div>
+          <div class="card">
+            <span class="tag">系统核心三</span>
+            <b>主动基准评测体系</b>
+            全面跟踪模型跨机构分布变迁下的性能底线，实时审计少数组群公平度偏倚，并基于缺口数据指引逆向引导实验室进行主动补全测序。
+          </div>
+        </div>
+
+        <div class="pipeline">
+          <div class="pipe-step">
+            <div class="pipe-badge blue">1</div>
+            <div class="pipe-content">
+              <div class="pipe-title">原始数据输入采集 (Raw Inputs)</div>
+              <div class="pipe-desc"><strong>多中心临床病历、高通量测序、全切片数字病理图谱</strong><br>汇集来源多样的底层生物与医学数据，建立统一的冷热数据存储分流机制。</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">↓</div>
+          <div class="pipe-step">
+            <div class="pipe-badge cyan">2</div>
+            <div class="pipe-content">
+              <div class="pipe-title">空间对齐配准模块 (Spatial Registration Module)</div>
+              <div class="pipe-desc"><strong>细胞核质心精确对准 (Sub-micron cell centroid alignment)</strong><br>利用图像配准算法，在亚微米级别对齐 H&amp;E 组织特征与空间分子坐标，融合跨尺度形态学与转录组学信息。</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">↓</div>
+          <div class="pipe-step">
+            <div class="pipe-badge green">3</div>
+            <div class="pipe-content">
+              <div class="pipe-title">标准化与批次校正台账 (Normalization Ledger)</div>
+              <div class="pipe-desc"><strong>消除扫描仪与染色工艺伪影 (Cross-scanner batch effect removal)</strong><br>监控并抵消不同医院/仪器产生的系统性分布偏移，确保多源输入能被大模型在同一基准线上公平理解。</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">↓</div>
+          <div class="pipe-step">
+            <div class="pipe-badge amber">4</div>
+            <div class="pipe-content">
+              <div class="pipe-title">可计算同意书伦理合规验证 (Computable Consent Checks)</div>
+              <div class="pipe-desc"><strong>自动匹配 GA4GH DUO 数据使用条款 (GA4GH DUO validation checks)</strong><br>将患者授权条款转化为机器可读编码，动态验证科研二次使用与跨境计算合规性，移除协作摩擦。</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">↓</div>
+          <div class="pipe-step">
+            <div class="pipe-badge purple">5</div>
+            <div class="pipe-content">
+              <div class="pipe-title">主动数据采样指令 (Active Sampling Directives)</div>
+              <div class="pipe-desc"><strong>逆向映射模型稀疏空间 (Identify sparse biological domains)</strong><br>分析模型在表征空间中的不确定性区域，指引临床协作网主动补全特定罕见病型或缺失模态的测序。</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">↓</div>
+          <div class="pipe-step">
+            <div class="pipe-badge rose">6</div>
+            <div class="pipe-content">
+              <div class="pipe-title">M-Optimus 模型适配与反馈 (Model Training Pipeline)</div>
+              <div class="pipe-desc"><strong>零样本推断与反馈迭代 (M-Optimus zero-shot feedback iteration)</strong><br>大基础模型权重的增量更新，将高精度临床反应预测回灌临床数据库，最终辅助临床医生诊疗决策。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7 -->
+      <section id="recommendations">
+        <h2>07｜建议与行动框架</h2>
+        <p class="lead">
+          研究团队与数据基础设施的筹备者，不能寄希望于物理测量设备成本立刻发生几何级下降，而应<strong>使用“大模型对特征的真正需求”来逆向调配稀缺的资金与数据投入：</strong>
+        </p>
+
+        <div class="recommend-section">
+          <!-- Short-Term -->
+          <div class="recommend-group-title">短期战术优先级 (Short-Term Priorities)</div>
+          <div class="recommend-grid">
+            <!-- Short-term 1 -->
+            <div class="recommend-card">
+              <div>
+                <div class="recommend-card-header">
+                  <div class="recommend-icon blue">🔬</div>
+                  <div class="recommend-title">高配准微样本对 (Micro-Core Pairing)</div>
+                </div>
+                <div class="recommend-body">
+                  限制单一模态的采样广度，将测序资金集中于<strong>大对齐密度</strong>上。例如在局限的组织微阵列 (TMA) 核心样本上，实现 H&amp;E ↔ 全空间转录组 ↔ 空间蛋白的高分辨率物理配准。<strong>“宁要 100 例精确对齐的元组，不要 10000 例脱节的单通道投影”</strong>。
+                </div>
+              </div>
+              <div class="recommend-footer">
+                <span class="recommend-feasibility high">● 落地可行性：高</span>
+              </div>
+            </div>
+
+            <!-- Short-term 2 -->
+            <div class="recommend-card">
+              <div>
+                <div class="recommend-card-header">
+                  <div class="recommend-icon cyan">📊</div>
+                  <div class="recommend-title">元数据规范标准化置顶 (Metadata Standard)</div>
+                </div>
+                <div class="recommend-body">
+                  在实验设计之初，强制将样本前处理时延、染色扫描仪型号、试剂批次、实验室温湿度等环境参数列为模型预训练的<strong>基础输入特征</strong>。缺少这些审计元数据的大规模组学文件，在跨机构训练中几乎无法被有效清洗，极易引发严重批次效应。
+                </div>
+              </div>
+              <div class="recommend-footer">
+                <span class="recommend-feasibility high">● 落地可行性：高</span>
+              </div>
+            </div>
+
+            <!-- Short-term 3 -->
+            <div class="recommend-card">
+              <div>
+                <div class="recommend-card-header">
+                  <div class="recommend-icon green">🛡️</div>
+                  <div class="recommend-title">分布外对抗训练与质控 (OOD Quality Ledger)</div>
+                </div>
+                <div class="recommend-body">
+                  在算法开发第一天就引入<strong>对抗性域自适应 (Adversarial Domain Adaptation)</strong> 等算法层面的数据去噪机制。强制在完全不同医院的扫描切片上对模型进行跨机构零样本泛化评测，在架构源头防止模型拟合特定中心的染色风格与噪声模式。
+                </div>
+              </div>
+              <div class="recommend-footer">
+                <span class="recommend-feasibility high">● 落地可行性：高</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Long-Term -->
+          <div class="recommend-group-title">长期战略优先级 (Long-Term Priorities)</div>
+          <div class="recommend-grid">
+            <!-- Long-term 1 (Redesigned cross-border network) -->
+            <div class="recommend-card">
+              <div>
+                <div class="recommend-card-header">
+                  <div class="recommend-icon rose">⚖️</div>
+                  <div class="recommend-title">反思跨国算网：转向“合规沙盒与表征共鸣”</div>
+                </div>
+                <div class="recommend-body">
+                  <strong>直面跨国联邦实时算网在生物领域的低可行性。</strong>由于 GDPR、HGRAC（中国人类遗传资源管理）等法案，原始基因梯度传输存在极高“反向隐私泄露”风险。
+                  <br><strong>可行替代路径：</strong>放弃跨境算力直连，转而在各司法管辖区内建立<strong>“区域受控沙盒”</strong>。只共享通过差分隐私脱敏后的<strong>特征表征向量 (Embeddings) 或合成数据</strong>，利用“跨域表征映射与迁移学习”代替实时网络计算，实现跨地缘协作。
+                </div>
+              </div>
+              <div class="recommend-footer">
+                <span class="recommend-feasibility medium">● 落地可行性：中</span>
+              </div>
+            </div>
+
+            <!-- Long-term 2 -->
+            <div class="recommend-card">
+              <div>
+                <div class="recommend-card-header">
+                  <div class="recommend-icon amber">⏳</div>
+                  <div class="recommend-title">前瞻性纵向时间追踪队列 (Longitudinal Cohort)</div>
+                </div>
+                <div class="recommend-body">
+                  跳出静态标本的回溯性“快照”泥潭。与前沿临床试验团队展开前瞻性合作，针对接受免疫疗法或靶向治疗的患者，在<strong>用药前、用药中、耐药复发后</strong>进行多次微穿刺，采集连续时点空间多组学数据，这是模型学习疾病耐药性因果机制的唯一数据基石。
+                </div>
+              </div>
+              <div class="recommend-footer">
+                <span class="recommend-feasibility medium">● 落地可行性：中</span>
+              </div>
+            </div>
+
+            <!-- Long-term 3 -->
+            <div class="recommend-card">
+              <div>
+                <div class="recommend-card-header">
+                  <div class="recommend-icon purple">🧬</div>
+                  <div class="recommend-title">扰动干预数据集建设 (Perturbational Assays)</div>
+                </div>
+                <div class="recommend-body">
+                  将空间组学与 <strong>CRISPR 筛查等基因阻断实验 (Perturb-seq)</strong> 深度对齐。单纯观测数据仅能提供统计学相关性，要想让模型真正具备“反事实推理”能力（例如模拟如果发生某一碱基突变，微环境细胞因子如何崩塌），必须将大量干预型扰动实验数据注入基础模型的预训练词表中。
+                </div>
+              </div>
+              <div class="recommend-footer">
+                <span class="recommend-feasibility medium">● 落地可行性：中</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote warn" style="margin-top: 28px;">
+          <strong>战略总结：</strong>单模态大样本仅能增加模型在孤立场景下的过拟合精度，只有将稀缺测序资金集中于增加多模态间的<strong>空间与时间尺度对齐</strong>，并在地缘合规框架下构建区域受控沙盒，才能为通用虚拟细胞大模型的突破性涌现提供真正有效的训练燃料。
+        </div>
+      </section>
+
+      <!-- SECTION 8 -->
+      <section id="refs">
+        <h2>📚 参考来源与文献清单</h2>
+        <ul class="refs">
+          <li>[1] CZ Biohub. "Biohub Launches the Virtual Biology Initiative to catalyze Predictive Cellular Modeling." Press Release, April 2026. <a href="https://biohub.org/news/virtual-biology-initiative/" target="_blank">biohub.org/news/virtual-biology-initiative/</a></li>
+          <li>[2] Noetik. "Generating Multimodal Human Data: Resolving Tumor Microenvironment Tensions." Technical Report. <a href="https://www.noetik.ai/human-data" target="_blank">noetik.ai/human-data</a></li>
+          <li>[3] Noetik. "Masked Reconstruction Pretraining on 2.9 Petabytes of Paired Histology and Spatial Biology." Research Docs. <a href="https://www.noetik.ai/foundation-models" target="_blank">noetik.ai/foundation-models</a></li>
+          <li>[4] Noetik Blog (Abhishaike Mahajan). "Frontier AI for Human Biology and the Limits of Single-Modality Benchmarking." <a href="https://www.noetik.blog" target="_blank">noetik.blog</a></li>
+          <li>[5] Bioptimus. "STELA — Spatial Tissue and Expression Linked Atlas to Revolutionize Cancer Stratification." <a href="https://www.bioptimus.com/stela" target="_blank">bioptimus.com/stela</a></li>
+          <li>[6] Bioptimus. "Introducing M-Optimus: Fusing Histology and Spatial Genomics at Scale." Technical Announcement, May 2026. <a href="https://www.bioptimus.com/introducing-m-optimus" target="_blank">bioptimus.com/introducing-m-optimus</a></li>
+          <li>[7] @bauer_lesavage. "The Data Silent Wall in Biology: Foundation Models Meet the Limits of High-Cost Assays." X Article, 2026. <a href="https://x.com/bauer_lesavage/article/2062189919699894715" target="_blank">x.com/bauer_lesavage/article/2062189919699894715</a></li>
+          <li>[8] Nonchev et al. "DeepSpot: Spot-level spatial transcriptomics prediction directly from H&amp;E whole slide images." bioRxiv, 2025.</li>
+          <li>[9] Jaume et al. "HEST: Histology Embedding Spatial Transcriptomics benchmark for clinical transferability." Nature Methods, 2024.</li>
+          <li>[10] Schmauch et al. "Upper bound estimation and noise profiling in spatial transcriptomics prediction models." Nature Communications 16:1422, 2025.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    AI-assisted paper analysis · Generated with <strong>GitHub Copilot</strong>,<br>
+    📝 Paper Analysis & Curation by <strong>CocoSun</strong>
+  </footer>
+</div>
+
+<script>
+  // Scroll Indicator and Active Nav logic
+  const scrollIndicator = document.getElementById('scrollIndicator');
+  const navLinks = document.querySelectorAll('#sidebarNav a');
+  const sections = document.querySelectorAll('main section');
+
+  window.addEventListener('scroll', () => {
+    // Progress bar
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    scrollIndicator.style.width = scrolled + '%';
+
+    // Active Sidebar Section Link
+    let currentId = '';
+    sections.forEach(sec => {
+      const secTop = sec.offsetTop;
+      const secHeight = sec.clientHeight;
+      if (pageYOffset >= (secTop - 140)) {
+        currentId = sec.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentId) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Soft scroll animation
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      const targetSec = document.getElementById(targetId);
+      if(targetSec) {
+        window.scrollTo({
+          top: targetSec.offsetTop - 30,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+</script>
+<!-- sun-blog-home-link:start -->
+<a class="sun-blog-home-link" href="../../" aria-label="返回主页">← 首页</a>
+<style>
+  .sun-blog-home-link {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 2147483647;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 8px 13px;
+    border: 1px solid rgba(23, 32, 51, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 10px 26px rgba(23, 32, 51, 0.16);
+    color: #174a7c;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+  }
+
+  .sun-blog-home-link:hover {
+    color: #8f2444;
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    .sun-blog-home-link {
+      top: 12px;
+      left: 12px;
+      min-height: 34px;
+      padding: 7px 11px;
+      font-size: 13px;
+    }
+  }
+</style>
+<!-- sun-blog-home-link:end -->
+</body>
+</html>

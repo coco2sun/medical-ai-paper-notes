@@ -1,5 +1,18 @@
 window.NOTES = [
   {
+    "title": "从多模态模型构建谈生物医学数据集缺失",
+    "type": "思考",
+    "date": "2026-06-04",
+    "url": "notes/biomedical-data-gap-analysis/",
+    "summary": "以构建多模态生物医学模型为切入点，分析当前生物医学数据集在模态覆盖、标注质量、样本多样性等方面的缺失，并探讨未来数据集构建的方向。",
+    "tags": [
+      "biomedical data",
+      "multimodal FM",
+      "dataset construction"
+    ],
+    "accent": true
+  },
+  {
     "title": "RadAgent：基于工具调用的 AI Agent 用于胸部 CT 逐步解读与报告生成",
     "type": "单篇",
     "date": "2026-06-03",
