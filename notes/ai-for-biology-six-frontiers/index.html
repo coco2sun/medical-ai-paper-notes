@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="截至 2026 年 6 月的六大 AI × Bio 前沿方向深度综述：结构与设计、虚拟细胞、药物发现、基因组语言模型、空间组学、蛋白语言模型与酶工程。">
+  <title>六大 AI × Bio 前沿：从预测生命到设计生命</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;--card:#fff;--ink:#172033;--muted:#667085;--line:#dbe3ef;
+      --blue:#2557d6;--cyan:#087ea4;--green:#087c61;--amber:#aa6500;--rose:#b4234d;
+      --purple:#7157b7;--soft:#edf3ff;--shadow:0 16px 48px rgba(27,43,73,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;color:var(--ink);line-height:1.76;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      background:
+        radial-gradient(circle at 8% 0%,#e6efff 0,transparent 28%),
+        radial-gradient(circle at 96% 6%,#e7fff6 0,transparent 25%),var(--bg);
+    }
+    a{color:var(--blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+    button{font:inherit}
+    .scroll-progress{position:fixed;inset:0 auto auto 0;height:4px;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--green));z-index:1000}
+    .wrap{max-width:1240px;margin:auto;padding:36px 22px 80px}
+    .hero{
+      position:relative;overflow:hidden;padding:44px;border:1px solid var(--line);border-radius:30px;
+      background:linear-gradient(135deg,#fff 0%,#f1f5ff 61%,#effcf8 100%);box-shadow:var(--shadow)
+    }
+    .hero:after{content:"";position:absolute;width:330px;height:330px;border-radius:50%;right:-150px;top:-155px;background:rgba(37,87,214,.065)}
+    .eyebrow,.pill,.tag{display:inline-flex;align-items:center;border-radius:999px;font-weight:800}
+    .eyebrow{padding:7px 12px;background:#e9f0ff;color:var(--blue);font-size:13px;letter-spacing:.04em}
+    h1{font-size:clamp(34px,5vw,58px);line-height:1.08;letter-spacing:-.045em;margin:16px 0 18px;max-width:900px}
+    .hero-dek{max-width:960px;font-size:18px;line-height:1.68;color:#46546b;margin:0}
+    .meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}
+    .pill{padding:7px 12px;border:1px solid var(--line);background:#fff;color:#445066;font-size:12.5px}
+    .direction-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px;position:relative;z-index:1}
+    .direction-card{padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.78);color:var(--ink);transition:.2s}
+    .direction-card:hover{transform:translateY(-2px);border-color:var(--blue);text-decoration:none;box-shadow:0 10px 28px rgba(37,87,214,.09)}
+    .direction-card small{display:block;color:var(--muted);font-weight:700;margin-bottom:3px}
+    .direction-card b{font-size:14px}
+    .metric-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 28px}
+    .metric{padding:18px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.9);box-shadow:var(--shadow)}
+    .metric strong{display:block;font-size:25px;line-height:1.2;color:var(--blue)}
+    .metric span{font-size:12.5px;color:var(--muted)}
+    .layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:28px;align-items:start}
+    .sidebar{position:sticky;top:18px}
+    nav{padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.92);backdrop-filter:blur(12px);box-shadow:var(--shadow)}
+    nav h2{font-size:15px;margin:0 0 10px;padding:0 0 9px;border-bottom:1px solid var(--line)}
+    nav a{display:block;padding:8px 10px;margin:2px 0;border-radius:9px;color:#3e4a60;font-size:13px;line-height:1.45}
+    nav a:hover,nav a.active{background:var(--soft);color:var(--blue);font-weight:750;text-decoration:none}
+    .nav-toggle{display:none;width:100%;padding:11px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font-weight:800;margin-bottom:8px}
+    section{scroll-margin-top:18px;padding:36px;margin-bottom:28px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.95);box-shadow:var(--shadow)}
+    .section-kicker{font-size:11px;color:var(--blue);font-weight:900;text-transform:uppercase;letter-spacing:.13em}
+    h2{font-size:27px;line-height:1.25;letter-spacing:-.03em;margin:5px 0 19px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+    h3{font-size:19px;margin:28px 0 12px;line-height:1.35}
+    h4{font-size:15px;margin:0 0 7px}
+    p{margin:0 0 15px;color:#374151}
+    .lead{font-size:17px;color:#3d4a61}
+    .callout{padding:18px 20px;margin:19px 0;border-left:5px solid var(--blue);border-radius:13px;background:#f6f9ff;color:#344054}
+    .callout.warn{border-left-color:var(--amber);background:#fff9ef;color:#654006}
+    .callout.ok{border-left-color:var(--green);background:#f1faf6;color:#075340}
+    .callout.rose{border-left-color:var(--rose);background:#fff5f7;color:#6c1732}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+    .card{padding:18px;border:1px solid var(--line);border-radius:17px;background:#fcfdff}
+    .card p,.card li{font-size:13.5px}
+    .tag{padding:3px 8px;margin-bottom:8px;background:var(--soft);color:var(--blue);font-size:10.5px}
+    .tag.green{background:#e8f7f1;color:var(--green)}
+    .tag.amber{background:#fff3df;color:var(--amber)}
+    .tag.rose{background:#fff0f3;color:var(--rose)}
+    .tag.purple{background:#f0ecfb;color:var(--purple)}
+    .compact-list{margin:8px 0 0;padding-left:18px;color:#465168}
+    .compact-list li{margin:6px 0}
+    .table-wrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:15px}
+    table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;font-size:13px;min-width:790px}
+    th,td{padding:12px 13px;vertical-align:top;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    th{background:#f1f5fb;color:#26334a;text-align:left;font-weight:850}
+    th:last-child,td:last-child{border-right:0}
+    tr:last-child td{border-bottom:0}
+    tr:hover td{background:#fafcff}
+    .status{white-space:nowrap;font-weight:800}
+    .status.open{color:var(--green)} .status.partial{color:var(--amber)} .status.closed{color:var(--rose)}
+    .figure{margin:22px 0;padding:14px;border:1px solid var(--line);border-radius:18px;background:#fff;text-align:center}
+    .figure img{display:block;width:100%;max-height:650px;object-fit:contain;border-radius:11px;cursor:zoom-in}
+    .caption{font-size:12px;color:var(--muted);margin:11px 4px 2px;line-height:1.55;text-align:left}
+    .svg-figure{margin:22px 0;padding:18px;border:1px solid var(--line);border-radius:18px;background:#fbfcff;overflow:auto}
+    .svg-figure svg{display:block;width:100%;min-width:650px;height:auto}
+    .timeline{position:relative;margin:20px 0;padding-left:27px}
+    .timeline:before{content:"";position:absolute;left:8px;top:5px;bottom:5px;width:2px;background:var(--line)}
+    .tl{position:relative;padding:0 0 19px}
+    .tl:last-child{padding-bottom:0}
+    .tl:before{content:"";position:absolute;left:-24px;top:7px;width:11px;height:11px;border-radius:50%;background:#fff;border:3px solid var(--blue)}
+    .tl b{font-size:14px}.tl span{display:block;color:var(--muted);font-size:13px}
+    .evidence-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+    .evidence{padding:13px;border-radius:13px;border:1px solid var(--line);font-size:12px;background:#fff}
+    .evidence b{display:block;margin-bottom:3px}
+    .evidence.author{border-top:4px solid var(--blue)} .evidence.independent{border-top:4px solid var(--cyan)}
+    .evidence.wet{border-top:4px solid var(--green)} .evidence.outlook{border-top:4px solid var(--amber)}
+    .matrix td:not(:first-child){text-align:center;font-weight:800}
+    .score{display:inline-block;width:10px;height:10px;margin:0 2px;border-radius:50%;background:#dce3ec}
+    .score.on{background:var(--blue)} .score.green{background:var(--green)} .score.amber{background:var(--amber)}
+    .refs{columns:2;column-gap:34px;padding-left:23px}
+    .refs li{break-inside:avoid;margin:0 0 10px;color:#465168;font-size:12.5px}
+    footer{text-align:center;color:#5e697d;font-size:12.5px;line-height:1.8;padding:25px 0 0}
+    .back-top{position:fixed;right:22px;bottom:22px;width:43px;height:43px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--blue);box-shadow:var(--shadow);cursor:pointer;opacity:0;pointer-events:none;transition:.2s;z-index:50}
+    .back-top.show{opacity:1;pointer-events:auto}
+    dialog{width:min(1120px,94vw);max-height:92vh;padding:12px;border:0;border-radius:18px;background:#fff;box-shadow:0 30px 100px rgba(0,0,0,.35)}
+    dialog::backdrop{background:rgba(10,18,31,.78)}
+    dialog img{display:block;max-width:100%;max-height:82vh;margin:auto;object-fit:contain}
+    .modal-close{float:right;border:0;background:#edf2fa;border-radius:999px;width:34px;height:34px;cursor:pointer;margin-bottom:8px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:960px){
+      .wrap{padding:20px 14px 60px}.hero{padding:29px 23px}.layout{grid-template-columns:1fr}.sidebar{position:relative;top:0}
+      .nav-toggle{display:block}nav{display:none}nav.open{display:block}.direction-grid{grid-template-columns:repeat(2,1fr)}
+      .metric-strip{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.evidence-row{grid-template-columns:repeat(2,1fr)}
+      section{padding:26px 20px}.refs{columns:1}
+    }
+    @media(max-width:560px){
+      .direction-grid,.metric-strip,.evidence-row{grid-template-columns:1fr}h1{font-size:35px}.hero-dek{font-size:16px}
+      section{padding:23px 17px}h2{font-size:23px}.back-top{right:14px;bottom:14px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Technical Review · AI for Biology · 2026</div>
+      <h1>六大 AI × Bio 前沿：<br>从预测生命到设计生命</h1>
+      <p class="hero-dek">蛋白结构、虚拟细胞、药物发现、基因组语言模型、空间组学与蛋白语言模型，正在汇合成一套新的生命科学技术栈。真正的分水岭已不再是模型能否生成一个答案，而是答案能否跨分布成立、能否估计不确定性，以及能否进入可验证的实验闭环。</p>
+      <div class="meta">
+        <span class="pill">资料截止：2026-06-11</span>
+        <span class="pill">对象：研究者与产业从业者</span>
+        <span class="pill">证据：论文 + 官方项目 + 独立基准</span>
+        <span class="pill">语言：中文 / English terms</span>
+      </div>
+      <div class="direction-grid">
+        <a class="direction-card" href="#protein-structure"><small>01 · Molecules</small><b>蛋白结构与生成式设计</b></a>
+        <a class="direction-card" href="#virtual-cell"><small>02 · Cells</small><b>生物基础模型与虚拟细胞</b></a>
+        <a class="direction-card" href="#drug-discovery"><small>03 · Therapeutics</small><b>AI 驱动药物发现</b></a>
+        <a class="direction-card" href="#genome-models"><small>04 · Genomes</small><b>DNA 与基因组语言模型</b></a>
+        <a class="direction-card" href="#spatial-omics"><small>05 · Tissues</small><b>单细胞与空间多组学</b></a>
+        <a class="direction-card" href="#protein-language"><small>06 · Engineering</small><b>蛋白语言模型与酶工程</b></a>
+      </div>
+    </header>
+
+    <div class="metric-strip" aria-label="综述关键规模">
+      <div class="metric"><strong>6</strong><span>相互耦合的技术方向</span></div>
+      <div class="metric"><strong>40</strong><span>核心论文与官方来源</span></div>
+      <div class="metric"><strong>8.8T</strong><span>Evo 2 训练 DNA token</span></div>
+      <div class="metric"><strong>150M</strong><span>Stack 统一预处理细胞</span></div>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="sidebarNav">展开文章目录</button>
+        <nav id="sidebarNav" aria-label="文章目录">
+          <h2>文章大纲</h2>
+          <a href="#summary">00 核心结论</a>
+          <a href="#landscape">全景：预测、生成与闭环</a>
+          <a href="#protein-structure">01 蛋白结构与设计</a>
+          <a href="#virtual-cell">02 基础模型与虚拟细胞</a>
+          <a href="#drug-discovery">03 AI 药物发现</a>
+          <a href="#genome-models">04 基因组语言模型</a>
+          <a href="#spatial-omics">05 单细胞与空间组学</a>
+          <a href="#protein-language">06 蛋白 LM 与酶工程</a>
+          <a href="#comparison">横向比较</a>
+          <a href="#gaps">研究空白与未来判断</a>
+          <a href="#references">参考文献</a>
+        </nav>
+      </aside>
+
+      <main>
+        <section id="summary">
+          <div class="section-kicker">Executive Summary</div>
+          <h2>00｜核心结论：模型能力增长快于验证能力</h2>
+          <p class="lead">六个方向并不是六条平行赛道，而是从序列、分子、细胞到组织的多尺度建模体系。结构模型给生成模型提供几何约束，基因组与蛋白语言模型提供序列表征，单细胞与空间组学提供上下文，药物发现则把这些能力汇入真实干预。</p>
+          <div class="grid">
+            <article class="card"><span class="tag">证据最强</span><h4>结构预测与局部设计</h4><p>任务定义清楚、监督信号强、公开基准成熟。AlphaFold 系列改变了结构推断，RFdiffusion 等开始改变蛋白设计。</p></article>
+            <article class="card"><span class="tag green">潜力最大</span><h4>虚拟细胞与多尺度生成</h4><p>训练数据已达亿级细胞，但跨细胞类型、跨扰动、跨平台的因果外推仍是决定性短板。</p></article>
+            <article class="card"><span class="tag amber">价值瓶颈</span><h4>验证吞吐而非候选生成</h4><p>药物和蛋白候选越来越容易生成；湿实验、ADMET、可制造性和临床证据成为更稀缺的资源。</p></article>
+          </div>
+          <div class="callout warn"><strong>阅读原则：</strong>本文将“作者报告”“独立评测”“湿实验验证”“未来判断”分开呈现。一个模型在自建 benchmark 上领先，不等于它已获得跨实验室、跨分布或临床级可靠性。</div>
+          <div class="evidence-row" aria-label="证据类型图例">
+            <div class="evidence author"><b>作者报告</b>论文内部数据与比较</div>
+            <div class="evidence independent"><b>独立评测</b>第三方统一数据与协议</div>
+            <div class="evidence wet"><b>湿实验</b>体外、体内或自动化实验</div>
+            <div class="evidence outlook"><b>前景判断</b>尚待验证的技术推断</div>
+          </div>
+        </section>
+
+        <section id="landscape">
+          <div class="section-kicker">Landscape</div>
+          <h2>全景｜AI for Biology 正沿三层能力栈演进</h2>
+          <p>第一层是<strong>预测</strong>：从序列或实验观测恢复结构、功能和状态；第二层是<strong>生成</strong>：提出满足约束的新分子、新序列或新细胞状态；第三层是<strong>闭环干预</strong>：模型选择下一轮实验，实验结果反过来更新模型。今天最成熟的是第一层，资本与研究热度集中在第二层，真正稀缺的是第三层。</p>
+          <div class="svg-figure" role="img" aria-label="六大 AI 生物学方向技术全景图">
+            <svg viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg">
+              <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8Z" fill="#91a0b7"/></marker></defs>
+              <rect width="900" height="430" rx="18" fill="#f8faff"/>
+              <text x="450" y="36" text-anchor="middle" font-size="18" font-weight="800" fill="#172033">从数字表征到可验证干预的多尺度技术栈</text>
+              <g font-family="-apple-system,PingFang SC,sans-serif">
+                <rect x="55" y="75" width="220" height="78" rx="15" fill="#edf3ff" stroke="#2557d6"/><text x="165" y="104" text-anchor="middle" font-weight="800" fill="#2557d6">序列层</text><text x="165" y="128" text-anchor="middle" font-size="12" fill="#536176">DNA LM · Protein LM</text>
+                <rect x="340" y="75" width="220" height="78" rx="15" fill="#eaf8f5" stroke="#087c61"/><text x="450" y="104" text-anchor="middle" font-weight="800" fill="#087c61">分子层</text><text x="450" y="128" text-anchor="middle" font-size="12" fill="#536176">结构预测 · 分子与蛋白设计</text>
+                <rect x="625" y="75" width="220" height="78" rx="15" fill="#fff4e4" stroke="#aa6500"/><text x="735" y="104" text-anchor="middle" font-weight="800" fill="#aa6500">细胞层</text><text x="735" y="128" text-anchor="middle" font-size="12" fill="#536176">Virtual Cell · Perturbation</text>
+                <path d="M275 114H330" stroke="#91a0b7" stroke-width="2" marker-end="url(#arrow)"/><path d="M560 114H615" stroke="#91a0b7" stroke-width="2" marker-end="url(#arrow)"/>
+                <rect x="198" y="200" width="220" height="78" rx="15" fill="#f2eefc" stroke="#7157b7"/><text x="308" y="229" text-anchor="middle" font-weight="800" fill="#7157b7">组织层</text><text x="308" y="253" text-anchor="middle" font-size="12" fill="#536176">Single-cell · Spatial Omics</text>
+                <rect x="482" y="200" width="220" height="78" rx="15" fill="#fff0f3" stroke="#b4234d"/><text x="592" y="229" text-anchor="middle" font-weight="800" fill="#b4234d">干预层</text><text x="592" y="253" text-anchor="middle" font-size="12" fill="#536176">Drug Discovery · Engineering</text>
+                <path d="M680 153Q650 180 620 194" fill="none" stroke="#91a0b7" stroke-width="2" marker-end="url(#arrow)"/><path d="M340 153Q315 175 310 191" fill="none" stroke="#91a0b7" stroke-width="2" marker-end="url(#arrow)"/><path d="M418 239H472" stroke="#91a0b7" stroke-width="2" marker-end="url(#arrow)"/>
+                <rect x="205" y="333" width="490" height="62" rx="16" fill="#172033"/><text x="450" y="358" text-anchor="middle" font-weight="800" fill="#fff">Design → Build → Test → Learn</text><text x="450" y="380" text-anchor="middle" font-size="12" fill="#c9d4e8">自动化实验、因果监督、不确定性校准与主动学习</text>
+                <path d="M592 278Q570 315 540 326" fill="none" stroke="#91a0b7" stroke-width="2" marker-end="url(#arrow)"/>
+              </g>
+            </svg>
+            <div class="caption">原创图 1｜六大方向最终汇聚到 Design–Build–Test–Learn 闭环。没有实验反馈的生成，更接近高通量假设提出器，而不是自主科学系统。</div>
+          </div>
+          <h3>2018–2026：关键里程碑</h3>
+          <div class="timeline">
+            <div class="tl"><b>2018–2020｜任务基准与首批实验案例</b><span>MoleculeNet、DeepCRISPR、GENTRL DDR1 与 Halicin 证明 ML 可以进入真实发现流程。</span></div>
+            <div class="tl"><b>2021–2022｜结构与长程调控突破</b><span>AlphaFold2、RoseTTAFold、Enformer、ESM-1v 将结构、调控和突变效应带入统一深度学习范式。</span></div>
+            <div class="tl"><b>2023–2024｜生成模型和基础模型扩张</b><span>RFdiffusion、DiffDock、Geneformer、scGPT、Evo、AlphaFold3、ESM3 让“设计”成为主线。</span></div>
+            <div class="tl"><b>2025–2026｜全原子、百万上下文与虚拟细胞</b><span>独立基准开始给热潮降温；Evo 2、STATE、Stack 和自动化 biofoundry 把重点推向跨上下文泛化与闭环验证。</span></div>
+          </div>
+        </section>
+
+        <section id="protein-structure">
+          <div class="section-kicker">Direction 01 · Structure & Design</div>
+          <h2>01｜蛋白结构与生成式设计：从折叠求解到功能编程</h2>
+          <p class="lead">AlphaFold2 解决的是“给定序列，结构是什么”；AlphaFold3 把对象扩展到蛋白、DNA、RNA、配体和离子组成的复合物；RFdiffusion 则反转问题，询问“为了某个功能，应当生成什么结构”。这是预测与设计两套技术栈的分叉点。</p>
+          <div class="callout ok"><strong>成熟度判断：</strong>单蛋白结构预测已经成为基础设施；全原子复合物预测快速进步；生成式蛋白设计已有越来越多湿实验命中，但成功率依赖目标、筛选体系和可制造性，尚无一个类似 CASP 的通用设计排行榜。</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>代表工作</th><th>核心对象</th><th>真正贡献</th><th>验证边界</th><th>开放性</th></tr></thead>
+              <tbody>
+                <tr><td>AlphaFold2 (2021) [1]</td><td>单链/多链蛋白</td><td>把 CASP 级结构精度推近实验尺度</td><td>静态结构不等于动力学、亲和力与催化常数</td><td class="status open">代码开放</td></tr>
+                <tr><td>RFdiffusion (2023) [2]</td><td>新蛋白骨架、motif、binder</td><td>扩散模型实现受几何约束的从头设计</td><td>设计成功率必须按具体湿实验任务解释</td><td class="status open">代码/权重</td></tr>
+                <tr><td>AlphaFold3 (2024) [3]</td><td>蛋白、核酸、配体、离子</td><td>统一全原子复合物预测</td><td>训练数据、化学特异性和新颖配体仍需独立评测</td><td class="status partial">服务/受限代码</td></tr>
+                <tr><td>RoseTTAFold All-Atom (2024) [4]</td><td>统一生物分子体系</td><td>提供 AF3 之外的 all-atom 研究路线</td><td>不同类别任务性能不应被单一均值掩盖</td><td class="status open">学术开放</td></tr>
+                <tr><td>Chai-1 (2024) [5]</td><td>多模态复合物</td><td>Apache 2.0 代码与权重，支持商业研究</td><td>官方结果仍需在新靶标和真实先导优化中检验</td><td class="status open">完全开放</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="figure">
+            <img src="assets/chai1-performance.png" loading="lazy" alt="Chai-1 官方技术报告中的多类结构预测性能比较图" data-zoom>
+            <figcaption class="caption">论文/官方图｜Chai-1 technical report performance overview。来源：<a href="https://github.com/chaidiscovery/chai-lab" target="_blank" rel="noopener">Chai Discovery 官方仓库</a>。该图适合说明开放模型对 AF3 类任务的追赶，但不应被解读为所有真实药物项目中的统一排名。</figcaption>
+          </figure>
+          <h3>预测模型与设计模型的评价标准不同</h3>
+          <div class="grid">
+            <article class="card"><span class="tag">结构推断</span><h4>恢复是否准确</h4><p>关注 lDDT、DockQ、界面精度、配体 pose、原子碰撞和置信度校准。</p></article>
+            <article class="card"><span class="tag green">生成设计</span><h4>实验是否命中</h4><p>关注 motif scaffold 成功、结合/催化活性、多样性、表达、稳定性与可制造性。</p></article>
+            <article class="card"><span class="tag amber">下一阶段</span><h4>能否联合优化</h4><p>结构、亲和力、选择性、动态构象、免疫原性和生产属性必须进入同一闭环。</p></article>
+          </div>
+          <div class="callout rose"><strong>关键反例：</strong>高置信度结构不必然意味着正确的化学特异性；能生成稳定骨架也不必然意味着有目标功能。结构是必要的中间表征，不是终点。</div>
+        </section>
+
+        <section id="virtual-cell">
+          <div class="section-kicker">Direction 02 · Foundation Models</div>
+          <h2>02｜生物基础模型与虚拟细胞：规模已经到位，因果性尚未到位</h2>
+          <p class="lead">Geneformer、scGPT 和 scFoundation 证明单细胞预训练表征可以跨任务迁移；Arc 的 STATE 与 Stack 则把问题重新定义为：给定细胞背景和扰动条件，能否生成未见过的响应分布。后者才是“虚拟细胞”的核心考试。</p>
+          <div class="svg-figure" role="img" aria-label="虚拟细胞模型的数据流">
+            <svg viewBox="0 0 900 330" xmlns="http://www.w3.org/2000/svg">
+              <defs><marker id="vca" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#8290a8"/></marker></defs>
+              <rect width="900" height="330" rx="18" fill="#f8faff"/>
+              <g font-family="-apple-system,PingFang SC,sans-serif">
+                <text x="450" y="34" text-anchor="middle" font-size="18" font-weight="800" fill="#172033">Virtual Cell：从观测表征到反事实响应</text>
+                <rect x="35" y="82" width="170" height="100" rx="15" fill="#edf3ff" stroke="#2557d6"/><text x="120" y="112" text-anchor="middle" font-weight="800" fill="#2557d6">基础状态</text><text x="120" y="138" text-anchor="middle" font-size="12" fill="#536176">cell type · donor</text><text x="120" y="158" text-anchor="middle" font-size="12" fill="#536176">disease · batch</text>
+                <rect x="255" y="82" width="170" height="100" rx="15" fill="#fff4e4" stroke="#aa6500"/><text x="340" y="112" text-anchor="middle" font-weight="800" fill="#aa6500">干预条件</text><text x="340" y="138" text-anchor="middle" font-size="12" fill="#536176">drug · CRISPR</text><text x="340" y="158" text-anchor="middle" font-size="12" fill="#536176">dose · time</text>
+                <rect x="475" y="64" width="190" height="136" rx="18" fill="#172033"/><text x="570" y="104" text-anchor="middle" font-weight="800" fill="#fff">Foundation Model</text><text x="570" y="130" text-anchor="middle" font-size="12" fill="#c9d4e8">gene × cell attention</text><text x="570" y="152" text-anchor="middle" font-size="12" fill="#c9d4e8">in-context / conditional generation</text><text x="570" y="176" text-anchor="middle" font-size="12" fill="#c9d4e8">uncertainty (仍不足)</text>
+                <rect x="715" y="82" width="150" height="100" rx="15" fill="#e9f8f3" stroke="#087c61"/><text x="790" y="112" text-anchor="middle" font-weight="800" fill="#087c61">响应分布</text><text x="790" y="138" text-anchor="middle" font-size="12" fill="#536176">expression shift</text><text x="790" y="158" text-anchor="middle" font-size="12" fill="#536176">cell-state mixture</text>
+                <path d="M205 132H245" stroke="#8290a8" stroke-width="2" marker-end="url(#vca)"/><path d="M425 132H465" stroke="#8290a8" stroke-width="2" marker-end="url(#vca)"/><path d="M665 132H705" stroke="#8290a8" stroke-width="2" marker-end="url(#vca)"/>
+                <rect x="180" y="245" width="540" height="50" rx="13" fill="#fff" stroke="#dbe3ef"/><text x="450" y="267" text-anchor="middle" font-weight="800" fill="#b4234d">真正难点：未见细胞类型 × 未见扰动 × 未见实验室</text><text x="450" y="285" text-anchor="middle" font-size="11" fill="#667085">不能只重建均值，还要恢复异质性、剂量响应、时序和失败概率</text>
+              </g>
+            </svg>
+            <div class="caption">原创图 2｜“虚拟细胞”不是把表达矩阵压成 embedding，而是对反事实扰动后的细胞状态分布进行可校准预测。</div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>模型</th><th>公开训练规模</th><th>主要定位</th><th>需要谨慎之处</th><th>开放性</th></tr></thead>
+              <tbody>
+                <tr><td>Geneformer [6]</td><td>约 3000 万细胞</td><td>基因网络与小样本迁移</td><td>零样本 embedding 并非稳定优于经典方法</td><td class="status open">权重/代码</td></tr>
+                <tr><td>scGPT [7]</td><td>超过 3300 万细胞</td><td>生成式单细胞多组学迁移</td><td>官方仓库仍有部分预训练/微调能力未完整产品化</td><td class="status open">代码/检查点</td></tr>
+                <tr><td>scFoundation [8]</td><td>超过 5000 万细胞，1 亿参数</td><td>表达、注释、药物与扰动任务</td><td>不同下游任务的拆分和泄漏风险需逐项检查</td><td class="status open">代码/权重</td></tr>
+                <tr><td>STATE [9]</td><td>近 1.7 亿观测 + 超 1 亿扰动细胞</td><td>跨上下文扰动响应</td><td>官方许可与外部复现范围有限</td><td class="status partial">非商业使用</td></tr>
+                <tr><td>Stack [10]</td><td>1.5 亿统一预处理细胞</td><td>in-context 生成未见细胞状态</td><td>2026 新工作，独立基准和湿实验验证仍待积累</td><td class="status partial">非商业许可</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warn"><strong>独立评测的降温信号：</strong>Geneformer/scGPT 的零样本细胞表示在多数据集上并不稳定超过 HVG、scVI 或 Harmony；扰动预测研究也反复发现，深度模型在严格的 unseen-perturbation 设定下可能不胜简单线性或均值基线 [11][12]。</div>
+          <h3>未来三项硬指标</h3>
+          <div class="grid">
+            <article class="card"><span class="tag">外推</span><h4>组合泛化</h4><p>同时面对未见 donor、cell type、perturbation 和 batch，而不是只缺一个维度。</p></article>
+            <article class="card"><span class="tag green">分布</span><h4>恢复异质性</h4><p>预测完整细胞状态分布、稀有亚群和时序轨迹，而不只是平均表达变化。</p></article>
+            <article class="card"><span class="tag amber">决策</span><h4>主动实验</h4><p>模型应能提出最能降低不确定性的下一轮实验，而不是被动输出一个矩阵。</p></article>
+          </div>
+        </section>
+
+        <section id="drug-discovery">
+          <div class="section-kicker">Direction 03 · Drug Discovery</div>
+          <h2>03｜AI 驱动药物发现：候选越来越多，证据链仍然稀缺</h2>
+          <p class="lead">AI 药物发现不是一条单模型流水线，而是靶点识别、分子生成、虚拟筛选、三维 pose、性质预测、ADMET、合成与实验验证的组合系统。任一环节的误差都会在后续被放大。</p>
+          <figure class="figure">
+            <img src="assets/txgnn-figure1.png" loading="lazy" alt="TxGNN 知识图谱与零样本药物重定位框架图" data-zoom>
+            <figcaption class="caption">论文/官方图｜TxGNN Figure 1。模型在包含 17,080 种疾病和 7,957 个治疗候选的知识图谱上进行零样本适应症/禁忌症推断。来源：<a href="https://github.com/mims-harvard/TxGNN" target="_blank" rel="noopener">TxGNN 官方仓库</a> [15]。</figcaption>
+          </figure>
+          <figure class="figure">
+            <img src="assets/diffdock-overview.png" loading="lazy" alt="DiffDock 扩散式分子对接流程图" data-zoom>
+            <figcaption class="caption">论文/官方图｜DiffDock overview。它生成蛋白–配体结合 pose 与置信度，但官方明确说明该置信度不是结合亲和力。来源：<a href="https://github.com/gcorso/DiffDock" target="_blank" rel="noopener">DiffDock 官方仓库</a> [16]。</figcaption>
+          </figure>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>环节</th><th>代表工作</th><th>已证明的价值</th><th>未解决的风险</th></tr></thead>
+              <tbody>
+                <tr><td>实验型发现案例</td><td>GENTRL DDR1 [13]、Halicin [14]</td><td>缩短 hit generation；从巨大分子库发现非直觉候选</td><td>单案例不能外推到整体临床成功率</td></tr>
+                <tr><td>药物重定位</td><td>TxGNN [15]</td><td>在无已知治疗的疾病上做零样本排序与解释</td><td>知识图谱偏差、因果方向和临床可行动性</td></tr>
+                <tr><td>三维表征/对接</td><td>Uni-Mol、DiffDock-L、DynamicBind [16][17]</td><td>更强的 3D 表征、blind docking 与诱导契合建模</td><td>pose、affinity、selectivity 是不同任务</td></tr>
+                <tr><td>ADMET</td><td>ADMET-AI [18]</td><td>快速筛选多个药代与毒理终点</td><td>新化学空间上的分布漂移与校准</td></tr>
+                <tr><td>公共基础设施</td><td>MoleculeNet、TDC [19][20]</td><td>统一数据、划分、任务与指标</td><td>benchmark 提升不等于项目真实成功率</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout rose"><strong>最常见的概念偷换：</strong>“pose 更准”不等于“亲和力更准”，“性质预测更准”不等于“可成药”，“生成新颖”也不等于“可合成、可选择、可安全进入人体”。</div>
+          <h3>真正的端到端系统应如何闭环</h3>
+          <div class="svg-figure" role="img" aria-label="AI 药物发现闭环">
+            <svg viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg">
+              <rect width="900" height="250" rx="18" fill="#f8faff"/>
+              <g font-family="-apple-system,PingFang SC,sans-serif">
+                <text x="450" y="35" text-anchor="middle" font-size="18" font-weight="800" fill="#172033">候选生成只是闭环的起点</text>
+                <g font-size="12" text-anchor="middle">
+                  <rect x="30" y="82" width="125" height="72" rx="14" fill="#edf3ff" stroke="#2557d6"/><text x="92" y="112" font-weight="800" fill="#2557d6">Target</text><text x="92" y="134" fill="#536176">因果靶点</text>
+                  <rect x="175" y="82" width="125" height="72" rx="14" fill="#f2eefc" stroke="#7157b7"/><text x="237" y="112" font-weight="800" fill="#7157b7">Generate</text><text x="237" y="134" fill="#536176">分子/pose</text>
+                  <rect x="320" y="82" width="125" height="72" rx="14" fill="#fff4e4" stroke="#aa6500"/><text x="382" y="112" font-weight="800" fill="#aa6500">Synthesize</text><text x="382" y="134" fill="#536176">可合成性</text>
+                  <rect x="465" y="82" width="125" height="72" rx="14" fill="#eaf8f5" stroke="#087c61"/><text x="527" y="112" font-weight="800" fill="#087c61">Assay</text><text x="527" y="134" fill="#536176">活性/选择性</text>
+                  <rect x="610" y="82" width="125" height="72" rx="14" fill="#fff0f3" stroke="#b4234d"/><text x="672" y="112" font-weight="800" fill="#b4234d">ADMET</text><text x="672" y="134" fill="#536176">PK/毒性</text>
+                  <rect x="755" y="82" width="115" height="72" rx="14" fill="#172033"/><text x="812" y="112" font-weight="800" fill="#fff">Learn</text><text x="812" y="134" fill="#cbd5e7">更新策略</text>
+                </g>
+                <path d="M155 118H170M300 118H315M445 118H460M590 118H605M735 118H750" stroke="#91a0b7" stroke-width="2"/>
+                <path d="M812 160Q812 205 450 205Q92 205 92 160" fill="none" stroke="#2557d6" stroke-width="2" stroke-dasharray="6 4"/>
+                <text x="450" y="227" text-anchor="middle" font-size="11" fill="#667085">主动学习根据失败数据选择下一批候选；阴性结果必须进入训练集</text>
+              </g>
+            </svg>
+            <div class="caption">原创图 3｜工业价值来自闭环的单位实验信息增益，而不是单次生成的分子数量。</div>
+          </div>
+        </section>
+
+        <section id="genome-models">
+          <div class="section-kicker">Direction 04 · Genomic Language Models</div>
+          <h2>04｜DNA 与基因组语言模型：从局部 motif 到百万碱基上下文</h2>
+          <p class="lead">DNABERT 把基因组当作语言，Enformer 强化长程调控建模，Nucleotide Transformer 系统研究参数和物种规模，Evo/Evo 2 则进一步统一单碱基分辨率的预测与生成。到 2026 年，问题已从“能否学到序列语法”转向“生成的序列能否在细胞中按预期工作”。</p>
+          <figure class="figure">
+            <img src="assets/evo2-overview.jpg" loading="lazy" alt="Evo 2 官方项目总览图，展示跨生命域基因组建模与设计" data-zoom>
+            <figcaption class="caption">论文/官方图｜Evo 2 project overview。官方仓库写明：OpenGenome2 含 8.8 万亿 token，模型可在单碱基分辨率下处理最长 100 万碱基上下文，并开放多个 1B–40B 检查点。来源：<a href="https://github.com/ArcInstitute/evo2" target="_blank" rel="noopener">Arc Institute Evo 2</a> [25]。</figcaption>
+          </figure>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>模型</th><th>上下文/规模</th><th>优势任务</th><th>关键限制</th></tr></thead>
+              <tbody>
+                <tr><td>DNABERT [21]</td><td>局部 k-mer</td><td>promoter、splice、TFBS 分类</td><td>tokenization 与跨物种迁移有限</td></tr>
+                <tr><td>Enformer [22]</td><td>约 100 kb 级输入</td><td>表达与染色质状态、远程调控</td><td>变异方向性和个体差异仍不充分</td></tr>
+                <tr><td>DNABERT-2 [23]</td><td>BPE + 多物种</td><td>工程效率、GUE 基准</td><td>不同任务领先模型不同</td></tr>
+                <tr><td>Nucleotide Transformer [24]</td><td>50M–2.5B 参数，数千基因组</td><td>低数据迁移、变异优先级</td><td>参数放大并非所有任务都单调增益</td></tr>
+                <tr><td>Evo 2 [25]</td><td>8.8T token，最长 1M bp</td><td>跨生命域生成、变异效应、基因组设计</td><td>大规模生成的功能、安全与生态风险需实验审计</td></tr>
+                <tr><td>DNA-Diffusion [26]</td><td>200 bp 调控元件</td><td>细胞类型特异 enhancer 生成</td><td>局部 reporter 活性不等同于原位调控</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warn"><strong>不存在统一“最佳 DNA 模型”：</strong>独立零样本基准显示，splice site、表观修饰、人类基因组分类和超长序列扩展性由不同模型占优 [27]。模型选择必须从任务、序列长度、物种与评测协议出发。</div>
+          <div class="grid">
+            <article class="card"><span class="tag">Predict</span><h4>变异效应</h4><p>零样本 likelihood 能否与致病性、表达改变或适应度一致。</p></article>
+            <article class="card"><span class="tag purple">Generate</span><h4>调控元件与基因组</h4><p>生成序列是否具有目标细胞类型、时空与剂量特异性。</p></article>
+            <article class="card"><span class="tag rose">Govern</span><h4>生物安全</h4><p>长序列生成带来双重用途、生态释放和不可逆干预问题。</p></article>
+          </div>
+        </section>
+
+        <section id="spatial-omics">
+          <div class="section-kicker">Direction 05 · Single-cell & Spatial</div>
+          <h2>05｜单细胞与空间组学：为细胞增加坐标、邻居和组织语境</h2>
+          <p class="lead">单细胞 RNA-seq 告诉我们“细胞是谁”，空间组学进一步回答“它在哪里、旁边是谁、组织结构如何约束它”。这个方向的目标不是再提高一个聚类分数，而是建立可跨平台、跨组织、跨尺度查询的人体细胞地图。</p>
+          <figure class="figure">
+            <img src="assets/spatialglue-workflow.jpg" loading="lazy" alt="SpatialGlue 双注意力图神经网络整合空间多组学的工作流" data-zoom>
+            <figcaption class="caption">论文/官方图｜SpatialGlue workflow。模型先在每个组学内部融合表达与空间邻域，再通过 cross-omics attention 对齐多模态。论文覆盖 5 个模拟和 12 个实验数据集。来源：<a href="https://github.com/JinmiaoChenLab/SpatialGlue" target="_blank" rel="noopener">SpatialGlue 官方仓库</a> [29]。</figcaption>
+          </figure>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>任务</th><th>代表工作</th><th>输入</th><th>关键判断</th></tr></thead>
+              <tbody>
+                <tr><td>参考图谱</td><td>Human Cell Atlas [28]</td><td>跨器官、跨人群多模态细胞数据</td><td>核心价值是公共坐标系与数据标准，不是单一模型</td></tr>
+                <tr><td>空间域/SVG</td><td>SpaGCN、独立 benchmark [30]</td><td>表达 + 坐标 + 组织图像</td><td>无单一方法在所有平台和分辨率通吃</td></tr>
+                <tr><td>空间多组学</td><td>SpatialGlue [29]</td><td>转录–蛋白或表观–转录</td><td>图结构与跨组学注意力提高域解析，但依赖邻接定义</td></tr>
+                <tr><td>空间基础模型</td><td>Nicheformer [31]</td><td>dissociated + targeted spatial</td><td>把微环境纳入表征，仍需跨技术平台验证</td></tr>
+                <tr><td>图像推断表达</td><td>Hist2ST、THItoGene、GHIST [32]</td><td>H&amp;E → 空间表达</td><td>从 spot 走向 single-cell，但染色差异和组织迁移困难</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warn"><strong>独立基准的共同结论：</strong>复杂网络不自然等于更强。空间域/SVG 方法对平台和分辨率高度敏感；histology-to-expression 中，统一协议下的简单强基线可能超过更华丽的模型 [30][33]。</div>
+          <h3>“人体 Google Maps”需要四层坐标</h3>
+          <div class="grid">
+            <article class="card"><span class="tag">Identity</span><h4>细胞身份</h4><p>类型、状态、克隆与发育谱系。</p></article>
+            <article class="card"><span class="tag green">Space</span><h4>空间邻域</h4><p>细胞接触、组织结构与分子梯度。</p></article>
+            <article class="card"><span class="tag amber">Time</span><h4>动态轨迹</h4><p>疾病进展、治疗前后与时序扰动。</p></article>
+          </div>
+        </section>
+
+        <section id="protein-language">
+          <div class="section-kicker">Direction 06 · Protein Language & Engineering</div>
+          <h2>06｜蛋白语言模型与酶工程：从序列统计走向自动化进化</h2>
+          <p class="lead">ESM 系列证明序列预训练可以学到结构与功能信息；SaProt 把结构 token 显式加入词表；ProGen2 与 ESM3 走向可控生成；PLMeAE 等系统则把模型评分接入自动化 biofoundry。决定产业价值的，不是模型能生成多少序列，而是每轮实验能提升多少目标功能。</p>
+          <figure class="figure">
+            <img src="assets/saprot-pipeline.png" loading="lazy" alt="SaProt 将氨基酸与三维结构字母结合的蛋白语言模型流程图" data-zoom>
+            <figcaption class="caption">论文/官方图｜SaProt pipeline。SaProt 使用 amino acid + 3Di 结构感知词表；官方也明确提示，早期 35M/650M 模型在只有氨基酸序列时不应直接当作冻结 embedding 使用。来源：<a href="https://github.com/westlake-repl/SaProt" target="_blank" rel="noopener">SaProt 官方仓库</a> [36]。</figcaption>
+          </figure>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>路线</th><th>代表工作</th><th>能力</th><th>证据强度</th></tr></thead>
+              <tbody>
+                <tr><td>零样本功能</td><td>ESM-1v、ProteinGym [34][35]</td><td>用序列 likelihood 预测突变效应</td><td>公开 DMS 基准强；多突变和工业条件仍难</td></tr>
+                <tr><td>结构感知表示</td><td>SaProt [36]</td><td>AA + 3Di token 融合序列与结构</td><td>多任务与 ProteinGym 强；输入结构质量会传导</td></tr>
+                <tr><td>自回归生成</td><td>ProtGPT2、ProGen2 [37]</td><td>生成新颖且符合天然统计的序列</td><td>计算指标充分，统一湿实验 benchmark 不足</td></tr>
+                <tr><td>多模态生成</td><td>ESM3 [38]</td><td>联合 sequence、structure、function 提示</td><td>已有功能蛋白展示，仍需更广泛独立实验</td></tr>
+                <tr><td>自动化进化</td><td>PLMeAE [39]</td><td>ESM 评分接入 DBTL 自动平台</td><td>方向最接近生产闭环，但可迁移性待积累</td></tr>
+                <tr><td>抗体生成</td><td>IgLM、PALM-H3 [40]</td><td>CDR infilling 与抗原特异生成</td><td>developability、免疫原性和多靶标外推不足</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout ok"><strong>最值得下注的形态：</strong>语言模型不是替代定向进化，而是改变定向进化的候选选择策略。最强系统会联合零样本先验、少量实验监督、主动学习和自动化构建/测定。</div>
+          <div class="svg-figure" role="img" aria-label="蛋白工程设计构建测试学习闭环">
+            <svg viewBox="0 0 900 270" xmlns="http://www.w3.org/2000/svg">
+              <rect width="900" height="270" rx="18" fill="#f8faff"/>
+              <g font-family="-apple-system,PingFang SC,sans-serif">
+                <text x="450" y="36" text-anchor="middle" font-size="18" font-weight="800" fill="#172033">Protein LM × Biofoundry：把搜索空间压缩为高信息量实验</text>
+                <circle cx="180" cy="135" r="58" fill="#edf3ff" stroke="#2557d6"/><text x="180" y="128" text-anchor="middle" font-weight="800" fill="#2557d6">DESIGN</text><text x="180" y="148" text-anchor="middle" font-size="11" fill="#536176">LM / structure / constraints</text>
+                <circle cx="390" cy="135" r="58" fill="#f2eefc" stroke="#7157b7"/><text x="390" y="128" text-anchor="middle" font-weight="800" fill="#7157b7">BUILD</text><text x="390" y="148" text-anchor="middle" font-size="11" fill="#536176">DNA synthesis / expression</text>
+                <circle cx="600" cy="135" r="58" fill="#eaf8f5" stroke="#087c61"/><text x="600" y="128" text-anchor="middle" font-weight="800" fill="#087c61">TEST</text><text x="600" y="148" text-anchor="middle" font-size="11" fill="#536176">activity / stability / yield</text>
+                <circle cx="790" cy="135" r="58" fill="#fff4e4" stroke="#aa6500"/><text x="790" y="128" text-anchor="middle" font-weight="800" fill="#aa6500">LEARN</text><text x="790" y="148" text-anchor="middle" font-size="11" fill="#536176">uncertainty / acquisition</text>
+                <path d="M238 135H326M448 135H536M658 135H726" stroke="#91a0b7" stroke-width="3"/>
+                <path d="M790 72Q620 18 390 34Q180 42 165 73" fill="none" stroke="#2557d6" stroke-width="2" stroke-dasharray="6 4"/>
+              </g>
+            </svg>
+            <div class="caption">原创图 4｜模型的价值体现在以更少实验找到更优蛋白，而不是取代实验本身。</div>
+          </div>
+        </section>
+
+        <section id="comparison">
+          <div class="section-kicker">Cross-field Comparison</div>
+          <h2>横向比较｜六个方向处在不同的“科学可验证性”阶段</h2>
+          <p>下面的评分是研究判断，不是客观排行榜：每项以 1–5 个点表示相对成熟度。数据规模大并不意味着因果性强，公开性高也不意味着真实转化已经完成。</p>
+          <div class="table-wrap">
+            <table class="matrix">
+              <thead><tr><th>方向</th><th>数据规模</th><th>基准成熟</th><th>因果监督</th><th>湿实验闭环</th><th>开放复现</th><th>当前瓶颈</th></tr></thead>
+              <tbody>
+                <tr><td>结构与蛋白设计</td><td>●●●●○</td><td>●●●●●</td><td>●●○○○</td><td>●●●●○</td><td>●●●●○</td><td>动态、亲和力与多目标设计</td></tr>
+                <tr><td>虚拟细胞</td><td>●●●●●</td><td>●●○○○</td><td>●●○○○</td><td>●●○○○</td><td>●●●○○</td><td>组合外推与分布预测</td></tr>
+                <tr><td>AI 药物发现</td><td>●●●●○</td><td>●●●○○</td><td>●●○○○</td><td>●●●○○</td><td>●●●○○</td><td>ADMET、合成与临床转化</td></tr>
+                <tr><td>基因组语言模型</td><td>●●●●●</td><td>●●●○○</td><td>●●○○○</td><td>●●○○○</td><td>●●●●○</td><td>长程序列的功能与安全验证</td></tr>
+                <tr><td>空间组学</td><td>●●●○○</td><td>●●●○○</td><td>●●○○○</td><td>●●○○○</td><td>●●●●○</td><td>跨平台、标签与分辨率</td></tr>
+                <tr><td>蛋白 LM / 酶工程</td><td>●●●●●</td><td>●●●●○</td><td>●●○○○</td><td>●●●●○</td><td>●●●●○</td><td>多突变、可制造性与实验吞吐</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout"><strong>跨方向共识：</strong>表现最稳健的任务都有明确输入输出、强监督信号、合理数据拆分和短实验反馈；最难的任务则同时包含分布漂移、隐藏混杂、多尺度状态与昂贵反馈。</div>
+        </section>
+
+        <section id="gaps">
+          <div class="section-kicker">Open Problems</div>
+          <h2>研究空白与未来判断：从会生成到会承担证据责任</h2>
+          <div class="grid">
+            <article class="card"><span class="tag rose">01</span><h4>基准外泛化</h4><p>按时间、实验室、物种、细胞类型、靶标家族和化学骨架拆分，而不是随机拆分。</p></article>
+            <article class="card"><span class="tag amber">02</span><h4>因果与反事实</h4><p>增加扰动、剂量、时序和负结果，使模型学习“改变什么会导致什么”。</p></article>
+            <article class="card"><span class="tag">03</span><h4>不确定性校准</h4><p>模型必须知道何时不该给出强结论，并把不确定性转化为实验优先级。</p></article>
+            <article class="card"><span class="tag green">04</span><h4>负结果基础设施</h4><p>失败的合成、无活性分子、无效突变和实验噪声不能继续从数据集中消失。</p></article>
+            <article class="card"><span class="tag purple">05</span><h4>开放与治理</h4><p>模型权重、训练数据、许可证和双重用途政策共同决定社区能否复现和安全使用。</p></article>
+            <article class="card"><span class="tag">06</span><h4>主动科学闭环</h4><p>下一代系统的指标应是单位成本的信息增益、命中率和真实研发周期，而非单一 benchmark。</p></article>
+          </div>
+          <h3>未来 3–5 年最值得跟踪的交叉点</h3>
+          <div class="timeline">
+            <div class="tl"><b>结构模型 × 蛋白 LM</b><span>联合序列、结构、功能和 developability 的多目标蛋白生成。</span></div>
+            <div class="tl"><b>Virtual Cell × Spatial Omics</b><span>在组织坐标和细胞邻域中模拟药物/基因扰动，而非孤立细胞。</span></div>
+            <div class="tl"><b>Genome LM × 自动化合成生物学</b><span>生成调控网络、元件组合甚至长基因组片段，并用高通量实验校准。</span></div>
+            <div class="tl"><b>Drug AI × Robotics</b><span>合成、筛选、ADMET 与主动学习形成连续机器闭环，记录全部阴性结果。</span></div>
+          </div>
+          <div class="callout ok"><strong>最终判断：</strong>AI for Biology 的下一次质变不会只来自更大的模型，而会来自更好的实验接口。能够提出候选的模型很多；能够解释证据、校准风险、选择实验并从失败中学习的系统仍然很少。</div>
+        </section>
+
+        <section id="references">
+          <div class="section-kicker">References</div>
+          <h2>参考文献与官方资源</h2>
+          <ol class="refs">
+            <li><a href="https://www.nature.com/articles/s41586-021-03819-2" target="_blank" rel="noopener">Jumper et al. Highly accurate protein structure prediction with AlphaFold. Nature, 2021.</a></li>
+            <li><a href="https://www.nature.com/articles/s41586-023-06415-8" target="_blank" rel="noopener">Watson et al. De novo design of protein structure and function with RFdiffusion. Nature, 2023.</a></li>
+            <li><a href="https://www.nature.com/articles/s41586-024-07487-w" target="_blank" rel="noopener">Abramson et al. Accurate structure prediction of biomolecular interactions with AlphaFold 3. Nature, 2024.</a></li>
+            <li><a href="https://www.science.org/doi/10.1126/science.adl2528" target="_blank" rel="noopener">Krishna et al. Generalized biomolecular modeling and design with RoseTTAFold All-Atom. Science, 2024.</a></li>
+            <li><a href="https://github.com/chaidiscovery/chai-lab" target="_blank" rel="noopener">Chai Discovery. Chai-1 official repository and technical report.</a></li>
+            <li><a href="https://www.nature.com/articles/s41586-023-06139-9" target="_blank" rel="noopener">Theodoris et al. Transfer learning enables predictions in network biology. Nature, 2023/2024.</a></li>
+            <li><a href="https://www.nature.com/articles/s41592-024-02201-0" target="_blank" rel="noopener">Cui et al. scGPT: toward building a foundation model for single-cell multi-omics. Nature Methods, 2024.</a></li>
+            <li><a href="https://www.nature.com/articles/s41592-024-02305-7" target="_blank" rel="noopener">Hao et al. Large-scale foundation model on single-cell transcriptomics. Nature Methods, 2024.</a></li>
+            <li><a href="https://arcinstitute.org/manuscripts/State" target="_blank" rel="noopener">Arc Institute. STATE manuscript and model information, 2025.</a></li>
+            <li><a href="https://github.com/ArcInstitute/stack" target="_blank" rel="noopener">Arc Institute. Stack: in-context learning of single-cell biology, 2026.</a></li>
+            <li><a href="https://link.springer.com/article/10.1186/s13059-025-03574-x" target="_blank" rel="noopener">Zero-shot evaluation of single-cell foundation model embeddings. Genome Biology, 2025.</a></li>
+            <li><a href="https://www.nature.com/articles/s42256-025-01160-1" target="_blank" rel="noopener">Independent benchmarking of single-cell perturbation prediction models. Nature Machine Intelligence, 2025.</a></li>
+            <li><a href="https://www.nature.com/articles/s41587-019-0224-x" target="_blank" rel="noopener">Zhavoronkov et al. Deep learning enables rapid identification of potent DDR1 kinase inhibitors. Nature Biotechnology, 2019.</a></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/32084340/" target="_blank" rel="noopener">Stokes et al. A Deep Learning Approach to Antibiotic Discovery. Cell, 2020.</a></li>
+            <li><a href="https://www.nature.com/articles/s41591-024-03233-x" target="_blank" rel="noopener">Huang et al. A foundation model for clinician-centered drug repurposing. Nature Medicine, 2024.</a></li>
+            <li><a href="https://github.com/gcorso/DiffDock" target="_blank" rel="noopener">Corso et al. DiffDock and DiffDock-L official repository.</a></li>
+            <li><a href="https://www.nature.com/articles/s41467-024-45461-2" target="_blank" rel="noopener">Lu et al. DynamicBind for ligand-specific protein structure prediction. Nature Communications, 2024.</a></li>
+            <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11226862/" target="_blank" rel="noopener">Swanson et al. ADMET-AI. Bioinformatics, 2024.</a></li>
+            <li><a href="https://moleculenet.org/" target="_blank" rel="noopener">MoleculeNet benchmark.</a></li>
+            <li><a href="https://github.com/mims-harvard/TDC" target="_blank" rel="noopener">Therapeutics Data Commons official repository.</a></li>
+            <li><a href="https://academic.oup.com/bioinformatics/article/37/15/2112/6128680" target="_blank" rel="noopener">Ji et al. DNABERT. Bioinformatics, 2021.</a></li>
+            <li><a href="https://www.nature.com/articles/s41592-021-01252-x" target="_blank" rel="noopener">Avsec et al. Effective gene expression prediction from sequence by integrating long-range interactions. Nature Methods, 2021.</a></li>
+            <li><a href="https://github.com/MAGICS-LAB/DNABERT_2" target="_blank" rel="noopener">DNABERT-2 official repository and GUE benchmark.</a></li>
+            <li><a href="https://www.nature.com/articles/s41592-024-02523-z" target="_blank" rel="noopener">Dalla-Torre et al. Nucleotide Transformer. Nature Methods, 2025.</a></li>
+            <li><a href="https://www.nature.com/articles/s41586-026-10176-5" target="_blank" rel="noopener">Brixi et al. Genome modelling and design across all domains of life with Evo 2. Nature, 2026.</a></li>
+            <li><a href="https://github.com/pinellolab/DNA-Diffusion" target="_blank" rel="noopener">DNA-Diffusion official repository.</a></li>
+            <li><a href="https://www.nature.com/articles/s41467-025-65823-8" target="_blank" rel="noopener">Zero-shot benchmarking of DNA foundation models. Nature Communications, 2025.</a></li>
+            <li><a href="https://www.humancellatlas.org/" target="_blank" rel="noopener">Human Cell Atlas official project.</a></li>
+            <li><a href="https://www.nature.com/articles/s41592-024-02316-4" target="_blank" rel="noopener">Long et al. SpatialGlue. Nature Methods, 2024.</a></li>
+            <li><a href="https://academic.oup.com/nar/article/53/7/gkaf303/8114322" target="_blank" rel="noopener">Benchmarking spatial domains and domain-specific SVG methods. NAR, 2025.</a></li>
+            <li><a href="https://www.nature.com/articles/s41592-025-02814-z" target="_blank" rel="noopener">Nicheformer. Nature Methods, 2025.</a></li>
+            <li><a href="https://github.com/SydneyBioX/GHIST" target="_blank" rel="noopener">GHIST official repository.</a></li>
+            <li><a href="https://www.nature.com/articles/s41467-025-56618-y" target="_blank" rel="noopener">Benchmarking spatial gene expression prediction from histology. Nature Communications, 2025.</a></li>
+            <li><a href="https://proceedings.neurips.cc/paper/2021/hash/f51338d736f95dd42427296047067694-Abstract.html" target="_blank" rel="noopener">Meier et al. Language models enable zero-shot prediction of mutation effects. NeurIPS, 2021.</a></li>
+            <li><a href="https://github.com/OATML-Markslab/ProteinGym" target="_blank" rel="noopener">ProteinGym official benchmark and repository.</a></li>
+            <li><a href="https://github.com/westlake-repl/SaProt" target="_blank" rel="noopener">Su et al. SaProt official repository.</a></li>
+            <li><a href="https://www.nature.com/articles/s41467-022-32007-7" target="_blank" rel="noopener">Ferruz et al. ProtGPT2. Nature Communications, 2022; see also ProGen2 official resources.</a></li>
+            <li><a href="https://www.science.org/doi/10.1126/science.ads0018" target="_blank" rel="noopener">Hayes et al. Simulating 500 million years of evolution with a language model. Science, 2025.</a></li>
+            <li><a href="https://github.com/HICAI-ZJU/PLMeAE" target="_blank" rel="noopener">PLMeAE automatic biofoundry integration repository.</a></li>
+            <li><a href="https://github.com/Graylab/IgLM" target="_blank" rel="noopener">IgLM official repository; see also PALM-H3 official repository.</a></li>
+          </ol>
+          <div class="callout"><strong>引用说明：</strong>数字与性能结论优先引用论文原文或官方仓库；“最佳”仅表示特定公开任务与评测协议内的结果。本文不把厂商宣传、搜索摘要或未经核验的二手排名当作强证据。</div>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      <strong>六大 AI × Bio 前沿深度综述</strong><br>
+      AI-assisted research, synthesis and web production by Codex · 资料截止 2026-06-11<br>
+      Paper analysis &amp; curation by CocoSun · 论文图像版权归原作者与出版方所有，仅用于学术评论与说明
+    </footer>
+  </div>
+
+  <button class="back-top" id="backTop" aria-label="返回顶部">↑</button>
+  <dialog id="imageDialog" aria-label="论文图像放大查看">
+    <button class="modal-close" id="modalClose" aria-label="关闭">×</button>
+    <img id="modalImage" alt="">
+  </dialog>
+
+  <script>
+    (() => {
+      const progress = document.getElementById('scrollProgress');
+      const backTop = document.getElementById('backTop');
+      const navToggle = document.getElementById('navToggle');
+      const nav = document.getElementById('sidebarNav');
+      const navLinks = [...nav.querySelectorAll('a')];
+      const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+      const dialog = document.getElementById('imageDialog');
+      const modalImage = document.getElementById('modalImage');
+
+      const updateScroll = () => {
+        const max = document.documentElement.scrollHeight - innerHeight;
+        const ratio = max > 0 ? scrollY / max : 0;
+        progress.style.width = `${Math.min(100, ratio * 100)}%`;
+        backTop.classList.toggle('show', scrollY > 700);
+        let current = sections[0];
+        sections.forEach(section => {
+          if (section.getBoundingClientRect().top <= 150) current = section;
+        });
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current.id}`));
+      };
+
+      addEventListener('scroll', updateScroll, {passive:true});
+      addEventListener('resize', updateScroll);
+      updateScroll();
+
+      navToggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.textContent = open ? '收起文章目录' : '展开文章目录';
+      });
+      navLinks.forEach(a => a.addEventListener('click', () => {
+        if (innerWidth <= 960) {
+          nav.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+          navToggle.textContent = '展开文章目录';
+        }
+      }));
+      backTop.addEventListener('click', () => scrollTo({top:0, behavior:'smooth'}));
+
+      document.querySelectorAll('[data-zoom]').forEach(img => {
+        img.tabIndex = 0;
+        img.setAttribute('role','button');
+        img.setAttribute('aria-label', `${img.alt}，点击放大`);
+        const open = () => {
+          modalImage.src = img.src;
+          modalImage.alt = img.alt;
+          dialog.showModal();
+        };
+        img.addEventListener('click', open);
+        img.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+        });
+      });
+      document.getElementById('modalClose').addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+    })();
+  </script>
+<!-- sun-blog-home-link:start -->
+<a class="sun-blog-home-link" href="../../" aria-label="返回主页">← 首页</a>
+<style>
+  .sun-blog-home-link {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 2147483647;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 8px 13px;
+    border: 1px solid rgba(23, 32, 51, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 10px 26px rgba(23, 32, 51, 0.16);
+    color: #174a7c;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+  }
+
+  .sun-blog-home-link:hover {
+    color: #8f2444;
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    .sun-blog-home-link {
+      top: 12px;
+      left: 12px;
+      min-height: 34px;
+      padding: 7px 11px;
+      font-size: 13px;
+    }
+  }
+</style>
+<!-- sun-blog-home-link:end -->
+</body>
+</html>

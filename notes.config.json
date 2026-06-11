@@ -12,6 +12,18 @@
     "accent": true
   },
   {
+    "title": "六大 AI × Bio 前沿：从预测生命到设计生命 (编辑版)",
+    "type": "综述",
+    "date": "2026-06-12",
+    "slug": "ai-for-biology-six-frontiers",
+    "source": "incoming/ai-bio-six-frontiers-review/index.html",
+    "assetsDir": "incoming/ai-bio-six-frontiers-review/assets",
+    "summary": "蛋白结构、虚拟细胞、药物发现、基因组语言模型、空间组学与蛋白语言模型，正在汇合成一套新的生命科学技术栈。真正的分水岭已不再是模型能否生成一个答案，而是答案能否跨分布成立、能否估计不确定性，以及能否进入可验证的实验闭环。",
+    "tags": ["Protein Structure Prediction and Design", "Virtual Cells", "Cellular Foundation Models", "Generative Drug Discovery", "Multimodal Spatial Omics", "AI-Guided Enzyme Engineering"],
+    "visible": true,
+    "accent": true
+  },
+  {
     "title": "SciCore-Omics：连接组织形态、空间转录组与生物语言",
     "type": "单篇",
     "date": "2026-06-11",
