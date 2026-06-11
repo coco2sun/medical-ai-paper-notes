@@ -1,5 +1,18 @@
 window.NOTES = [
   {
+    "title": "SciCore-Omics：连接组织形态、空间转录组与生物语言",
+    "type": "单篇",
+    "date": "2026-06-11",
+    "url": "notes/scicore-omics/",
+    "summary": "SciCore-Omics 将 H&E 组织学图像、空间转录组表达谱与生物学语言压入统一的自回归 token 空间。",
+    "tags": [
+      "multimodal FM",
+      "spatial transcriptomics",
+      "computational pathology"
+    ],
+    "accent": false
+  },
+  {
     "title": "从多模态模型构建谈生物医学数据集缺失",
     "type": "思考",
     "date": "2026-06-04",

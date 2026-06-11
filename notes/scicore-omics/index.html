@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SciCore-Omics：连接组织形态、空间转录组与生物语言</title>
+  <style>
+:root {
+  --ink: #182230;
+  --muted: #5b6474;
+  --line: #d9e0e8;
+  --soft: #f5f8fb;
+  --blue: #163b66;
+  --teal: #0f766e;
+  --wine: #8f2444;
+  --shadow: 0 18px 44px rgba(24, 34, 48, 0.10);
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  background: #eef3f7;
+  line-height: 1.65;
+}
+a { color: #0b5ea8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.page { max-width: 1220px; margin: 0 auto; background: #fff; }
+.hero {
+  position: relative;
+  padding: 56px 48px 40px;
+  color: #fff;
+  background: linear-gradient(132deg, rgba(18, 50, 82, 0.96), rgba(11, 111, 105, 0.88));
+  overflow: hidden;
+}
+.hero-content { position: relative; z-index: 1; max-width: 980px; }
+.eyebrow { margin: 0 0 14px; color: #b9e7e1; font-size: 14px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+h1 { margin: 0; font-size: clamp(30px, 5vw, 56px); line-height: 1.12; letter-spacing: 0; }
+.hero p { max-width: 860px; margin: 18px 0 0; color: rgba(255,255,255,0.86); font-size: 18px; }
+.paper-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+.paper-meta span { padding: 6px 10px; border: 1px solid rgba(255,255,255,0.24); border-radius: 999px; background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.88); font-size: 12px; font-weight: 800; }
+.top-nav { position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 48px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.96); box-shadow: 0 6px 18px rgba(24,34,48,0.06); backdrop-filter: blur(12px); }
+.top-nav a { padding: 6px 9px; border-radius: 6px; color: var(--blue); font-size: 12px; font-weight: 800; }
+.top-nav a:hover { background: #edf4f8; text-decoration: none; }
+section { padding: 42px 48px; }
+section[id] { scroll-margin-top: 62px; }
+section.band { background: var(--soft); }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+h2 { margin: 0; color: var(--blue); font-size: 28px; line-height: 1.25; letter-spacing: 0; }
+.paper-figure { margin: 0 0 20px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; overflow: hidden; box-shadow: 0 12px 28px rgba(24,34,48,0.08); }
+.paper-figure img { display: block; width: 100%; max-height: 760px; object-fit: contain; background: #f9fbfd; }
+.paper-figure figcaption { padding: 10px 12px; border-top: 1px solid #edf1f5; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.formula-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-top: 12px; }
+.formula { padding: 11px 12px; border-radius: var(--radius); background: #eef6f4; color: #244058; font-size: 12px; line-height: 1.45; }
+.deep-dive { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; margin: 0 0 18px; }
+.note-panel { padding: 14px; border: 1px solid #dfe8ee; border-radius: var(--radius); background: #fff; }
+.note-panel h4 { margin: 0 0 9px; color: var(--blue); font-size: 14px; letter-spacing: 0; }
+.note-panel ul { display: grid; gap: 7px; margin: 0; padding: 0 0 0 18px; color: #3a4656; font-size: 13px; line-height: 1.5; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.insight { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.insight h3 { margin: 0 0 9px; color: var(--blue); font-size: 17px; }
+.insight p { margin: 0; color: var(--muted); font-size: 14px; }
+.refs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.refs li { padding: 13px 15px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; font-size: 14px; }
+.footnote { margin-top: 18px; color: var(--muted); font-size: 12px; }
+.source-key { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
+.source-key span { padding: 5px 9px; border: 1px solid #dbe5ec; border-radius: 999px; background: #fff; color: #4b596b; font-size: 11px; font-weight: 800; }
+.code-audit { display: grid; gap: 12px; }
+.audit-row { display: grid; grid-template-columns: 170px 1fr 120px; gap: 14px; align-items: start; padding: 15px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.audit-row code { color: var(--wine); font-size: 12px; overflow-wrap: anywhere; }
+.audit-row p { margin: 0; color: #3a4656; font-size: 13px; }
+.audit-status { justify-self: end; padding: 4px 8px; border-radius: 999px; background: #e8f5f0; color: #17624f; font-size: 11px; font-weight: 900; text-align: center; }
+.audit-status.partial { background: #fff1e3; color: #743017; }
+.takeaway { margin-top: 16px; padding: 17px 18px; border-left: 4px solid var(--wine); background: #fff8fa; color: #4c3740; font-size: 14px; }
+.content-block { margin-top: 20px; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.content-block h3 { margin: 0 0 8px; color: var(--blue); font-size: 21px; line-height: 1.3; }
+.content-block > p { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+.stat-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 16px 0; }
+.stat-card { padding: 16px; border: 1px solid #dbe5ec; border-radius: var(--radius); background: #f9fbfd; }
+.stat-card b { display: block; color: var(--wine); font-size: 24px; line-height: 1.15; }
+.stat-card span { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; }
+.pipeline { display: grid; gap: 10px; counter-reset: pipeline; }
+.pipeline-step { position: relative; padding: 15px 15px 15px 58px; border: 1px solid #dbe5ec; border-radius: var(--radius); background: #fbfdfe; }
+.pipeline-step::before { counter-increment: pipeline; content: counter(pipeline); position: absolute; left: 15px; top: 15px; width: 28px; height: 28px; border-radius: 50%; background: var(--teal); color: #fff; font-size: 13px; font-weight: 900; line-height: 28px; text-align: center; }
+.pipeline-step b { display: block; color: var(--blue); font-size: 14px; }
+.pipeline-step span { display: block; margin-top: 4px; color: #4b596b; font-size: 13px; }
+.stage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+.stage-card { padding: 16px; border: 1px solid #dbe5ec; border-top: 4px solid var(--blue); border-radius: var(--radius); background: #fff; }
+.stage-card:nth-child(2) { border-top-color: var(--teal); }
+.stage-card:nth-child(3) { border-top-color: var(--wine); }
+.stage-card h4 { margin: 0 0 7px; color: var(--ink); font-size: 15px; }
+.stage-card p { margin: 0; color: var(--muted); font-size: 12px; }
+.result-table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 13px; }
+.result-table th, .result-table td { padding: 11px 12px; border-bottom: 1px solid #e8edf2; text-align: left; vertical-align: top; }
+.result-table th { color: #fff; background: var(--blue); }
+.result-table tr.highlight td { background: #eef8f5; font-weight: 800; }
+.result-table .best { color: var(--wine); font-weight: 900; }
+.figure-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
+.figure-card { margin: 0; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; overflow: hidden; }
+.figure-card img { display: block; width: 100%; height: auto; object-fit: contain; background: #fbfcfd; image-rendering: auto; }
+.figure-card figcaption { padding: 11px 12px; border-top: 1px solid #edf1f5; color: var(--muted); font-size: 12px; }
+.evidence-note { margin-top: 14px; padding: 13px 15px; border: 1px solid #ecd8ad; border-radius: var(--radius); background: #fff8e8; color: #684c17; font-size: 12px; }
+.lead-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr); gap: 20px; align-items: start; }
+.lead-copy { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.lead-copy h3 { margin: 0 0 10px; color: var(--blue); font-size: 22px; }
+.lead-copy p { margin: 0; color: #3f4d5e; }
+.link-list { display: grid; gap: 8px; margin-top: 16px; }
+.link-list a { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px solid #dbe5ec; border-radius: var(--radius); background: #f9fbfd; font-size: 13px; font-weight: 800; }
+.protocol { margin: 0 0 16px; padding: 12px 14px; border-left: 4px solid var(--teal); background: #f4faf8; color: #405064; font-size: 13px; }
+.section-kicker { display: block; margin-bottom: 6px; color: var(--wine); font-size: 12px; font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; }
+.conclusion-thesis { margin-bottom: 16px; padding: 20px 22px; border-left: 5px solid var(--wine); background: #fff; box-shadow: 0 10px 26px rgba(24,34,48,0.06); }
+.conclusion-thesis b { display: block; margin-bottom: 8px; color: var(--blue); font-size: 17px; }
+.conclusion-thesis p { margin: 0; color: #344154; font-size: 15px; line-height: 1.75; }
+.insight .verdict { display: block; margin-bottom: 7px; color: var(--wine); font-size: 11px; font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; }
+.site-credit { padding: 18px 48px 24px; border-top: 1px solid var(--line); background: #f8fbfd; color: #405064; text-align: center; font-size: 13px; line-height: 1.7; }
+.site-credit strong { color: var(--blue); font-weight: 900; }
+@media (max-width: 640px) {
+  .hero, section, .site-credit, .top-nav { padding-left: 18px; padding-right: 18px; }
+  .section-head { display: block; }
+  .paper-figure img { max-height: 420px; }
+  .audit-row { grid-template-columns: 1fr; }
+  .audit-status { justify-self: start; }
+  .stage-grid { grid-template-columns: 1fr; }
+  .content-block { padding: 16px; }
+  .figure-gallery { grid-template-columns: 1fr; }
+  .figure-card img { height: auto; max-height: 420px; }
+  .lead-grid { grid-template-columns: 1fr; }
+}
+
+  </style>
+</head>
+<body>
+  <main class="page">
+
+      <header class="hero">
+        <div class="hero-content">
+          <p class="eyebrow">TRI-MODAL FOUNDATION MODEL FOR SPATIAL BIOLOGY</p>
+          <h1>SciCore-Omics：连接组织形态、空间转录组与生物语言</h1>
+          <p>SciCore-Omics 将 H&amp;E 组织学图像、空间转录组表达谱与生物学语言压入统一的自回归 token 空间。本文结合 bioRxiv 全文、官方图表与开源代码，详细拆解数据集构建、端到端算法、渐进式训练、六类下游评测和基线对比结果。</p>
+          <div class="paper-meta"><span>bioRxiv v1 · 2026-06-03</span><span>约 8.5B 参数</span><span>Image + Gene + Language</span><span>代码与权重已公开</span></div>
+        </div>
+      </header>
+      <nav class="top-nav" aria-label="页面章节">
+        <a href="#overview">01 核心贡献</a><a href="#dataset-construction">02 数据构建</a><a href="#algorithm-flow">03 模型与训练</a><a href="#benchmark-results">04 评测与结果</a><a href="#code-review">05 代码复现</a><a href="#conclusion">06 结论与局限</a>
+      </nav>
+
+      <section id="overview">
+        <div class="section-head"><h2>01 · 研究问题与核心贡献</h2></div>
+        <div class="lead-grid">
+          <div class="lead-copy">
+            <h3>把空间转录组作为语言模型的原生模态</h3>
+            <p>既往空间生物学模型通常只处理 image-gene、image-text 或 gene-text 的两两映射。SciCore-Omics 将 H&amp;E、表达谱和文本都转换为统一维度的 embedding span，交给同一个因果语言模型联合建模，从而用一套骨干支持分子预测、空间域识别、病理分类、问答和病例级解释。</p>
+            <div class="link-list">
+              <a href="https://www.biorxiv.org/content/10.64898/2026.05.30.728937v1.full" target="_blank" rel="noopener"><span>论文全文</span><span>bioRxiv v1 ↗</span></a>
+              <a href="https://github.com/OpenBMB/Scicore-Omics" target="_blank" rel="noopener"><span>官方实现</span><span>GitHub ↗</span></a>
+              <a href="https://huggingface.co/openbmb/SciCore-Omics" target="_blank" rel="noopener"><span>公开权重</span><span>Hugging Face ↗</span></a>
+            </div>
+          </div>
+          <div class="insight-grid">
+            <div class="insight"><h3>数据贡献</h3><p>构建 151,182 个 spot 级 image-gene-text 三元组，并用证据约束方式把表达谱转成生物学描述。</p></div>
+            <div class="insight"><h3>模型贡献</h3><p>以 NicheFormer、32-query Gene Q-Former 和 projector 给转录组建立固定长度的 LLM 接口。</p></div>
+            <div class="insight"><h3>验证范围</h3><p>从分子、spot、组织、patch 一直评测到病例级推理，而非只验证单一预测头。</p></div>
+          </div>
+        </div>
+        <figure class="paper-figure" style="margin-top:20px">
+          <img src="assets/scicore-omics-overview.png" alt="SciCore-Omics model overview">
+          <figcaption>Figure 1：视觉分支与基因分支分别压缩为固定长度 token，和文本共同进入统一三模态空间；右侧展示模型覆盖的主要下游任务。</figcaption>
+        </figure>
+      </section>
+
+      <section class="band" id="dataset-construction">
+        <div class="section-head"><h2>02 · 数据与三模态样本构建</h2></div>
+        <div class="stat-strip">
+          <div class="stat-card"><b>1,052,334</b><span>训练语料中的图像数量</span></div>
+          <div class="stat-card"><b>39.85 M</b><span>约 3,985 万条文本句子</span></div>
+          <div class="stat-card"><b>51,602</b><span>Stage II gene-text 配对</span></div>
+          <div class="stat-card"><b>151,182</b><span>Stage III 三模态 spatial spots</span></div>
+          <div class="stat-card"><b>6+</b><span>脑、乳腺、结肠、肺、肝、皮肤等组织</span></div>
+        </div>
+
+        <div class="content-block">
+          <h3>三类训练资源如何汇合</h3>
+          <p>论文没有把所有数据简单混成一个池，而是按模态成熟度组织为渐进式课程。</p>
+          <div class="stage-grid">
+            <div class="stage-card"><h4>图像-文本资源</h4><p>约 503,016 张图像与 2,852 万条文本，来自病理教材、PubMed Central、PathGen-1.6M、STimage-1K4M 等病理图文资源，用于建立形态和病理术语的对应。</p></div>
+            <div class="stage-card"><h4>基因-文本资源</h4><p>约 51,602 对，来自 GEO、10x Genomics 和公开转录组资源。表达谱先转换为结构化分子证据，再生成受约束的生物学描述。</p></div>
+            <div class="stage-card"><h4>图像-基因-文本资源</h4><p>151,182 个通过质控的空间 spot。每个 spot 对应一个局部 H&amp;E patch、一条匹配的表达向量，以及由同一表达谱推导的文本描述。</p></div>
+          </div>
+        </div>
+
+        <div class="content-block">
+          <h3>spot 级三模态样本生成流程</h3>
+          <p>核心不是让通用 LLM 自由“看基因编故事”，而是先计算结构化证据，再让 GPT-4 受约束地将证据语言化。</p>
+          <div class="pipeline">
+            <div class="pipeline-step"><b>空间坐标配准与 patch 提取</b><span>利用数据集提供的坐标把每个空间转录组 spot 映射到配对 H&amp;E；以 spot 为中心裁剪方形 patch，并缩放至视觉编码器输入分辨率。</span></div>
+            <div class="pipeline-step"><b>图像质量控制</b><span>有 tissue mask 时剔除大面积背景和组织折叠；无 mask 时采用强度与饱和度启发式过滤，并人工抽查代表性切片。</span></div>
+            <div class="pipeline-step"><b>表达矩阵标准化</b><span>count 数据进行 library-size normalization 与 log transform，尽可能映射到统一 gene-symbol vocabulary；词表外基因不进入模型。</span></div>
+            <div class="pipeline-step"><b>提取分子证据</b><span>为每个 spot 汇总组织来源、高表达基因、代表性 marker gene，并使用 KEGG 等基因集进行 ssGSEA，获得 pathway enrichment 标签。</span></div>
+            <div class="pipeline-step"><b>证据约束的文本生成</b><span>GPT-4 只负责将预计算字段写成简洁描述；提示要求保留基因符号、通路和组织标签，禁止添加未提供的疾病、细胞类型或机制结论。</span></div>
+            <div class="pipeline-step"><b>语言质控与三元组装配</b><span>过滤缺失证据、基因符号错误、组织名称不支持、格式失败及越界推断的文本，最终形成同一空间位置的 image-gene-text triplet。</span></div>
+          </div>
+          <div class="evidence-note">代码补充：推理与蒸馏路径会将输入基因按参考基因顺序重排，缺失基因补零、额外基因忽略；gene tokenizer 进一步执行表达归一化、log1p，并按表达强度生成最多 1,500 个 token，可在序列头加入物种、测序技术和模态 token。</div>
+        </div>
+
+        <figure class="paper-figure">
+          <img src="assets/paper-figure-2.jpg" alt="Figure 2 data construction and progressive alignment">
+          <figcaption>论文 Figure 2：上部展示“高表达基因 + ssGSEA 通路 + 组织元数据 → 证据约束文本”；下部展示三阶段训练、组织分布，以及 transcriptome-to-language 指标随阶段提升。</figcaption>
+        </figure>
+      </section>
+
+      <section id="algorithm-flow">
+        <div class="section-head"><h2>03 · 模型架构与训练流程</h2></div>
+        <div class="content-block">
+          <h3>从原始模态到统一 token 序列</h3>
+          <div class="pipeline">
+            <div class="pipeline-step"><b>视觉编码</b><span>H&amp;E patch 经 27 层 SigLIP vision tower 得到 patch features，再由自适应 Resampler 压缩为 64 个视觉 virtual tokens。</span></div>
+            <div class="pipeline-step"><b>转录组编码</b><span>NicheFormer 使用 12 层 Transformer 将最多 1,500 个表达 token 编码为 512 维上下文化表示；前三个上下文 token 在进入桥接器前被移除。</span></div>
+            <div class="pipeline-step"><b>Gene Q-Former 压缩</b><span>32 个可学习 query 经过 4 个 block；每个 block 依次执行 query self-attention、对基因 token 的 cross-attention 与 FFN，将可变长表达谱压缩为 32 × 768。</span></div>
+            <div class="pipeline-step"><b>投影到语言空间</b><span>Gene Projector 将 768 维映射到 3,584 维；视觉 Resampler 也输出同一 LLM hidden size。两种模态因此可与文本 embedding 直接拼入同一序列。</span></div>
+            <div class="pipeline-step"><b>占位符替换</b><span>processor 将文本中的 image/gene 占位符扩展为固定 span；模型通过 scatter 把 64 个视觉 token 和 32 个基因 token 写入对应 embedding 位置，且这些位置不计算语言建模 label loss。</span></div>
+            <div class="pipeline-step"><b>统一自回归解码</b><span>Qwen2 风格 28 层 decoder 同时读取视觉、基因和指令上下文，输出自由文本、结构化 region/pathway/gene 结果或闭集分类标签。</span></div>
+          </div>
+          <div class="formula-strip">
+            <div class="formula">H&amp;E → SigLIP(27L, 1152d) → Resampler(64 queries) → 64 × 3584</div>
+            <div class="formula">Expression → NicheFormer(12L, 512d) → Q-Former(32 queries, 768d) → Projector → 32 × 3584</div>
+            <div class="formula">[text + visual span + gene span] → 28-layer decoder → biological response</div>
+          </div>
+        </div>
+
+        <div class="content-block">
+          <h3>训练课程、目标函数与实现参数</h3>
+          <div class="stage-grid">
+            <div class="stage-card"><h4>Stage I · Histology-Text</h4><p>先适配视觉分支和语言骨干到病理图文语义，学习组织形态、细胞外观与病理术语。</p></div>
+            <div class="stage-card"><h4>Stage II · Gene-Text</h4><p>加入 NicheFormer、Q-Former 和 projector，将表达谱表示对齐到语言语义空间。</p></div>
+            <div class="stage-card"><h4>Stage III · Tri-modal</h4><p>用 spot 级三元组联合优化，并混入少量 UltraChat、Flickr30k 等通用数据以减轻灾难性遗忘。</p></div>
+          </div>
+          <div class="deep-dive" style="margin-top:14px">
+            <div class="note-panel"><h4>论文目标函数</h4><ul><li>标准自回归 language-model loss。</li><li>image-text、gene-text、image-gene 可用模态对之间的 InfoNCE-style 对比损失。</li><li>三阶段后追加离线 reward-weighted refinement，主要约束格式、语言一致性和证据忠实度。</li></ul></div>
+            <div class="note-panel"><h4>仓库桥接蒸馏</h4><ul><li>文本-only LLM 隐状态作为 teacher target。</li><li>总损失默认权重：0.2×CE + 1.0×cosine + 1.0×InfoNCE + 0.5×分类损失。</li><li>只训练 gene_qformer、gene_projector 和可选 gene_cls_head；NicheFormer 冻结。</li></ul></div>
+            <div class="note-panel"><h4>论文主训练配置</h4><ul><li>2 epochs，per-device batch size 1，gradient accumulation 16。</li><li>学习率 5×10⁻⁴，cosine schedule，warmup 0.1，weight decay 0.01。</li><li>max length 2048，5% 验证集，seed 42；8 × NVIDIA A800 40GB，bfloat16。</li></ul></div>
+          </div>
+          <div class="evidence-note">论文方法与公开脚本并非完全同一配置：仓库的 CPT/SFT 示例包含 6 卡或 3 卡、LoRA、不同 epoch/学习率等演示参数，应视为可修改入口，而不是论文主实验配置的逐字复刻。</div>
+        </div>
+        <figure class="paper-figure">
+          <img src="assets/scicore-omics-training.png" alt="SciCore-Omics three-stage progressive training">
+          <figcaption>Extended Data Figure 1：Stage I 图文预训练；Stage II 冻结 LLM 与视觉通路进行 gene-text 对齐；Stage III 联合训练三模态链路。火焰表示训练，雪花表示冻结。</figcaption>
+        </figure>
+      </section>
+
+      <section class="band" id="benchmark-results">
+        <div class="section-head"><h2>04 · 评测设计与主要结果</h2></div>
+
+        <div class="content-block">
+          <span class="section-kicker">Omics-to-language</span>
+          <h3>4.1 转录组条件文本生成</h3>
+          <p class="protocol"><b>协议：</b>输入 held-out gene profile，输出对应生物学描述；使用 BLEU-4、ROUGE-L 与 BERTScore F1 比较基础模型、gene-text 对齐后模型及最终三模态模型。</p>
+          <div class="table-wrap"><table class="result-table"><thead><tr><th>模型阶段</th><th>BLEU-4</th><th>ROUGE-L</th><th>BERTScore F1</th><th>解释</th></tr></thead><tbody>
+            <tr><td>Base：无显式 gene-text 对齐</td><td>0.024</td><td>0.022</td><td>0.346</td><td>几乎不能恢复结构化分子描述</td></tr>
+            <tr><td>Stage II：gene-text alignment</td><td>0.641</td><td>0.177</td><td>0.585</td><td>语义对齐明显建立，但长序列结构仍有限</td></tr>
+            <tr class="highlight"><td>Stage III：tri-modal alignment</td><td class="best">0.791</td><td class="best">0.606</td><td class="best">0.831</td><td>词汇、结构和生物医学语义均进一步提升</td></tr>
+          </tbody></table></div>
+        </div>
+
+        <div class="content-block">
+          <span class="section-kicker">Molecular level</span>
+          <h3>4.2 H&amp;E 预测心脏空间基因表达</h3>
+          <p class="protocol"><b>协议：</b>Human Heart Cell Atlas 的 39 个正常心脏空间切片，按 section 做 10-fold cross-validation；保留检测基因数不少于 500 的 spot，预测训练集最高表达的 50 个基因，指标为 PCC 与 MSE。</p>
+          <div class="deep-dive">
+            <div class="note-panel"><h4>Frozen encoder</h4><ul><li>SciCore-Omics 平均 PCC = 0.3679。</li><li>平均 MSE = 0.2629。</li><li>仅训练轻量回归头，说明预训练视觉表征已包含分子信息。</li></ul></div>
+            <div class="note-panel"><h4>Fine-tuning</h4><ul><li>解冻视觉编码器最后 6 层。</li><li>相对 OmiCLIP：mean PCC 提高 23.6%。</li><li>相对 OmiCLIP：mean MSE 降低 15.8%。</li></ul></div>
+            <div class="note-panel"><h4>代表基因 spot-level r</h4><ul><li>NPPA：0.82。</li><li>TTN：0.50；MYH7：0.61。</li><li>MYL7：0.63；预测空间图较真实表达更平滑、动态范围被压缩。</li></ul></div>
+          </div>
+          <p>比较方法：OmiCLIP、Hist2ST、HisToGene、BLEEP；所有方法按相同 section split、50-gene panel 与预处理协议重训。</p>
+        </div>
+
+        <div class="content-block">
+          <span class="section-kicker">Spot level</span>
+          <h3>4.3 DLPFC 空间域与结构化生物学读出</h3>
+          <p class="protocol"><b>协议：</b>12 个带人工皮层层级标签的 Visium 切片，8 个训练、4 个 held-out；分别评估冻结 embedding 的空间域分类，以及 region、pathway、marker gene 的生成式结构化读出。</p>
+          <div class="table-wrap"><table class="result-table"><thead><tr><th>设置</th><th>结果</th><th>对比</th></tr></thead><tbody>
+            <tr><td>Frozen image embedding</td><td>macro-F1 = 0.801</td><td rowspan="3">外部 embedding 基线：NicheFormer、Geneformer、scGPT、scVI、PCA；最强外部结果 macro-F1 = 0.470。</td></tr>
+            <tr><td>Frozen gene embedding</td><td>macro-F1 = 0.496</td></tr>
+            <tr class="highlight"><td>Joint image-gene embedding</td><td class="best">macro-F1 = 0.850</td></tr>
+            <tr><td>Gene-only 生成式读出</td><td>region/pathway/gene mean ACC = 0.430</td><td>比 CellWhisperer 高 19.4%，比 Cell2Sentence 高 30.3%。</td></tr>
+            <tr><td>Image-only 生成式读出</td><td>mean ACC = 0.417</td><td>比 LLaVA-Med 高 12.6%，比 BioMedGPT 高 30.2%。</td></tr>
+            <tr class="highlight"><td>Joint image-gene 生成式读出</td><td class="best">mean ACC = 0.497</td><td>region 0.41 / pathway 0.37 / gene 0.71；比 gene-only 高 15.5%，比 image-only 高 19.2%。</td></tr>
+          </tbody></table></div>
+        </div>
+
+        <div class="content-block">
+          <span class="section-kicker">Tissue level</span>
+          <h3>4.4 零样本病理分类</h3>
+          <p class="protocol"><b>协议：</b>在 MHIST、BACH、CRC100K/CRC-VAL 和 PatchCamelyon 上提供闭集候选标签，不做微调，也不给 in-context example，以 image/patch-level accuracy 评估。</p>
+          <div class="table-wrap"><table class="result-table"><thead><tr><th>模型</th><th>MHIST</th><th>BACH</th><th>CRC100K</th><th>PatchCamelyon</th><th>四数据集均值</th></tr></thead><tbody>
+            <tr><td>GPT-4o</td><td>46.98</td><td>31.50</td><td class="best">54.03</td><td>48.95</td><td>45.36</td></tr>
+            <tr><td>GPT-5</td><td>48.21</td><td>36.00</td><td>53.98</td><td>62.99</td><td>50.30</td></tr>
+            <tr><td>PathGen-LLaVA</td><td>36.94</td><td>42.75</td><td>14.01</td><td>65.35</td><td>39.76</td></tr>
+            <tr><td>LLaVA-Med</td><td>58.21</td><td>32.19</td><td>24.71</td><td>41.97</td><td>39.28</td></tr>
+            <tr><td>Quilt-LLaVA</td><td>23.64</td><td>13.50</td><td>18.57</td><td>44.08</td><td>24.95</td></tr>
+            <tr class="highlight"><td>SciCore-Omics</td><td class="best">63.15</td><td class="best">46.50</td><td>41.02</td><td class="best">75.17</td><td class="best">56.46</td></tr>
+          </tbody></table></div>
+          <p>SciCore-Omics 在 4 个 benchmark 中赢得 3 个，均值比 GPT-5 高 6.16 个百分点；CRC100K 仍落后于 GPT-4o/GPT-5，但高于三种开源 biomedical VLM。</p>
+        </div>
+
+        <div class="content-block">
+          <span class="section-kicker">Patch and case level</span>
+          <h3>4.5 PathVQA 与乳腺癌病例级推理</h3>
+          <p class="protocol"><b>协议：</b>PathVQA 约含 4,998 张病理图与 32,795 个 QA 对，微调后分别评测开放式和封闭式问题；病例级实验使用内部 10 例乳腺癌 WSI，按低倍定位、高倍 patch、病例证据汇总的流程推理，Ki-67 IHC 与病理报告只供专家评分参考。</p>
+          <div class="table-wrap"><table class="result-table"><thead><tr><th>模型</th><th>PathVQA Open</th><th>PathVQA Closed</th><th>10 例乳腺癌专家均分</th></tr></thead><tbody>
+            <tr><td>SciCore-Omics</td><td class="best">38.10</td><td>88.66</td><td class="best">3.67</td></tr>
+            <tr><td>MMQ</td><td>13.40</td><td>84.20</td><td>—</td></tr>
+            <tr><td>M2I2</td><td>36.30</td><td>88.00</td><td>—</td></tr>
+            <tr><td>BioMedGPT</td><td>28.00</td><td>88.00</td><td>—</td></tr>
+            <tr><td>LLaVA-Med</td><td>37.95</td><td class="best">91.21</td><td>2.75</td></tr>
+            <tr><td>Qwen3-VL</td><td>—</td><td>—</td><td>3.04</td></tr>
+          </tbody></table></div>
+          <p>病例级专家评分包含 accuracy、balanced accuracy、reasoning completeness、evidence quality、molecular consistency、case-level synthesis 六个维度。SciCore-Omics 除 reasoning completeness 与 Qwen3-VL 并列外，其余维度均最高；但 10 例仅是 proof-of-concept，不构成临床验证。</p>
+        </div>
+
+        <div class="figure-gallery">
+          <figure class="figure-card"><img src="assets/paper-figure-3.jpg" alt="Figure 3 gene expression prediction"><figcaption>Figure 3：39 个正常心脏切片上的表达预测，与 OmiCLIP、Hist2ST、BLEEP 等比较。</figcaption></figure>
+          <figure class="figure-card"><img src="assets/paper-figure-4.jpg" alt="Figure 4 spatial domain recognition"><figcaption>Figure 4：DLPFC embedding macro-F1、结构化 region/pathway/gene 读出和空间映射。</figcaption></figure>
+          <figure class="figure-card"><img src="assets/paper-figure-5.jpg" alt="Figure 5 zero-shot classification"><figcaption>Figure 5：四个 H&amp;E benchmark 的零样本闭集分类与 BACH confusion matrix。</figcaption></figure>
+          <figure class="figure-card"><img src="assets/paper-figure-6.jpg" alt="Figure 6 pathology reasoning"><figcaption>Figure 6：PathVQA、H&amp;E-only WSI 分阶段推理与乳腺癌专家评估。</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="code-review">
+        <div class="section-head"><h2>05 · 代码实现与复现状态</h2></div>
+        <div class="code-audit">
+          <div class="audit-row"><code>model/modeling_minicpmv.py</code><p>完整串联 Qwen2、SigLIP、视觉 Resampler、NicheFormer、Gene Q-Former 与 Gene Projector；图像和基因表示都以 embedding span 方式注入语言模型。</p><span class="audit-status">核心实现已公开</span></div>
+          <div class="audit-row"><code>model/config.json</code><p>公开了 28 层、3584 hidden size 的语言模型配置，27 层 SigLIP 视觉塔、64 个视觉 query，以及 12 层 NicheFormer 和 1,500 gene context。</p><span class="audit-status">配置可核对</span></div>
+          <div class="audit-row"><code>gene_qformer_module.py</code><p>实际实现为轻量 4 层 Q-Former：32 个可学习 query，先 self-attention，再对 gene tokens 做 cross-attention，最后经过 FFN。</p><span class="audit-status">结构可核对</span></div>
+          <div class="audit-row"><code>train-distill-gene/</code><p>包含基因桥接蒸馏的单卡、DDP 和真实 processor 路径；损失组合包括语言生成 CE、cosine alignment、InfoNCE 与可选分类损失。</p><span class="audit-status">训练入口已公开</span></div>
+          <div class="audit-row"><code>train-swift-cpt-sft/</code><p>通过 ms-swift 自定义注册支持 CPT/SFT，但示例脚本仍要求用户替换模型、数据、输出和词表路径，不是下载后即可完整复现实验的封装。</p><span class="audit-status partial">需自行配数据</span></div>
+          <div class="audit-row"><code>train-rl/</code><p>实现固定候选答案上的离线 clipped reward-weighted objective 与 KL penalty；规则奖励覆盖 region、gene、pathway、格式、语言和不受支持的病理模板惩罚。</p><span class="audit-status">优化代码已公开</span></div>
+          <div class="audit-row"><code>eval/ + README</code><p>本地推理、图像/基因 embedding 提取和在线 Demo 均存在；论文给出评测协议与结果，但仓库尚未包含 Figure 3–6 全部 benchmark 的一键运行脚本和训练数据清单。</p><span class="audit-status partial">需重建评测流程</span></div>
+        </div>
+        <div class="source-key"><span>论文报告：151,182 spots 与主要性能增益</span><span>代码核对：网络维度、query 数与训练损失</span><span>谨慎推断：临床效用与泛化边界</span></div>
+        <div class="takeaway"><b>复现结论：</b>模型结构、权重、推理和主要训练入口均已公开，论文也描述了数据来源、split 与核心超参数；但公开仓库中的脚本仍含占位路径，论文主训练配置与 LoRA 示例配置不同，且下游 benchmark pipeline 未完整打包，因此距离“一键逐图复算”仍有差距。</div>
+      </section>
+
+      <section class="band" id="conclusion">
+        <div class="section-head"><h2>06 · 结论、局限与研究启示</h2></div>
+        <div class="conclusion-thesis">
+          <b>总体判断</b>
+          <p>SciCore-Omics 最重要的贡献，是把空间转录组从一个外部监督信号转化为大语言模型可直接消费的原生模态，并证明统一生成式接口能够跨越分子预测、空间组织解析与病理语言任务。论文提供了有说服力的“可行性证据”，但现有实验尚不能证明模型学到了稳定、可迁移的形态—分子机制，更不能把生成式生物学解释等同于经过验证的因果解释。</p>
+        </div>
+        <div class="insight-grid">
+          <div class="insight"><span class="verdict">Scientific contribution</span><h3>贡献在于统一接口，而非单项指标刷新</h3><p>真正的新意不是某个分类器或回归头，而是将视觉 token、基因 token 与文本 token 放入同一因果解码上下文。联合模态在 DLPFC 上优于任一单模态，说明形态与表达提供互补条件信息；但这种增益仍混合了数据规模、课程训练和指令微调的作用，需要更系统的消融才能归因于三模态架构本身。</p></div>
+          <div class="insight"><span class="verdict">Representation risk</span><h3>固定长度基因接口是一种有代价的压缩</h3><p>Gene Q-Former 将最多 1,500 个表达 token 压缩为 32 个查询表示，显著降低了与 LLM 对接的成本，也建立了清晰的模态瓶颈。代价是稀有基因、低丰度信号、共表达结构和平台特异性偏差可能被抹平。后续应报告 query 数量、基因排序、归一化方式及缺失基因处理对性能和生物学忠实度的敏感性。</p></div>
+          <div class="insight"><span class="verdict">Evidence interpretation</span><h3>语言一致性不等于生物学正确性</h3><p>训练文本由高表达基因、marker 与通路富集结果再语言化，因此 BLEU、ROUGE 和 BERTScore 主要衡量模型能否重建这种描述体系，而不能独立验证机制解释是否正确。更严格的评估应加入基因与通路事实核验、反事实输入、扰动响应、专家盲评及可追溯证据引用，以区分流畅生成与可信推理。</p></div>
+          <div class="insight"><span class="verdict">Generalization</span><h3>跨数据集成绩尚未覆盖真实域偏移</h3><p>现有结果覆盖多种任务，但训练资源与评测集可能共享病理语汇、组织类型或数据生成流程。决定实际泛化能力的将是患者级和中心级严格隔离，以及对染色批次、扫描仪、空间转录组平台、疾病亚型和低质量切片的外部验证。尤其需要排查文本模板与 benchmark 标签之间的潜在语义泄漏。</p></div>
+          <div class="insight"><span class="verdict">Open science</span><h3>模型与核心代码开源，是值得肯定的实质性贡献</h3><p>相较不少同类生物医学基础模型仅公开论文、在线 Demo 或受限接口，SciCore-Omics 同时发布模型权重、核心网络实现、推理代码及多类训练入口，使研究者能够本地部署、检查模态桥接机制并开展二次适配。这种开放程度显著提升了工作的可验证性和社区延展价值。当前不足主要在复现工程尚未完全闭环：训练数据版本、样本去重与 split、完整预处理配置以及 Figure 3–6 的一键评测脚本仍需补齐；这些限制应被视为后续完善方向，而不应掩盖其开放模型和关键实现本身的积极意义。</p></div>
+          <div class="insight"><span class="verdict">Translational value</span><h3>更适合作为分子假设生成器</h3><p>从常规 H&amp;E 提出分子线索具有研究价值，但 10 例乳腺癌评估只能说明输出具有初步可读性。面向转化应用，还需要前瞻性多中心队列、概率校准、失败检测、拒答机制、亚组公平性分析，以及与真实检测成本和临床决策增益相关的评价；在此之前，不应将模型输出视为分子检测或病理诊断的替代品。</p></div>
+        </div>
+      </section>
+      <section><div class="section-head"><h2>参考链接</h2></div><ul class="refs"><li>SciCore-Omics：<a href="https://www.biorxiv.org/content/10.64898/2026.05.30.728937v1.full" target="_blank" rel="noopener">bioRxiv v1</a>
+<a href="https://github.com/OpenBMB/Scicore-Omics" target="_blank" rel="noopener">GitHub</a>
+<a href="https://huggingface.co/openbmb/SciCore-Omics" target="_blank" rel="noopener">模型权重</a>
+<a href="https://huggingface.co/spaces/Alkaidxxy/SciCore-Omics" target="_blank" rel="noopener">在线 Demo</a></li></ul><p class="footnote">整理日期：2026-06-11。若论文作者后续公开代码、权重或更新版本，建议同步跟踪。</p></section>
+      <footer class="site-credit"><div>AI-assisted paper analysis · Generated by Codex,</div><div>📝 Paper Analysis &amp; Curation by CocoSun</div></footer>
+    
+  </main>
+<!-- sun-blog-home-link:start -->
+<a class="sun-blog-home-link" href="../../" aria-label="返回主页">← 首页</a>
+<style>
+  .sun-blog-home-link {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 2147483647;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 8px 13px;
+    border: 1px solid rgba(23, 32, 51, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 10px 26px rgba(23, 32, 51, 0.16);
+    color: #174a7c;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+  }
+
+  .sun-blog-home-link:hover {
+    color: #8f2444;
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    .sun-blog-home-link {
+      top: 12px;
+      left: 12px;
+      min-height: 34px;
+      padding: 7px 11px;
+      font-size: 13px;
+    }
+  }
+</style>
+<!-- sun-blog-home-link:end -->
+</body>
+</html>
