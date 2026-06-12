@@ -1,6 +1,6 @@
 window.NOTES = [
   {
-    "title": "六大 AI × Bio 前沿：从预测生命到设计生命 (编辑版)",
+    "title": "六大 AI × Bio 前沿：从预测生命到设计生命",
     "type": "综述",
     "date": "2026-06-12",
     "url": "notes/ai-for-biology-six-frontiers/",
