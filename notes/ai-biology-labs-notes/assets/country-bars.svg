@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="560" viewBox="0 0 1100 560" role="img">
+    <rect width="1100" height="560" fill="#fbfaf7"/>
+    <text x="28" y="38" font-size="24" font-weight="800" fill="#17212b">国家/地区分布 Top 12</text>
+    <text x="28" y="85" font-size="16" fill="#24313f">USA</text>
+      <rect x="190" y="64" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="64" width="760" height="23" rx="7" fill="#9b5f3b"/>
+      <text x="962" y="82" font-size="15" fill="#24313f" font-weight="700">65</text><text x="28" y="121" font-size="16" fill="#24313f">UK</text>
+      <rect x="190" y="100" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="100" width="94" height="23" rx="7" fill="#9b5f3b"/>
+      <text x="296" y="118" font-size="15" fill="#24313f" font-weight="700">8</text><text x="28" y="157" font-size="16" fill="#24313f">China</text>
+      <rect x="190" y="136" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="136" width="94" height="23" rx="7" fill="#9b5f3b"/>
+      <text x="296" y="154" font-size="15" fill="#24313f" font-weight="700">8</text><text x="28" y="193" font-size="16" fill="#24313f">Canada</text>
+      <rect x="190" y="172" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="172" width="35" height="23" rx="7" fill="#4b8790"/>
+      <text x="237" y="190" font-size="15" fill="#24313f" font-weight="700">3</text><text x="28" y="229" font-size="16" fill="#24313f">France</text>
+      <rect x="190" y="208" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="208" width="23" height="23" rx="7" fill="#4b8790"/>
+      <text x="225" y="226" font-size="15" fill="#24313f" font-weight="700">2</text><text x="28" y="265" font-size="16" fill="#24313f">South Korea</text>
+      <rect x="190" y="244" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="244" width="23" height="23" rx="7" fill="#4b8790"/>
+      <text x="225" y="262" font-size="15" fill="#24313f" font-weight="700">2</text><text x="28" y="301" font-size="16" fill="#24313f">Hong Kong / China</text>
+      <rect x="190" y="280" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="280" width="12" height="23" rx="7" fill="#4b8790"/>
+      <text x="214" y="298" font-size="15" fill="#24313f" font-weight="700">1</text><text x="28" y="337" font-size="16" fill="#24313f">USA / Sweden</text>
+      <rect x="190" y="316" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="316" width="12" height="23" rx="7" fill="#4b8790"/>
+      <text x="214" y="334" font-size="15" fill="#24313f" font-weight="700">1</text><text x="28" y="373" font-size="16" fill="#24313f">Netherlands</text>
+      <rect x="190" y="352" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="352" width="12" height="23" rx="7" fill="#4b8790"/>
+      <text x="214" y="370" font-size="15" fill="#24313f" font-weight="700">1</text><text x="28" y="409" font-size="16" fill="#24313f">Germany</text>
+      <rect x="190" y="388" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="388" width="12" height="23" rx="7" fill="#4b8790"/>
+      <text x="214" y="406" font-size="15" fill="#24313f" font-weight="700">1</text><text x="28" y="445" font-size="16" fill="#24313f">USA / South Korea</text>
+      <rect x="190" y="424" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="424" width="12" height="23" rx="7" fill="#4b8790"/>
+      <text x="214" y="442" font-size="15" fill="#24313f" font-weight="700">1</text><text x="28" y="481" font-size="16" fill="#24313f">Canada / Germany</text>
+      <rect x="190" y="460" width="790" height="23" rx="7" fill="#edf1f4"/>
+      <rect x="190" y="460" width="12" height="23" rx="7" fill="#4b8790"/>
+      <text x="214" y="478" font-size="15" fill="#24313f" font-weight="700">1</text>
+    <text x="28" y="530" font-size="15" fill="#657386">美国和中国构成明显双中心；欧洲、加拿大、英国、新加坡等提供专门化节点。</text>
+  </svg>

@@ -1,5 +1,21 @@
 window.NOTES = [
   {
+    "title": "AI Biology Labs 全景：从模型能力到证据责任",
+    "type": "调研",
+    "date": "2026-07-08",
+    "url": "notes/ai-biology-labs-notes/",
+    "summary": "梳理全球 AI-first biology labs 与核心研究主题，理解 AI Biology Labs 的现状、研究方向、产业格局与验证瓶颈。",
+    "tags": [
+      "AI Biology Labs",
+      "Biological Foundation Models",
+      "AI Drug Discovery",
+      "Protein Design",
+      "Virtual Cell Modeling",
+      "Closed-Loop Biological Discovery"
+    ],
+    "accent": false
+  },
+  {
     "title": "六大 AI × Bio 前沿：从预测生命到设计生命",
     "type": "综述",
     "date": "2026-06-12",

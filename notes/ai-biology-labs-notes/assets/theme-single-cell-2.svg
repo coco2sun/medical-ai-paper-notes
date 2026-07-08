@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img">
+    <rect width="960" height="560" rx="0" fill="#f7fbf9"/>
+    <circle cx="820" cy="88" r="120" fill="#dfeee9"/>
+    <circle cx="110" cy="470" r="90" fill="#dfeee9"/>
+    <text x="54" y="72" font-size="18" font-weight="850" fill="#2f6f63">Theodoris Lab / Geneformer</text>
+    <text x="54" y="116" font-size="34" font-weight="850" fill="#17212b">从表达模式推断调控网络</text>
+    <text x="54" y="150" font-size="16" fill="#536172">基因网络基础模型</text>
+    <rect x="54" y="186" width="850" height="190" rx="20" fill="#dfeee9" stroke="#dbe4ea"/>
+    <g>
+      <rect x="70" y="236" width="160" height="76" rx="14" fill="#fff" stroke="#2f6f63" stroke-width="2"/>
+      <text x="150" y="266" text-anchor="middle" font-size="15" font-weight="800" fill="#2f6f63">单细胞矩阵</text>
+      <text x="150" y="292" text-anchor="middle" font-size="12" fill="#657386">Step 1</text>
+      <path d="M238 274 L272 274" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/><path d="M272 274 L260 266 M272 274 L260 282" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/>
+    </g><g>
+      <rect x="285" y="236" width="160" height="76" rx="14" fill="#fff" stroke="#2f6f63" stroke-width="2"/>
+      <text x="365" y="266" text-anchor="middle" font-size="15" font-weight="800" fill="#2f6f63">预训练表征</text>
+      <text x="365" y="292" text-anchor="middle" font-size="12" fill="#657386">Step 2</text>
+      <path d="M453 274 L487 274" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/><path d="M487 274 L475 266 M487 274 L475 282" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/>
+    </g><g>
+      <rect x="500" y="236" width="160" height="76" rx="14" fill="#fff" stroke="#2f6f63" stroke-width="2"/>
+      <text x="580" y="266" text-anchor="middle" font-size="15" font-weight="800" fill="#2f6f63">扰动预测</text>
+      <text x="580" y="292" text-anchor="middle" font-size="12" fill="#657386">Step 3</text>
+      <path d="M668 274 L702 274" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/><path d="M702 274 L690 266 M702 274 L690 282" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/>
+    </g><g>
+      <rect x="715" y="236" width="160" height="76" rx="14" fill="#fff" stroke="#2f6f63" stroke-width="2"/>
+      <text x="795" y="266" text-anchor="middle" font-size="15" font-weight="800" fill="#2f6f63">机制验证</text>
+      <text x="795" y="292" text-anchor="middle" font-size="12" fill="#657386">Step 4</text>
+      
+    </g>
+    <rect x="54" y="414" width="850" height="86" rx="16" fill="#fff" stroke="#dbe4ea"/>
+    <text x="78" y="448" font-size="15" font-weight="800" fill="#2f6f63">关键判断</text>
+    <text x="78" y="478" font-size="18" font-weight="800" fill="#17212b">细胞嵌入需要被扰动实验校准</text>
+  </svg>

@@ -1,0 +1,5019 @@
+{
+  "generated_at": "2026-07-08T09:16:25.500Z",
+  "total_rows": 585,
+  "unique_urls": 424,
+  "sources": [
+    {
+      "lab_id": "baker-lab-ipd",
+      "lab_name": "Baker Lab / Institute for Protein Design",
+      "categories": [
+        "protein-design",
+        "protein-structure"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.bakerlab.org/"
+    },
+    {
+      "lab_id": "baker-lab-ipd",
+      "lab_name": "Baker Lab / Institute for Protein Design",
+      "categories": [
+        "protein-design",
+        "protein-structure"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/RosettaCommons"
+    },
+    {
+      "lab_id": "baker-lab-ipd",
+      "lab_name": "Baker Lab / Institute for Protein Design",
+      "categories": [
+        "protein-design",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://www.nature.com/articles/s41586-023-06415-8"
+    },
+    {
+      "lab_id": "baker-lab-ipd",
+      "lab_name": "Baker Lab / Institute for Protein Design",
+      "categories": [
+        "protein-design",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "pi_or_lead",
+      "tag": "VERIFIED",
+      "url": "https://www.ipd.uw.edu/people/faculty_and_staff/"
+    },
+    {
+      "lab_id": "baker-lab-ipd",
+      "lab_name": "Baker Lab / Institute for Protein Design",
+      "categories": [
+        "protein-design",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://linkedin.com/company/uwproteindesign"
+    },
+    {
+      "lab_id": "baker-lab-ipd",
+      "lab_name": "Baker Lab / Institute for Protein Design",
+      "categories": [
+        "protein-design",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.ipd.uw.edu/software/"
+    },
+    {
+      "lab_id": "deepmind-science",
+      "lab_name": "Google DeepMind Science (AlphaFold team)",
+      "categories": [
+        "protein-structure",
+        "foundation-platform",
+        "protein-design"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://deepmind.google/science/"
+    },
+    {
+      "lab_id": "deepmind-science",
+      "lab_name": "Google DeepMind Science (AlphaFold team)",
+      "categories": [
+        "protein-structure",
+        "foundation-platform",
+        "protein-design"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/google-deepmind"
+    },
+    {
+      "lab_id": "isomorphic-labs",
+      "lab_name": "Isomorphic Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure",
+        "foundation-platform"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38718835/"
+    },
+    {
+      "lab_id": "deepmind-science",
+      "lab_name": "Google DeepMind Science (AlphaFold team)",
+      "categories": [
+        "protein-structure",
+        "foundation-platform",
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://research.google/people/105667/"
+    },
+    {
+      "lab_id": "isomorphic-labs",
+      "lab_name": "Isomorphic Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://deepmind.google/blog/alphafold-five-years-of-impact/"
+    },
+    {
+      "lab_id": "deepmind-science",
+      "lab_name": "Google DeepMind Science (AlphaFold team)",
+      "categories": [
+        "protein-structure",
+        "foundation-platform",
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://deepmind.google/blog/demis-hassabis-john-jumper-awarded-nobel-prize-in-chemistry/"
+    },
+    {
+      "lab_id": "isomorphic-labs",
+      "lab_name": "Isomorphic Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure",
+        "foundation-platform"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.isomorphiclabs.com/"
+    },
+    {
+      "lab_id": "isomorphic-labs",
+      "lab_name": "Isomorphic Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://www.isomorphiclabs.com/people/sir-demis-hassabis-phd"
+    },
+    {
+      "lab_id": "recursion-pharmaceuticals",
+      "lab_name": "Recursion Pharmaceuticals (+ Exscientia)",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "DERIVED",
+      "url": "https://visionlifesciences.com/insights/ai-drug-discovery-companies"
+    },
+    {
+      "lab_id": "isomorphic-labs",
+      "lab_name": "Isomorphic Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "alphafold3_funding",
+      "tag": "VERIFIED",
+      "url": "https://www.reuters.com/technology/artificial-intelligence/google-backed-ai-drug-discovery-startup-raises-600-million-2025-03-31/"
+    },
+    {
+      "lab_id": "isomorphic-labs",
+      "lab_name": "Isomorphic Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "alphafold3_code_release",
+      "tag": "VERIFIED",
+      "url": "https://www.isomorphiclabs.com/articles/alphafold-3-predicts-the-structure-and-interactions-of-all-of-lifes-molecules"
+    },
+    {
+      "lab_id": "alquraishi-lab",
+      "lab_name": "AlQuraishi Lab",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://www.aqlab.io/"
+    },
+    {
+      "lab_id": "alquraishi-lab",
+      "lab_name": "AlQuraishi Lab",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "virtual-cell"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/aqlaboratory"
+    },
+    {
+      "lab_id": "alquraishi-lab",
+      "lab_name": "AlQuraishi Lab",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "virtual-cell"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://www.sciencedirect.com/science/article/pii/S2405471219300766"
+    },
+    {
+      "lab_id": "alquraishi-lab",
+      "lab_name": "AlQuraishi Lab",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "pi_or_lead",
+      "tag": "VERIFIED",
+      "url": "https://systemsbiology.columbia.edu/faculty/mohammed-alquraishi"
+    },
+    {
+      "lab_id": "alquraishi-lab",
+      "lab_name": "AlQuraishi Lab",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.vagelos.columbia.edu/profile/mohammed-alquraishi-phd"
+    },
+    {
+      "lab_id": "alquraishi-lab",
+      "lab_name": "AlQuraishi Lab",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://openreview.net/profile?id=%7EMohammed_AlQuraishi1"
+    },
+    {
+      "lab_id": "alquraishi-lab",
+      "lab_name": "AlQuraishi Lab",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "openfold3",
+      "tag": "VERIFIED",
+      "url": "https://github.com/aqlaboratory/openfold-3"
+    },
+    {
+      "lab_id": "chai-discovery",
+      "lab_name": "Chai Discovery",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.chaidiscovery.com/"
+    },
+    {
+      "lab_id": "chai-discovery",
+      "lab_name": "Chai Discovery",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/chaidiscovery"
+    },
+    {
+      "lab_id": "chai-discovery",
+      "lab_name": "Chai Discovery",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://www.biorxiv.org/content/10.1101/2024.10.10.615955v1"
+    },
+    {
+      "lab_id": "chai-discovery",
+      "lab_name": "Chai Discovery",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20250806670137/en/Chai-Discovery-Announces-%2470-million-Series-A-To-Transform-Molecular-Design"
+    },
+    {
+      "lab_id": "chai-discovery",
+      "lab_name": "Chai Discovery",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://startupintros.com/orgs/chai-discovery"
+    },
+    {
+      "lab_id": "chai-discovery",
+      "lab_name": "Chai Discovery",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20251214931432/en/Chai-Discovery-Announces-%24130-Million-Series-B-To-Transform-Molecular-Discovery"
+    },
+    {
+      "lab_id": "chai-discovery",
+      "lab_name": "Chai Discovery",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://linkedin.com/company/chaidiscovery"
+    },
+    {
+      "lab_id": "chai-discovery",
+      "lab_name": "Chai Discovery",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.chaidiscovery.com/news/introducing-chai-1"
+    },
+    {
+      "lab_id": "generate-biomedicines",
+      "lab_name": "Generate:Biomedicines",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://generatebiomedicines.com/"
+    },
+    {
+      "lab_id": "generate-biomedicines",
+      "lab_name": "Generate:Biomedicines",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://generatebiomedicines.com/about-us"
+    },
+    {
+      "lab_id": "generate-biomedicines",
+      "lab_name": "Generate:Biomedicines",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.flagshippioneering.com/news/press-release/generate-biomedicines-announces-first-external-equity-raise-of-370-million-to-advance-its-drug-generation-platform"
+    },
+    {
+      "lab_id": "generate-biomedicines",
+      "lab_name": "Generate:Biomedicines",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://generatebiomedicines.com/media-center/series-c-financing-announcement"
+    },
+    {
+      "lab_id": "generate-biomedicines",
+      "lab_name": "Generate:Biomedicines",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "novartis_ipo_2026",
+      "tag": "VERIFIED",
+      "url": "https://endpoints.news/generatebiomedicines-raises-400m-ipo-ceo-talks-about-ais-future-in-drug-design/"
+    },
+    {
+      "lab_id": "xaira-therapeutics",
+      "lab_name": "Xaira Therapeutics",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery",
+        "protein-structure"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.xaira.com/"
+    },
+    {
+      "lab_id": "xaira-therapeutics",
+      "lab_name": "Xaira Therapeutics",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.xaira.com/team/marc-tessier-lavigne"
+    },
+    {
+      "lab_id": "xaira-therapeutics",
+      "lab_name": "Xaira Therapeutics",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "investors_tech",
+      "tag": "VERIFIED",
+      "url": "https://endpoints.news/in-biggest-ever-bet-on-using-ai-to-design-drugs-biotech-heavyweights-launch-xaira-with-1b-in-backing/"
+    },
+    {
+      "lab_id": "xaira-therapeutics",
+      "lab_name": "Xaira Therapeutics",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://techcrunch.com/2024/04/24/xaira-an-ai-drug-discovery-startup-launches-with-a-massive-1b-says-its-ready-to-start-developing-drugs/"
+    },
+    {
+      "lab_id": "insilico-medicine",
+      "lab_name": "Insilico Medicine",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-design",
+        "dna-rna-molecule"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://insilico.com/"
+    },
+    {
+      "lab_id": "insilico-medicine",
+      "lab_name": "Insilico Medicine",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-design",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40461817/"
+    },
+    {
+      "lab_id": "insilico-medicine",
+      "lab_name": "Insilico Medicine",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-design",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.caproasia.com/2025/06/05/united-states-hong-kong-biotech-company-insilico-medicine-plans-hong-kong-ipo-after-raising-110-million-in-series-e-funding-at-1-billion-valuation-founded-in-2014-by-alex-zhavoronkov-alex-alipe/"
+    },
+    {
+      "lab_id": "insilico-medicine",
+      "lab_name": "Insilico Medicine",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-design",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1230/11969923/sehk25121400242.pdf"
+    },
+    {
+      "lab_id": "insilico-medicine",
+      "lab_name": "Insilico Medicine",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-design",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://insilico.com/news/p010170up1-insilico-medicine-lists-on-hong-kong-sto"
+    },
+    {
+      "lab_id": "insilico-medicine",
+      "lab_name": "Insilico Medicine",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-design",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.biospace.com/press-releases/insilico-medicine-announces-nature-medicine-publication-of-phase-iia-results-evaluating-rentosertib-the-novel-tnik-inhibitor-for-idiopathic-pulmonary-fibrosis-ipf-discovered-and-designed-with-a-pioneering-ai-approach"
+    },
+    {
+      "lab_id": "insilico-medicine",
+      "lab_name": "Insilico Medicine",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-design",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "pharma_ai_2025",
+      "tag": "VERIFIED",
+      "url": "https://intuitionlabs.ai/articles/insilico-pharma-ai-drug-discovery"
+    },
+    {
+      "lab_id": "recursion-pharmaceuticals",
+      "lab_name": "Recursion Pharmaceuticals (+ Exscientia)",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab",
+        "single-cell"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.recursion.com/"
+    },
+    {
+      "lab_id": "recursion-pharmaceuticals",
+      "lab_name": "Recursion Pharmaceuticals (+ Exscientia)",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://tracxn.com/d/trending-business-models/startups-in-ai-drug-discovery/__Dv3d1e3FHUlEXmv2oSFtzcuYCdBzoA4qHtz8_sXmshY/companies"
+    },
+    {
+      "lab_id": "insitro",
+      "lab_name": "insitro",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.insitro.com/"
+    },
+    {
+      "lab_id": "insitro",
+      "lab_name": "insitro",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.insitro.com/leadership/daphne-koller/"
+    },
+    {
+      "lab_id": "insitro",
+      "lab_name": "insitro",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://app.dealroom.co/companies/insitro"
+    },
+    {
+      "lab_id": "insitro",
+      "lab_name": "insitro",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.insitro.com/news/insitro-raises-400-million-in-series-c-financing-2/"
+    },
+    {
+      "lab_id": "insitro",
+      "lab_name": "insitro",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://pitchbook.com/profiles/company/228303-64"
+    },
+    {
+      "lab_id": "biomap",
+      "lab_name": "BioMap (百图生科)",
+      "categories": [
+        "foundation-platform",
+        "protein-design",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.biomap.com/"
+    },
+    {
+      "lab_id": "biomap",
+      "lab_name": "BioMap (百图生科)",
+      "categories": [
+        "foundation-platform",
+        "protein-design",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://baike.baidu.com/item/%E7%99%BE%E5%9B%BE%E7%94%9F%E7%A7%91/53860347"
+    },
+    {
+      "lab_id": "biomap",
+      "lab_name": "BioMap (百图生科)",
+      "categories": [
+        "foundation-platform",
+        "protein-design",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://m.xinnet.com/mweb/64/364994.html"
+    },
+    {
+      "lab_id": "biomap",
+      "lab_name": "BioMap (百图生科)",
+      "categories": [
+        "foundation-platform",
+        "protein-design",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "key_people",
+      "tag": "VERIFIED",
+      "url": "https://36kr.com/p/2171371113967879"
+    },
+    {
+      "lab_id": "biomap",
+      "lab_name": "BioMap (百图生科)",
+      "categories": [
+        "foundation-platform",
+        "protein-design",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://geneonline.news/biomap-liuwei-interview/"
+    },
+    {
+      "lab_id": "biomap",
+      "lab_name": "BioMap (百图生科)",
+      "categories": [
+        "foundation-platform",
+        "protein-design",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "DERIVED",
+      "url": "https://bydrug.pharmcube.com/news/detail/a165edc7d994c2ca3f5d7e8d575b7042"
+    },
+    {
+      "lab_id": "biomap",
+      "lab_name": "BioMap (百图生科)",
+      "categories": [
+        "foundation-platform",
+        "protein-design",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "xtrimo_v3",
+      "tag": "VERIFIED",
+      "url": "https://finance.sina.com.cn/tech/roll/2024-10-28/doc-incuayyw2816887.shtml"
+    },
+    {
+      "lab_id": "helixon-huashen",
+      "lab_name": "Helixon (华深智药)",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.huashen.bio/"
+    },
+    {
+      "lab_id": "helixon-huashen",
+      "lab_name": "Helixon (华深智药)",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://m.qcc.com/firm/a56220a2ad7b44c04a26523078fb0098.html"
+    },
+    {
+      "lab_id": "helixon-huashen",
+      "lab_name": "Helixon (华深智药)",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://pitchhub.36kr.com/project/1678323143111682"
+    },
+    {
+      "lab_id": "helixon-huashen",
+      "lab_name": "Helixon (华深智药)",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "key_people",
+      "tag": "VERIFIED",
+      "url": "https://36kr.com/p/2122169073387906"
+    },
+    {
+      "lab_id": "helixon-huashen",
+      "lab_name": "Helixon (华深智药)",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.huashen.bio/2023/02/%E5%85%A8%E7%90%83%E9%A6%96%E4%B8%AA%EF%BC%81-%E5%8D%8E%E6%B7%B1%E6%99%BA%E8%8D%AF%E5%AE%8C%E6%88%90%E5%8D%95%E6%9D%A1%E5%BA%8F%E5%88%97%E8%9B%8B%E7%99%BD%E8%B4%A8%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B/"
+    },
+    {
+      "lab_id": "helixon-huashen",
+      "lab_name": "Helixon (华深智药)",
+      "categories": [
+        "protein-structure",
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "DERIVED",
+      "url": "https://www.tmtpost.com/7916747.html"
+    },
+    {
+      "lab_id": "xtalpi",
+      "lab_name": "XtalPi (晶泰科技)",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab",
+        "dna-rna-molecule"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.xtalpi.com/"
+    },
+    {
+      "lab_id": "xtalpi",
+      "lab_name": "XtalPi (晶泰科技)",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.xtalpi.com/about/"
+    },
+    {
+      "lab_id": "xtalpi",
+      "lab_name": "XtalPi (晶泰科技)",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://zh.wikipedia.org/zh-hans/%E6%99%B6%E6%B3%B0%E7%A7%91%E6%8A%80"
+    },
+    {
+      "lab_id": "xtalpi",
+      "lab_name": "XtalPi (晶泰科技)",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.36kr.com/p/2817705508768008"
+    },
+    {
+      "lab_id": "berger-lab-mit",
+      "lab_name": "Berger Lab (MIT CSAIL)",
+      "categories": [
+        "single-cell",
+        "protein-structure",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://labberger.github.io/"
+    },
+    {
+      "lab_id": "berger-lab-mit",
+      "lab_name": "Berger Lab (MIT CSAIL)",
+      "categories": [
+        "single-cell",
+        "protein-structure",
+        "foundation-platform"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/labberger"
+    },
+    {
+      "lab_id": "berger-lab-mit",
+      "lab_name": "Berger Lab (MIT CSAIL)",
+      "categories": [
+        "single-cell",
+        "protein-structure",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "pi_or_lead",
+      "tag": "VERIFIED",
+      "url": "https://people.csail.mit.edu/bab/"
+    },
+    {
+      "lab_id": "berger-lab-mit",
+      "lab_name": "Berger Lab (MIT CSAIL)",
+      "categories": [
+        "single-cell",
+        "protein-structure",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://en.wikipedia.org/wiki/Bonnie_Berger"
+    },
+    {
+      "lab_id": "zou-lab-stanford",
+      "lab_name": "Zou Group (Stanford AI for Science Lab)",
+      "categories": [
+        "scientific-agents",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.james-zou.com/"
+    },
+    {
+      "lab_id": "zou-lab-stanford",
+      "lab_name": "Zou Group (Stanford AI for Science Lab)",
+      "categories": [
+        "scientific-agents",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://github.com/zou-group"
+    },
+    {
+      "lab_id": "zou-lab-stanford",
+      "lab_name": "Zou Group (Stanford AI for Science Lab)",
+      "categories": [
+        "scientific-agents",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://profiles.stanford.edu/james-zou"
+    },
+    {
+      "lab_id": "zitnik-lab-harvard",
+      "lab_name": "Zitnik Lab (Harvard)",
+      "categories": [
+        "scientific-agents",
+        "foundation-platform",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://zitniklab.hms.harvard.edu/"
+    },
+    {
+      "lab_id": "zitnik-lab-harvard",
+      "lab_name": "Zitnik Lab (Harvard)",
+      "categories": [
+        "scientific-agents",
+        "foundation-platform",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/marinkazitnik"
+    },
+    {
+      "lab_id": "zitnik-lab-harvard",
+      "lab_name": "Zitnik Lab (Harvard)",
+      "categories": [
+        "scientific-agents",
+        "foundation-platform",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://www.nature.com/articles/s41592-024-02341-3"
+    },
+    {
+      "lab_id": "zitnik-lab-harvard",
+      "lab_name": "Zitnik Lab (Harvard)",
+      "categories": [
+        "scientific-agents",
+        "foundation-platform",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "pi_or_lead",
+      "tag": "VERIFIED",
+      "url": "https://zitniklab.hms.harvard.edu/bio/"
+    },
+    {
+      "lab_id": "zitnik-lab-harvard",
+      "lab_name": "Zitnik Lab (Harvard)",
+      "categories": [
+        "scientific-agents",
+        "foundation-platform",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://cs.stanford.edu/people/marinka/"
+    },
+    {
+      "lab_id": "zitnik-lab-harvard",
+      "lab_name": "Zitnik Lab (Harvard)",
+      "categories": [
+        "scientific-agents",
+        "foundation-platform",
+        "single-cell",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://zitniklab.hms.harvard.edu/publications/"
+    },
+    {
+      "lab_id": "wang-lab-utoronto",
+      "lab_name": "WangLab (U of T) — scGPT",
+      "categories": [
+        "single-cell",
+        "foundation-platform",
+        "virtual-cell"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://wanglab.ai/"
+    },
+    {
+      "lab_id": "wang-lab-utoronto",
+      "lab_name": "WangLab (U of T) — scGPT",
+      "categories": [
+        "single-cell",
+        "foundation-platform",
+        "virtual-cell"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/bowang-lab"
+    },
+    {
+      "lab_id": "wang-lab-utoronto",
+      "lab_name": "WangLab (U of T) — scGPT",
+      "categories": [
+        "single-cell",
+        "foundation-platform",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.nature.com/articles/s41592-024-02201-0"
+    },
+    {
+      "lab_id": "wang-lab-utoronto",
+      "lab_name": "WangLab (U of T) — scGPT",
+      "categories": [
+        "single-cell",
+        "foundation-platform",
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://lmp.utoronto.ca/faculty/bo-wang"
+    },
+    {
+      "lab_id": "czi-virtual-cell",
+      "lab_name": "Chan Zuckerberg Initiative — AI Virtual Cell",
+      "categories": [
+        "virtual-cell",
+        "single-cell",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://virtualcellmodels.cziscience.com/"
+    },
+    {
+      "lab_id": "czi-virtual-cell",
+      "lab_name": "Chan Zuckerberg Initiative — AI Virtual Cell",
+      "categories": [
+        "virtual-cell",
+        "single-cell",
+        "foundation-platform"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/chanzuckerberg"
+    },
+    {
+      "lab_id": "lundberg-lab-stanford",
+      "lab_name": "Lundberg Lab (Stanford / KTH)",
+      "categories": [
+        "virtual-cell",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.cell.com/cell/fulltext/S0092-8674(24)01332-1"
+    },
+    {
+      "lab_id": "czi-virtual-cell",
+      "lab_name": "Chan Zuckerberg Initiative — AI Virtual Cell",
+      "categories": [
+        "virtual-cell",
+        "single-cell",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "pi_or_lead",
+      "tag": "VERIFIED",
+      "url": "https://chanzuckerberg.com/blog/transcriptformer-model-overview/"
+    },
+    {
+      "lab_id": "czi-virtual-cell",
+      "lab_name": "Chan Zuckerberg Initiative — AI Virtual Cell",
+      "categories": [
+        "virtual-cell",
+        "single-cell",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://chanzuckerberg.com/"
+    },
+    {
+      "lab_id": "czi-virtual-cell",
+      "lab_name": "Chan Zuckerberg Initiative — AI Virtual Cell",
+      "categories": [
+        "virtual-cell",
+        "single-cell",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "transcriptformer",
+      "tag": "VERIFIED",
+      "url": "https://virtualcellmodels.cziscience.com/model/transcriptformer"
+    },
+    {
+      "lab_id": "instadeep",
+      "lab_name": "InstaDeep (Nucleotide Transformer team)",
+      "categories": [
+        "dna-rna-molecule",
+        "foundation-platform",
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "DERIVED",
+      "url": "https://instadeep.com/"
+    },
+    {
+      "lab_id": "instadeep",
+      "lab_name": "InstaDeep (Nucleotide Transformer team)",
+      "categories": [
+        "dna-rna-molecule",
+        "foundation-platform",
+        "scientific-agents"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/instadeepai"
+    },
+    {
+      "lab_id": "instadeep",
+      "lab_name": "InstaDeep (Nucleotide Transformer team)",
+      "categories": [
+        "dna-rna-molecule",
+        "foundation-platform",
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.nature.com/articles/s41592-024-02523-z"
+    },
+    {
+      "lab_id": "emerald-cloud-lab",
+      "lab_name": "Emerald Cloud Lab",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://www.emeraldcloudlab.com/"
+    },
+    {
+      "lab_id": "emerald-cloud-lab",
+      "lab_name": "Emerald Cloud Lab",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://www.pnas.org/doi/10.1073/pnas.2406320121"
+    },
+    {
+      "lab_id": "emerald-cloud-lab",
+      "lab_name": "Emerald Cloud Lab",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "DERIVED",
+      "url": "https://www.theguardian.com/science/2022/sep/11/cloud-labs-and-remote-research-arent-the-future-of-science-theyre-here"
+    },
+    {
+      "lab_id": "emerald-cloud-lab",
+      "lab_name": "Emerald Cloud Lab",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.emeraldcloudlab.com/how-it-works/"
+    },
+    {
+      "lab_id": "strateos",
+      "lab_name": "Strateos (Cloud Lab)",
+      "categories": [
+        "automated-lab",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://strateos.com/"
+    },
+    {
+      "lab_id": "strateos",
+      "lab_name": "Strateos (Cloud Lab)",
+      "categories": [
+        "automated-lab",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://strateos.com/claas-software-platform/"
+    },
+    {
+      "lab_id": "lundberg-lab-stanford",
+      "lab_name": "Lundberg Lab (Stanford / KTH)",
+      "categories": [
+        "virtual-cell",
+        "single-cell"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://lundberglab.stanford.edu/"
+    },
+    {
+      "lab_id": "lundberg-lab-stanford",
+      "lab_name": "Lundberg Lab (Stanford / KTH)",
+      "categories": [
+        "virtual-cell",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://profiles.stanford.edu/emma-lundberg"
+    },
+    {
+      "lab_id": "nvidia-bionemo",
+      "lab_name": "NVIDIA BioNeMo Framework",
+      "categories": [
+        "foundation-platform",
+        "protein-structure",
+        "single-cell",
+        "dna-rna-molecule"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.nvidia.com/en-us/clara/bionemo/"
+    },
+    {
+      "lab_id": "nvidia-bionemo",
+      "lab_name": "NVIDIA BioNeMo Framework",
+      "categories": [
+        "foundation-platform",
+        "protein-structure",
+        "single-cell",
+        "dna-rna-molecule"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/NVIDIA/bionemo-framework"
+    },
+    {
+      "lab_id": "nvidia-bionemo",
+      "lab_name": "NVIDIA BioNeMo Framework",
+      "categories": [
+        "foundation-platform",
+        "protein-structure",
+        "single-cell",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://docs.nvidia.com/bionemo-framework/latest/"
+    },
+    {
+      "lab_id": "nvidia-bionemo",
+      "lab_name": "NVIDIA BioNeMo Framework",
+      "categories": [
+        "foundation-platform",
+        "protein-structure",
+        "single-cell",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://docs.nvidia.com/bionemo-framework/latest/models/geneformer/"
+    },
+    {
+      "lab_id": "evolutionaryscale",
+      "lab_name": "EvolutionaryScale",
+      "categories": [
+        "protein-structure",
+        "protein-design"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.evolutionaryscale.ai/"
+    },
+    {
+      "lab_id": "evolutionaryscale",
+      "lab_name": "EvolutionaryScale",
+      "categories": [
+        "protein-structure",
+        "protein-design"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/evolutionaryscale/esm"
+    },
+    {
+      "lab_id": "evolutionaryscale",
+      "lab_name": "EvolutionaryScale",
+      "categories": [
+        "protein-structure",
+        "protein-design"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Lin et al., Science 379:1123-1130 (2023); Rives et al., PNAS 118:e2016239118 (2021)"
+    },
+    {
+      "lab_id": "evolutionaryscale",
+      "lab_name": "EvolutionaryScale",
+      "categories": [
+        "protein-structure",
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "esm3_details",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20240625717839/en/EvolutionaryScale-Launches-with-ESM3-A-Milestone-AI-Model-for-Biology"
+    },
+    {
+      "lab_id": "evolutionaryscale",
+      "lab_name": "EvolutionaryScale",
+      "categories": [
+        "protein-structure",
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://techcrunch.com/2024/06/25/evolutionaryscale-backed-by-amazon-and-nvidia-raises-142m-for-protein-generating-ai/"
+    },
+    {
+      "lab_id": "evolutionaryscale",
+      "lab_name": "EvolutionaryScale",
+      "categories": [
+        "protein-structure",
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.reuters.com/technology/evolutionaryscale-lands-142-mln-advance-ai-biology-2024-06-25/"
+    },
+    {
+      "lab_id": "yang-zhang-lab",
+      "lab_name": "Yang Zhang Lab",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://zhanggroup.org/"
+    },
+    {
+      "lab_id": "yang-zhang-lab",
+      "lab_name": "Yang Zhang Lab",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/yangzhanglab"
+    },
+    {
+      "lab_id": "yang-zhang-lab",
+      "lab_name": "Yang Zhang Lab",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Zheng et al., Nature Biotechnology (2025); Yang & Zhang, Nature Protocols 17:2326-2353 (2022)"
+    },
+    {
+      "lab_id": "yang-zhang-lab",
+      "lab_name": "Yang Zhang Lab",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.zhanggroup.org/research/"
+    },
+    {
+      "lab_id": "yang-zhang-lab",
+      "lab_name": "Yang Zhang Lab",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4489253/"
+    },
+    {
+      "lab_id": "cradle-bio",
+      "lab_name": "Cradle",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://cradle.bio/"
+    },
+    {
+      "lab_id": "cradle-bio",
+      "lab_name": "Cradle",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://techcrunch.com/2024/11/26/cradle-builds-out-its-protein-design-ai-platform-and-wet-lab-with-73m-in-new-funding/"
+    },
+    {
+      "lab_id": "cradle-bio",
+      "lab_name": "Cradle",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "series_b_2024",
+      "tag": "VERIFIED",
+      "url": "https://endpoints.news/cradle-bio-raises-73m-series-b-for-protein-making-ai-software/"
+    },
+    {
+      "lab_id": "profluent",
+      "lab_name": "Profluent",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://profluent.bio/"
+    },
+    {
+      "lab_id": "profluent",
+      "lab_name": "Profluent",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/profluent/progen"
+    },
+    {
+      "lab_id": "profluent",
+      "lab_name": "Profluent",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Madani et al., Nature Biotechnology (2023)"
+    },
+    {
+      "lab_id": "profluent",
+      "lab_name": "Profluent",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.forbes.com/sites/amyfeldman/2025/11/19/jeff-bezos-is-backing-an-ai-startup-aiming-to-make-proteins-programmable/"
+    },
+    {
+      "lab_id": "profluent",
+      "lab_name": "Profluent",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://fortune.com/2025/04/16/biotech-profluent-ai-scaling-laws-protein-design-models-opencrispr-openantibodies/"
+    },
+    {
+      "lab_id": "profluent",
+      "lab_name": "Profluent",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://techcrunch.com/2024/03/25/profluent-spurred-by-salesforce-research-and-backed-by-jeff-dean-uses-ai-to-discover-medicines/"
+    },
+    {
+      "lab_id": "profluent",
+      "lab_name": "Profluent",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "opencrispr_atlas",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20251119356889/en/Profluent-Raises-%24106M-to-Scale-Frontier-AI-Models-for-Programmable-Biology"
+    },
+    {
+      "lab_id": "a-alpha-bio",
+      "lab_name": "A-Alpha Bio",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://aalphabio.com/"
+    },
+    {
+      "lab_id": "a-alpha-bio",
+      "lab_name": "A-Alpha Bio",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "dod_tamarind",
+      "tag": "VERIFIED",
+      "url": "https://www.geekwire.com/2024/a-alpha-bio-lands-14-5m-from-department-of-defense-to-prep-for-future-biological-threats/"
+    },
+    {
+      "lab_id": "theodoris-lab",
+      "lab_name": "Theodoris Lab",
+      "categories": [
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "institution",
+      "tag": "VERIFIED",
+      "url": "https://profiles.ucsf.edu/christina.theodoris"
+    },
+    {
+      "lab_id": "theodoris-lab",
+      "lab_name": "Theodoris Lab",
+      "categories": [
+        "single-cell"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://huggingface.co/ctheodoris/Geneformer"
+    },
+    {
+      "lab_id": "theodoris-lab",
+      "lab_name": "Theodoris Lab",
+      "categories": [
+        "single-cell"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Theodoris et al., Nature 618:332-339 (2023)"
+    },
+    {
+      "lab_id": "theodoris-lab",
+      "lab_name": "Theodoris Lab",
+      "categories": [
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "key_publication",
+      "tag": "VERIFIED",
+      "url": "https://www.nature.com/articles/s41586-023-06139-9"
+    },
+    {
+      "lab_id": "scvi-tools",
+      "lab_name": "scVI / scverse (Theis Lab)",
+      "categories": [
+        "single-cell"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://theislab.github.io/"
+    },
+    {
+      "lab_id": "scvi-tools",
+      "lab_name": "scVI / scverse (Theis Lab)",
+      "categories": [
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://github.com/scverse/scvi-tools"
+    },
+    {
+      "lab_id": "scvi-tools",
+      "lab_name": "scVI / scverse (Theis Lab)",
+      "categories": [
+        "single-cell"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Lopez et al., Nature Methods 15:1053-1058 (2018)"
+    },
+    {
+      "lab_id": "scvi-tools",
+      "lab_name": "scVI / scverse (Theis Lab)",
+      "categories": [
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "key_publication",
+      "tag": "VERIFIED",
+      "url": "https://www.nature.com/articles/s41592-018-0229-2"
+    },
+    {
+      "lab_id": "arc-institute-evo",
+      "lab_name": "Arc Institute (Hie Lab / Hsu Lab) — Evo",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://arcinstitute.org/tools/evo"
+    },
+    {
+      "lab_id": "arc-institute-evo",
+      "lab_name": "Arc Institute (Hie Lab / Hsu Lab) — Evo",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/evo-design/evo"
+    },
+    {
+      "lab_id": "arc-institute-evo",
+      "lab_name": "Arc Institute (Hie Lab / Hsu Lab) — Evo",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Nguyen et al., Science 386:eado9336 (2024); Evo 2, Nature (2026)"
+    },
+    {
+      "lab_id": "arc-institute-evo",
+      "lab_name": "Arc Institute (Hie Lab / Hsu Lab) — Evo",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://arcinstitute.org/about"
+    },
+    {
+      "lab_id": "arc-institute-evo",
+      "lab_name": "Arc Institute (Hie Lab / Hsu Lab) — Evo",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.science.org/doi/10.1126/science.ado9336"
+    },
+    {
+      "lab_id": "arc-institute-evo",
+      "lab_name": "Arc Institute (Hie Lab / Hsu Lab) — Evo",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "key_publication",
+      "tag": "VERIFIED",
+      "url": "https://www.nature.com/articles/s41586-026-10176-5"
+    },
+    {
+      "lab_id": "genslm-argonne",
+      "lab_name": "Argonne National Laboratory — GenSLM",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://bio.rodeo/models/genslm"
+    },
+    {
+      "lab_id": "genslm-argonne",
+      "lab_name": "Argonne National Laboratory — GenSLM",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/ramanathanlab/genslm"
+    },
+    {
+      "lab_id": "genslm-argonne",
+      "lab_name": "Argonne National Laboratory — GenSLM",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Zvyagin et al., Int. J. HPC Applications (2024)"
+    },
+    {
+      "lab_id": "owkin",
+      "lab_name": "Owkin",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://owkin.com/"
+    },
+    {
+      "lab_id": "owkin",
+      "lab_name": "Owkin",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.owkin.com/about-us"
+    },
+    {
+      "lab_id": "owkin",
+      "lab_name": "Owkin",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "DERIVED",
+      "url": "https://www.owkin.com/"
+    },
+    {
+      "lab_id": "owkin",
+      "lab_name": "Owkin",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://tracxn.com/d/companies/owkin/__WnmjWRMn3N8P5-sOf__VolA6J4cK4gv4cxQXRicLJLs"
+    },
+    {
+      "lab_id": "iktos",
+      "lab_name": "Iktos",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://iktos.ai/"
+    },
+    {
+      "lab_id": "iktos",
+      "lab_name": "Iktos",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.labiotech.eu/best-biotech/ai-drug-discovery-companies/"
+    },
+    {
+      "lab_id": "absci",
+      "lab_name": "Absci",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://absci.com/"
+    },
+    {
+      "lab_id": "enveda",
+      "lab_name": "Enveda Biosciences",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://enveda.com/"
+    },
+    {
+      "lab_id": "enveda-biosciences",
+      "lab_name": "Enveda Biosciences",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://techcrunch.com/2024/06/14/enveda-raises-55m-to-combine-ancient-remedies-with-ai-for-drug-discovery/"
+    },
+    {
+      "lab_id": "enveda-biosciences",
+      "lab_name": "Enveda Biosciences",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20241121310215/en/Enveda-Closes-%24130M-Series-C-Funding-to-Deliver-Multiple-Clinical-Readouts-from-a-Pipeline-of-10-Development-Candidates"
+    },
+    {
+      "lab_id": "enveda",
+      "lab_name": "Enveda Biosciences",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20240529298878/en/Enveda-Biosciences-Announces-Microsoft-Collaboration-and-Reveals-Foundation-Model-to-Read-and-Translate-Chemistry"
+    },
+    {
+      "lab_id": "deepcure",
+      "lab_name": "DeepCure",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.deepcure.ai/"
+    },
+    {
+      "lab_id": "deepcure",
+      "lab_name": "DeepCure",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20240411173088/en/DeepCure-Closes-%2424M-Funding-Round-Led-by-IAG-Capital-Partners"
+    },
+    {
+      "lab_id": "deepcure",
+      "lab_name": "DeepCure",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20240808438876/en/DeepCure-Announces-Selection-of-First-AI-Generated-Candidate-DC-9476-for-Autoimmune-Diseases"
+    },
+    {
+      "lab_id": "healx",
+      "lab_name": "Healx",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://healx.io/"
+    },
+    {
+      "lab_id": "healx",
+      "lab_name": "Healx",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://healx.ai/about/"
+    },
+    {
+      "lab_id": "healx",
+      "lab_name": "Healx",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://healx.ai/wp-content/uploads/2018/10/Kate-Hilyard-appointment-press-release.pdf"
+    },
+    {
+      "lab_id": "healx",
+      "lab_name": "Healx",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://healx.ai/healx-announces-agreement-with-sanofi-to-seek-new-rare-disease-indications-for-compound-using-ai-drug-discovery-platform/"
+    },
+    {
+      "lab_id": "healx",
+      "lab_name": "Healx",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "VERIFIED",
+      "url": "https://uk.linkedin.com/in/tim-guilliams-062b977"
+    },
+    {
+      "lab_id": "reverie-labs",
+      "lab_name": "Reverie Labs",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.reverielabs.com/"
+    },
+    {
+      "lab_id": "reverie-labs",
+      "lab_name": "Reverie Labs",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.forbes.com/profile/reverie-labs/"
+    },
+    {
+      "lab_id": "reverie-labs",
+      "lab_name": "Reverie Labs",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://www.cbinsights.com/company/reverie-labs"
+    },
+    {
+      "lab_id": "valo-health",
+      "lab_name": "Valo Health",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "DERIVED",
+      "url": "https://valohealth.com/"
+    },
+    {
+      "lab_id": "valo-health",
+      "lab_name": "Valo Health",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.flagshippioneering.com/news/press-release/valo-launches-with-transformative-cloud-generation-drug-development-platform"
+    },
+    {
+      "lab_id": "valo-health",
+      "lab_name": "Valo Health",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.flagshippioneering.com/companies/valo"
+    },
+    {
+      "lab_id": "gomes-group-cmu",
+      "lab_name": "Gomes Group (CMU) — Coscientist",
+      "categories": [
+        "scientific-agents",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "pi_or_lead",
+      "tag": "VERIFIED",
+      "url": "https://groups.chem.cmu.edu/gomes/"
+    },
+    {
+      "lab_id": "gomes-group-cmu",
+      "lab_name": "Gomes Group (CMU) — Coscientist",
+      "categories": [
+        "scientific-agents",
+        "automated-lab"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/gomesgroup"
+    },
+    {
+      "lab_id": "gomes-group-cmu",
+      "lab_name": "Gomes Group (CMU) — Coscientist",
+      "categories": [
+        "scientific-agents",
+        "automated-lab"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Boiko et al., Nature 624:570-578 (2023)"
+    },
+    {
+      "lab_id": "gomes-group-cmu",
+      "lab_name": "Gomes Group (CMU) — Coscientist",
+      "categories": [
+        "scientific-agents",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "key_publication",
+      "tag": "VERIFIED",
+      "url": "https://www.nature.com/articles/s41586-023-06792-0"
+    },
+    {
+      "lab_id": "gomes-group-cmu",
+      "lab_name": "Gomes Group (CMU) — Coscientist",
+      "categories": [
+        "scientific-agents",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://gomesgroup.andrew.cmu.edu/gabe.html"
+    },
+    {
+      "lab_id": "white-lab-rochester",
+      "lab_name": "White Lab (Rochester) — ChemCrow / FutureHouse",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://thewhitelab.org/"
+    },
+    {
+      "lab_id": "white-lab-rochester",
+      "lab_name": "White Lab (Rochester) — ChemCrow / FutureHouse",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/ur-whitelab/chemcrow-public"
+    },
+    {
+      "lab_id": "white-lab-rochester",
+      "lab_name": "White Lab (Rochester) — ChemCrow / FutureHouse",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Bran et al., Nature Machine Intelligence 6:525-535 (2024); Mitchener et al., arXiv:2511.02824 (2025)"
+    },
+    {
+      "lab_id": "white-lab-rochester",
+      "lab_name": "White Lab (Rochester) — ChemCrow / FutureHouse",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "key_publication",
+      "tag": "VERIFIED",
+      "url": "https://www.nature.com/articles/s42256-024-00832-8"
+    },
+    {
+      "lab_id": "white-lab-rochester",
+      "lab_name": "White Lab (Rochester) — ChemCrow / FutureHouse",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://www.hajim.rochester.edu/che/people/adjunct-part-time/white_andrew/index.html"
+    },
+    {
+      "lab_id": "crispr-gpt-cong-lab",
+      "lab_name": "Cong Lab (Stanford) — CRISPR-GPT",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://conglab.stanford.edu/"
+    },
+    {
+      "lab_id": "crispr-gpt-cong-lab",
+      "lab_name": "Cong Lab (Stanford) — CRISPR-GPT",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "pi_or_lead",
+      "tag": "VERIFIED",
+      "url": "https://github.com/cong-lab/crispr-gpt-pub"
+    },
+    {
+      "lab_id": "crispr-gpt-cong-lab",
+      "lab_name": "Cong Lab (Stanford) — CRISPR-GPT",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Qu et al., Nature Biomedical Engineering (2025)"
+    },
+    {
+      "lab_id": "crispr-gpt-cong-lab",
+      "lab_name": "Cong Lab (Stanford) — CRISPR-GPT",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "key_publication",
+      "tag": "VERIFIED",
+      "url": "https://preview-www.nature.com/articles/s41551-025-01463-z"
+    },
+    {
+      "lab_id": "futurehouse",
+      "lab_name": "FutureHouse",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.futurehouse.org/"
+    },
+    {
+      "lab_id": "futurehouse",
+      "lab_name": "FutureHouse",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/Future-House/paper-qa"
+    },
+    {
+      "lab_id": "futurehouse",
+      "lab_name": "FutureHouse",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.futurehouse.org/team/andrew-white"
+    },
+    {
+      "lab_id": "futurehouse",
+      "lab_name": "FutureHouse",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://www.chemistryworld.com/news/future-house-wants-to-build-an-ai-biologist-theyre-looking-to-a-chemistry-llm-for-inspiration/4018506.article"
+    },
+    {
+      "lab_id": "a-lab-berkeley",
+      "lab_name": "A-Lab (Berkeley National Lab)",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://newscenter.lbl.gov/"
+    },
+    {
+      "lab_id": "a-lab-berkeley",
+      "lab_name": "A-Lab (Berkeley National Lab)",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/sparksbaird/abos"
+    },
+    {
+      "lab_id": "a-lab-berkeley",
+      "lab_name": "A-Lab (Berkeley National Lab)",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Szymanski et al., Nature 624:86-91 (2023); Baird et al., Digital Discovery (2024)"
+    },
+    {
+      "lab_id": "a-lab-berkeley",
+      "lab_name": "A-Lab (Berkeley National Lab)",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://www.nature.com/articles/s41586-023-06734-w"
+    },
+    {
+      "lab_id": "cmu-cloud-lab",
+      "lab_name": "CMU Cloud Lab",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.cmu.edu/cmdl/"
+    },
+    {
+      "lab_id": "cmu-cloud-lab",
+      "lab_name": "CMU Cloud Lab",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.cmu.edu/news/stories/archives/2023/december/cmu-designed-artificially-intelligent-coscientist-automates-scientific-discovery"
+    },
+    {
+      "lab_id": "valence-labs",
+      "lab_name": "Valence Labs (Recursion)",
+      "categories": [
+        "foundation-platform",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://valencelabs.com/"
+    },
+    {
+      "lab_id": "mit-jameel-clinic",
+      "lab_name": "MIT Jameel Clinic (Boltz / DiffDock team)",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://jclinic.mit.edu/"
+    },
+    {
+      "lab_id": "mit-jameel-clinic",
+      "lab_name": "MIT Jameel Clinic (Boltz / DiffDock team)",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/jwohlwend/boltz"
+    },
+    {
+      "lab_id": "mit-jameel-clinic",
+      "lab_name": "MIT Jameel Clinic (Boltz / DiffDock team)",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://doi.org/10.1038/s41586-024-07487-w"
+    },
+    {
+      "lab_id": "mit-jameel-clinic",
+      "lab_name": "MIT Jameel Clinic (Boltz / DiffDock team)",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://jclinic.mit.edu/boltz-1/"
+    },
+    {
+      "lab_id": "mit-jameel-clinic",
+      "lab_name": "MIT Jameel Clinic (Boltz / DiffDock team)",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://jclinic.mit.edu/about/"
+    },
+    {
+      "lab_id": "mit-jameel-clinic",
+      "lab_name": "MIT Jameel Clinic (Boltz / DiffDock team)",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://news.mit.edu/2024/researchers-introduce-boltz-1-open-source-model-predicting-biomolecular-structures-1217"
+    },
+    {
+      "lab_id": "colabfold",
+      "lab_name": "ColabFold (Ovchinnikov / Steinegger)",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://colabfold.com"
+    },
+    {
+      "lab_id": "colabfold",
+      "lab_name": "ColabFold (Ovchinnikov / Steinegger)",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://github.com/sokrypton/ColabFold"
+    },
+    {
+      "lab_id": "colabfold",
+      "lab_name": "ColabFold (Ovchinnikov / Steinegger)",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://doi.org/10.1038/s41592-022-01488-1"
+    },
+    {
+      "lab_id": "colabfold",
+      "lab_name": "ColabFold (Ovchinnikov / Steinegger)",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://www.nature.com/articles/s41592-022-01488-1"
+    },
+    {
+      "lab_id": "raptorx-ttic",
+      "lab_name": "Jinbo Xu Lab (TTIC) — RaptorX",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "http://raptorx.uchicago.edu/"
+    },
+    {
+      "lab_id": "raptorx-ttic",
+      "lab_name": "Jinbo Xu Lab (TTIC) — RaptorX",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/j3xugit/RaptorX-3DModeling"
+    },
+    {
+      "lab_id": "raptorx-ttic",
+      "lab_name": "Jinbo Xu Lab (TTIC) — RaptorX",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://www.pnas.org/doi/abs/10.1073/pnas.1821309116"
+    },
+    {
+      "lab_id": "raptorx-ttic",
+      "lab_name": "Jinbo Xu Lab (TTIC) — RaptorX",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://home.ttic.edu/~jinbo/"
+    },
+    {
+      "lab_id": "covert-lab-stanford",
+      "lab_name": "Covert Lab (Stanford) — Whole-Cell Model",
+      "categories": [
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://www.covert.stanford.edu/"
+    },
+    {
+      "lab_id": "covert-lab-stanford",
+      "lab_name": "Covert Lab (Stanford) — Whole-Cell Model",
+      "categories": [
+        "virtual-cell"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/CovertLab"
+    },
+    {
+      "lab_id": "covert-lab-stanford",
+      "lab_name": "Covert Lab (Stanford) — Whole-Cell Model",
+      "categories": [
+        "virtual-cell"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://doi.org/10.1016/j.cell.2012.05.044"
+    },
+    {
+      "lab_id": "covert-lab-stanford",
+      "lab_name": "Covert Lab (Stanford) — Whole-Cell Model",
+      "categories": [
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "pi_or_lead",
+      "tag": "VERIFIED",
+      "url": "https://profiles.stanford.edu/markus-covert"
+    },
+    {
+      "lab_id": "covert-lab-stanford",
+      "lab_name": "Covert Lab (Stanford) — Whole-Cell Model",
+      "categories": [
+        "virtual-cell"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://engineering.stanford.edu/news/markus-covert-how-build-computer-model-cell"
+    },
+    {
+      "lab_id": "leskovec-lab-stanford",
+      "lab_name": "Leskovec Lab (Stanford) — Graph ML for Biomedicine",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://cs.stanford.edu/~jure/"
+    },
+    {
+      "lab_id": "leskovec-lab-stanford",
+      "lab_name": "Leskovec Lab (Stanford) — Graph ML for Biomedicine",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/snap-stanford"
+    },
+    {
+      "lab_id": "leskovec-lab-stanford",
+      "lab_name": "Leskovec Lab (Stanford) — Graph ML for Biomedicine",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://doi.org/10.1038/s41467-021-21770-8"
+    },
+    {
+      "lab_id": "leskovec-lab-stanford",
+      "lab_name": "Leskovec Lab (Stanford) — Graph ML for Biomedicine",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "pi_or_lead",
+      "tag": "VERIFIED",
+      "url": "https://www.cs.stanford.edu/people/jure-leskovec"
+    },
+    {
+      "lab_id": "leskovec-lab-stanford",
+      "lab_name": "Leskovec Lab (Stanford) — Graph ML for Biomedicine",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://cs.stanford.edu/~jure/pubs/index.html"
+    },
+    {
+      "lab_id": "leskovec-lab-stanford",
+      "lab_name": "Leskovec Lab (Stanford) — Graph ML for Biomedicine",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://snap.stanford.edu/"
+    },
+    {
+      "lab_id": "leskovec-lab-stanford",
+      "lab_name": "Leskovec Lab (Stanford) — Graph ML for Biomedicine",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://cs.stanford.edu/people/jure-leskovec"
+    },
+    {
+      "lab_id": "dp-technology",
+      "lab_name": "DP Technology (深势科技)",
+      "categories": [
+        "dna-rna-molecule",
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.dp.tech/"
+    },
+    {
+      "lab_id": "dp-technology",
+      "lab_name": "DP Technology (深势科技)",
+      "categories": [
+        "dna-rna-molecule",
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/deepmodeling"
+    },
+    {
+      "lab_id": "dp-technology",
+      "lab_name": "DP Technology (深势科技)",
+      "categories": [
+        "dna-rna-molecule",
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://doi.org/10.1101/2022.08.04.502811"
+    },
+    {
+      "lab_id": "dp-technology",
+      "lab_name": "DP Technology (深势科技)",
+      "categories": [
+        "dna-rna-molecule",
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://linkedin.com/in/linfeng-zhang-312242a8"
+    },
+    {
+      "lab_id": "dp-technology",
+      "lab_name": "DP Technology (深势科技)",
+      "categories": [
+        "dna-rna-molecule",
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.scmp.com/business/companies/article/3337648/ai-science-start-dp-technology-raises-us114-million-series-c-round"
+    },
+    {
+      "lab_id": "dp-technology",
+      "lab_name": "DP Technology (深势科技)",
+      "categories": [
+        "dna-rna-molecule",
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.dp.tech/product/hermite"
+    },
+    {
+      "lab_id": "dp-technology",
+      "lab_name": "DP Technology (深势科技)",
+      "categories": [
+        "dna-rna-molecule",
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://mindmaps.ai-ecosystem.org/map/firms/379057/"
+    },
+    {
+      "lab_id": "stonewise",
+      "lab_name": "StoneWise (望石智慧)",
+      "categories": [
+        "ai-drug-discovery",
+        "dna-rna-molecule"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.stonewise.cn/"
+    },
+    {
+      "lab_id": "stonewise",
+      "lab_name": "StoneWise (望石智慧)",
+      "categories": [
+        "ai-drug-discovery",
+        "dna-rna-molecule"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://www.nature.com/articles/s42256-024-00900-0"
+    },
+    {
+      "lab_id": "stonewise",
+      "lab_name": "StoneWise (望石智慧)",
+      "categories": [
+        "ai-drug-discovery",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://stonewise.cn/244.html"
+    },
+    {
+      "lab_id": "stonewise",
+      "lab_name": "StoneWise (望石智慧)",
+      "categories": [
+        "ai-drug-discovery",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://stonewise.cn/233.html"
+    },
+    {
+      "lab_id": "stonewise",
+      "lab_name": "StoneWise (望石智慧)",
+      "categories": [
+        "ai-drug-discovery",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "DERIVED",
+      "url": "https://stonewise.cn/234.html"
+    },
+    {
+      "lab_id": "silexon",
+      "lab_name": "Silexon (燧坤智能)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.silexon.ai/"
+    },
+    {
+      "lab_id": "silexon",
+      "lab_name": "Silexon (燧坤智能)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://k.sina.cn/article_7879848900_1d5acf3c401902nl26.html"
+    },
+    {
+      "lab_id": "genesis-therapeutics",
+      "lab_name": "Genesis Therapeutics (Genesis Molecular AI)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.genesis.ml/"
+    },
+    {
+      "lab_id": "genesis-therapeutics",
+      "lab_name": "Genesis Therapeutics (Genesis Molecular AI)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://doi.org/10.1021/acscentsci.8b00507"
+    },
+    {
+      "lab_id": "genesis-therapeutics",
+      "lab_name": "Genesis Therapeutics (Genesis Molecular AI)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.crunchbase.com/organization/genesis-therapeutics"
+    },
+    {
+      "lab_id": "genesis-therapeutics",
+      "lab_name": "Genesis Therapeutics (Genesis Molecular AI)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20230821419353/en/Genesis-Therapeutics-Closes-Oversubscribed-%24200-Million-Series-B"
+    },
+    {
+      "lab_id": "genesis-therapeutics",
+      "lab_name": "Genesis Therapeutics (Genesis Molecular AI)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.genesis.ml/about"
+    },
+    {
+      "lab_id": "genesis-therapeutics",
+      "lab_name": "Genesis Therapeutics (Genesis Molecular AI)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://linkedin.com/company/genesistherapeutics"
+    },
+    {
+      "lab_id": "benevolentai",
+      "lab_name": "BenevolentAI",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://benevolent.com/"
+    },
+    {
+      "lab_id": "benevolentai",
+      "lab_name": "BenevolentAI",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://app.dealroom.co/companies/benevolent"
+    },
+    {
+      "lab_id": "benevolentai",
+      "lab_name": "BenevolentAI",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.benevolent.com/news-and-media/press-releases-and-in-media/benevolentai-unveils-major-strategic-overhaul-return-original-mission/"
+    },
+    {
+      "lab_id": "benevolentai",
+      "lab_name": "BenevolentAI",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "VERIFIED",
+      "url": "https://endpoints.news/ai-drug-discovery-startup-benevolentai-cuts-30-of-staff-closes-us-office/"
+    },
+    {
+      "lab_id": "benevolentai",
+      "lab_name": "BenevolentAI",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://medcitynews.com/2024/12/ai-benevolentai-restructuring-techbio-drug-discovery-bai/"
+    },
+    {
+      "lab_id": "schrodinger",
+      "lab_name": "Schrödinger, Inc.",
+      "categories": [
+        "ai-drug-discovery",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.schrodinger.com/"
+    },
+    {
+      "lab_id": "schrodinger",
+      "lab_name": "Schrödinger, Inc.",
+      "categories": [
+        "ai-drug-discovery",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://en.wikipedia.org/wiki/Schr%C3%B6dinger,_Inc."
+    },
+    {
+      "lab_id": "schrodinger",
+      "lab_name": "Schrödinger, Inc.",
+      "categories": [
+        "ai-drug-discovery",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://www.schrodinger.com/company/about/"
+    },
+    {
+      "lab_id": "atomwise",
+      "lab_name": "Atomwise",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://atomwise.com/"
+    },
+    {
+      "lab_id": "atomwise",
+      "lab_name": "Atomwise",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://tracxn.com/d/companies/atomwise/__MHC-TU-nmwCuM8T6jlVyarhTVhyX-PCnEqcWX6EZG1U"
+    },
+    {
+      "lab_id": "atomwise",
+      "lab_name": "Atomwise",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://endpoints.news/exclusive-ai-biotech-atomwise-hires-new-ceo-raises-45m-series-c/"
+    },
+    {
+      "lab_id": "standigm",
+      "lab_name": "Standigm",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "DERIVED",
+      "url": "https://www.standigm.com/"
+    },
+    {
+      "lab_id": "standigm",
+      "lab_name": "Standigm",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://www.standigm.com/about/company"
+    },
+    {
+      "lab_id": "syntekabio",
+      "lab_name": "Syntekabio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.syntekabio.com/"
+    },
+    {
+      "lab_id": "syntekabio",
+      "lab_name": "Syntekabio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.koreabiomed.com/news/articleView.html?idxno=24640"
+    },
+    {
+      "lab_id": "syntekabio",
+      "lab_name": "Syntekabio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://syntekabio.com/"
+    },
+    {
+      "lab_id": "syntekabio",
+      "lab_name": "Syntekabio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.einpresswire.com/article/859846541/syntekabio-begins-full-scale-operation-of-ai-driven-asset-program"
+    },
+    {
+      "lab_id": "mila-causal-cell-dynamics",
+      "lab_name": "Mila — Causal Cell Dynamics Lab",
+      "categories": [
+        "virtual-cell",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://mila.quebec/en/causal-cell-dynamics-lab-a-mila-helmholtz-international-project"
+    },
+    {
+      "lab_id": "verge-genomics",
+      "lab_name": "Verge Genomics (Verge Labs)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "VERIFIED",
+      "url": "https://vergelabs.com/"
+    },
+    {
+      "lab_id": "verge-genomics",
+      "lab_name": "Verge Genomics (Verge Labs)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.businessinsider.com/verge-genomics-is-using-technology-to-deveop-new-treatments-for-incurable-diseases-2018-7"
+    },
+    {
+      "lab_id": "verge-genomics",
+      "lab_name": "Verge Genomics (Verge Labs)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.ycombinator.com/companies/verge-genomics"
+    },
+    {
+      "lab_id": "verge-genomics",
+      "lab_name": "Verge Genomics (Verge Labs)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.globenewswire.com/news-release/2024/01/09/2806185/0/en/Verge-Genomics-Announces-Initiation-of-Proof-of-Concept-Study-for-the-Treatment-of-Amyotrophic-Lateral-Sclerosis-ALS-with-VRG50635.html"
+    },
+    {
+      "lab_id": "verge-genomics",
+      "lab_name": "Verge Genomics (Verge Labs)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.biopharmadive.com/news/verge-genomics-labs-neuroscience-AI-drug-discovery/821229/"
+    },
+    {
+      "lab_id": "charm-therapeutics",
+      "lab_name": "CHARM Therapeutics",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://charmtx.com/"
+    },
+    {
+      "lab_id": "charm-therapeutics",
+      "lab_name": "CHARM Therapeutics",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.globenewswire.com/news-release/2022/06/09/2459500/0/en/CHARM-Therapeutics-launches-with-a-50-million-Series-A-financing-to-transform-structure-based-drug-discovery-using-its-proprietary-DragonFold-AI-technology.html"
+    },
+    {
+      "lab_id": "charm-therapeutics",
+      "lab_name": "CHARM Therapeutics",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://tech.eu/2022/06/10/londons-charm-therapeutics-raises-50-million-as-it-takes-on-cancer-treatment/"
+    },
+    {
+      "lab_id": "charm-therapeutics",
+      "lab_name": "CHARM Therapeutics",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://www.cbinsights.com/company/charm-therapeutics"
+    },
+    {
+      "lab_id": "relay-therapeutics",
+      "lab_name": "Relay Therapeutics",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://relaytx.com/"
+    },
+    {
+      "lab_id": "relay-therapeutics",
+      "lab_name": "Relay Therapeutics",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://ir.relaytx.com/news-releases/news-release-details/third-rock-ventures-launches-relay-therapeutics-57-million"
+    },
+    {
+      "lab_id": "relay-therapeutics",
+      "lab_name": "Relay Therapeutics",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://relaytx.com/dynamo-platform/"
+    },
+    {
+      "lab_id": "relay-therapeutics",
+      "lab_name": "Relay Therapeutics",
+      "categories": [
+        "protein-structure",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://linkedin.com/company/relay-therapeutics-inc."
+    },
+    {
+      "lab_id": "nucleai",
+      "lab_name": "Nucleai",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://nucleai.ai/"
+    },
+    {
+      "lab_id": "nucleai",
+      "lab_name": "Nucleai",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.calcalistech.com/ctechnews/article/r11brac1a"
+    },
+    {
+      "lab_id": "nucleai",
+      "lab_name": "Nucleai",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20240403580481/en/Mercks-Corporate-Venture-M-Ventures-Arm-Backs-Nucleai-to-Advance-Its-First-in-class-Spatial-AI-Biomarker-in-Active-Clinical-Enrollment"
+    },
+    {
+      "lab_id": "matter-lab-toronto",
+      "lab_name": "Matter Lab (Aspuru-Guzik) — Acceleration Consortium",
+      "categories": [
+        "automated-lab",
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://www.matter.toronto.edu/"
+    },
+    {
+      "lab_id": "matter-lab-toronto",
+      "lab_name": "Matter Lab (Aspuru-Guzik) — Acceleration Consortium",
+      "categories": [
+        "automated-lab",
+        "scientific-agents"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/aspuru-guzik-group"
+    },
+    {
+      "lab_id": "matter-lab-toronto",
+      "lab_name": "Matter Lab (Aspuru-Guzik) — Acceleration Consortium",
+      "categories": [
+        "automated-lab",
+        "scientific-agents"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "https://doi.org/10.1021/acs.chemrev.4c00055"
+    },
+    {
+      "lab_id": "matter-lab-toronto",
+      "lab_name": "Matter Lab (Aspuru-Guzik) — Acceleration Consortium",
+      "categories": [
+        "automated-lab",
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://torontolife.com/deep-dives/the-magic-lab-how-chemist-and-computer-scientist-alan-aspuru-guzik-brought-self-driving-laboratories-from-harvard-to-toronto/"
+    },
+    {
+      "lab_id": "ibm-rxn",
+      "lab_name": "IBM Research Europe — RXN for Chemistry / RoboRXN",
+      "categories": [
+        "scientific-agents",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://research.ibm.com/projects/ai-for-scientific-discovery"
+    },
+    {
+      "lab_id": "ibm-rxn",
+      "lab_name": "IBM Research Europe — RXN for Chemistry / RoboRXN",
+      "categories": [
+        "scientific-agents",
+        "dna-rna-molecule"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/pschwllr/MolecularTransformer"
+    },
+    {
+      "lab_id": "ibm-rxn",
+      "lab_name": "IBM Research Europe — RXN for Chemistry / RoboRXN",
+      "categories": [
+        "scientific-agents",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "landmark",
+      "tag": "SUBJECTIVE",
+      "url": "https://doi.org/10.1021/acscentsci.9b00576"
+    },
+    {
+      "lab_id": "ibm-rxn",
+      "lab_name": "IBM Research Europe — RXN for Chemistry / RoboRXN",
+      "categories": [
+        "scientific-agents",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "DERIVED",
+      "url": "https://research.ibm.com/blog/roborxn-automating-chemical-synthesis"
+    },
+    {
+      "lab_id": "ibm-rxn",
+      "lab_name": "IBM Research Europe — RXN for Chemistry / RoboRXN",
+      "categories": [
+        "scientific-agents",
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.chimia.ch/chimia/article/download/2023_484/6258"
+    },
+    {
+      "lab_id": "protenix-bytedance",
+      "lab_name": "ByteDance AML AI4Science Team — Protenix",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "github",
+      "tag": "VERIFIED",
+      "url": "https://github.com/bytedance/Protenix"
+    },
+    {
+      "lab_id": "protenix-bytedance",
+      "lab_name": "ByteDance AML AI4Science Team — Protenix",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "ByteDance AML AI4Science Team. Protenix: Advancing Structure Prediction Through a Comprehensive AlphaFold3 Reproduction. bioRxiv 2025. doi:10.1101/2025.01.08.631967"
+    },
+    {
+      "lab_id": "protenix-bytedance",
+      "lab_name": "ByteDance AML AI4Science Team — Protenix",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "key_publication",
+      "tag": "VERIFIED",
+      "url": "https://www.biorxiv.org/content/10.1101/2025.01.08.631967v1"
+    },
+    {
+      "lab_id": "protenix-bytedance",
+      "lab_name": "ByteDance AML AI4Science Team — Protenix",
+      "categories": [
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://github.com/bytedance/Protenix/blob/main/README.md"
+    },
+    {
+      "lab_id": "sciagents-mit",
+      "lab_name": "SciAgents / LAMM (MIT Buehler Lab)",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://lamm.mit.edu"
+    },
+    {
+      "lab_id": "sciagents-mit",
+      "lab_name": "SciAgents / LAMM (MIT Buehler Lab)",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "github",
+      "tag": "VERIFIED",
+      "url": "https://github.com/lamm-mit/SciAgentsDiscovery"
+    },
+    {
+      "lab_id": "sciagents-mit",
+      "lab_name": "SciAgents / LAMM (MIT Buehler Lab)",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Ghafarollahi A, Buehler MJ. SciAgents: Automating Scientific Discovery Through Bioinspired Multi-Agent Intelligent Graph Reasoning. Advanced Materials 2024;37(22):e2413523"
+    },
+    {
+      "lab_id": "sciagents-mit",
+      "lab_name": "SciAgents / LAMM (MIT Buehler Lab)",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://doi.org/10.1002/adma.202413523"
+    },
+    {
+      "lab_id": "sciagents-mit",
+      "lab_name": "SciAgents / LAMM (MIT Buehler Lab)",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://arxiv.org/abs/2409.05556"
+    },
+    {
+      "lab_id": "sciagents-mit",
+      "lab_name": "SciAgents / LAMM (MIT Buehler Lab)",
+      "categories": [
+        "scientific-agents"
+      ],
+      "kind": "provenance",
+      "field": "key_publication",
+      "tag": "VERIFIED",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39696898/"
+    },
+    {
+      "lab_id": "culture-biosciences",
+      "lab_name": "Culture Biosciences",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://culturebiosciences.com"
+    },
+    {
+      "lab_id": "culture-biosciences",
+      "lab_name": "Culture Biosciences",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://techcrunch.com/2019/02/12/two-former-members-of-googles-skunkworks-division-have-launched-a-biomanufacturing-company/"
+    },
+    {
+      "lab_id": "culture-biosciences",
+      "lab_name": "Culture Biosciences",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://businessmodelcanvastemplate.com/blogs/brief-history/culture-biosciences-brief-history"
+    },
+    {
+      "lab_id": "culture-biosciences",
+      "lab_name": "Culture Biosciences",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.culturebiosciences.com/resources/culture-biosciences-series-c"
+    },
+    {
+      "lab_id": "culture-biosciences",
+      "lab_name": "Culture Biosciences",
+      "categories": [
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20211014006042/en/Culture-Biosciences-Raises-%2480M-Series-B-to-Tackle-Demand-for-Large-Scale-Biomanufacturing"
+    },
+    {
+      "lab_id": "arzeda",
+      "lab_name": "Arzeda — The Protein Design Company",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.arzeda.com"
+    },
+    {
+      "lab_id": "arzeda",
+      "lab_name": "Arzeda — The Protein Design Company",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://techcrunch.com/2024/09/17/arzeda-is-using-ai-to-design-proteins-for-artificial-sweeteners-and-more/"
+    },
+    {
+      "lab_id": "arzeda",
+      "lab_name": "Arzeda — The Protein Design Company",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.arzeda.com/about"
+    },
+    {
+      "lab_id": "arzeda",
+      "lab_name": "Arzeda — The Protein Design Company",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "VERIFIED",
+      "url": "https://www.arzeda.com/news/arzeda-co-founded-by-nobel-laureate-david-baker-drives-industry-innovation-with-intelligent-protein-design-technology-and-delivers-performance-products-to-fortune-500-companies"
+    },
+    {
+      "lab_id": "vilya",
+      "lab_name": "Vilya, Inc.",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.vilya.com"
+    },
+    {
+      "lab_id": "vilya",
+      "lab_name": "Vilya, Inc.",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Bhardwaj G et al. Accurate de novo design of membrane-traversing macrocycles. Cell 2022;185(15):2753-2771"
+    },
+    {
+      "lab_id": "vilya",
+      "lab_name": "Vilya, Inc.",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://cen.acs.org/pharmaceuticals/drug-discovery/Vilya-launches-Baker-lab-50/100/i31"
+    },
+    {
+      "lab_id": "vilya",
+      "lab_name": "Vilya, Inc.",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20220829005088/en/Vilya-Launches-to-Design-a-New-Transformational-Class-of-Medicines-That-Precisely-Target-Disease-Biology"
+    },
+    {
+      "lab_id": "vilya",
+      "lab_name": "Vilya, Inc.",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.globenewswire.com/news-release/2024/06/04/2893100/0/en/Vilya-Expands-Series-A-Financing-to-71-Million-to-Advance-Computational-Drug-Design-and-Develop-a-New-Class-of-Medicines.html"
+    },
+    {
+      "lab_id": "vilya",
+      "lab_name": "Vilya, Inc.",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "VERIFIED",
+      "url": "https://www.geekwire.com/2024/nvidia-and-top-vc-firms-invest-in-vilya-a-biotech-spinout-from-seattles-institute-for-protein-design/"
+    },
+    {
+      "lab_id": "monod-bio",
+      "lab_name": "Monod Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.monod.bio"
+    },
+    {
+      "lab_id": "monod-bio",
+      "lab_name": "Monod Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Yeh A et al. De novo design of luciferases using deep learning. Nature 2023;614(7948):454-460"
+    },
+    {
+      "lab_id": "monod-bio",
+      "lab_name": "Monod Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20220815005119/en/Monod-Bio-Closes-%2425M-Seed-Financing-to-Advance-Biosensor-Technology-Platform"
+    },
+    {
+      "lab_id": "monod-bio",
+      "lab_name": "Monod Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.genengnews.com/news/de-novo-luciferases-created-using-ai-from-baker-lab-monod-bio/"
+    },
+    {
+      "lab_id": "cellarity",
+      "lab_name": "Cellarity",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://cellarity.com"
+    },
+    {
+      "lab_id": "cellarity",
+      "lab_name": "Cellarity",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Cellarity. Framework for Discovery of Cell State-Correcting Medicines. Science 2025"
+    },
+    {
+      "lab_id": "cellarity",
+      "lab_name": "Cellarity",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://cellarity.com/about/"
+    },
+    {
+      "lab_id": "cellarity",
+      "lab_name": "Cellarity",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.flagshippioneering.com/companies/cellarity"
+    },
+    {
+      "lab_id": "cellarity",
+      "lab_name": "Cellarity",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://cellarity.com/news_item/cellarity-publishes-framework-for-discovery-of-cell-state-correcting-medicines-in-science/"
+    },
+    {
+      "lab_id": "cellarity",
+      "lab_name": "Cellarity",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://tracxn.com/d/companies/cellarity/__jqIlX0UETdVdzLaqKss7-UAKirQg0aH4OifKAHDa21o"
+    },
+    {
+      "lab_id": "altos-labs",
+      "lab_name": "Altos Labs",
+      "categories": [
+        "virtual-cell",
+        "foundation-platform"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://altoslabs.com"
+    },
+    {
+      "lab_id": "altos-labs",
+      "lab_name": "Altos Labs",
+      "categories": [
+        "virtual-cell",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.prnewswire.com/news-releases/altos-labs-launches-with-the-goal-to-transform-medicine-through-cellular-rejuvenation-programming-301463541.html"
+    },
+    {
+      "lab_id": "altos-labs",
+      "lab_name": "Altos Labs",
+      "categories": [
+        "virtual-cell",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.fiercebiotech.com/biotech/altos-bursts-out-stealth-3b-a-dream-team-c-suite-and-a-wildly-ambitious-plan-to-reverse"
+    },
+    {
+      "lab_id": "newlimit",
+      "lab_name": "NewLimit",
+      "categories": [
+        "virtual-cell",
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://newlimit.com"
+    },
+    {
+      "lab_id": "newlimit",
+      "lab_name": "NewLimit",
+      "categories": [
+        "virtual-cell",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://techcrunch.com/2025/05/06/newlimit-founded-by-coinbase-ceo-brian-armstrong-raises-130m-to-develop-age-reversing-therapies/"
+    },
+    {
+      "lab_id": "newlimit",
+      "lab_name": "NewLimit",
+      "categories": [
+        "virtual-cell",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://blog.newlimit.com/p/newlimit-series-a"
+    },
+    {
+      "lab_id": "newlimit",
+      "lab_name": "NewLimit",
+      "categories": [
+        "virtual-cell",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://blog.newlimit.com/p/newlimit-raises-435m-led-by-founders"
+    },
+    {
+      "lab_id": "preferred-networks",
+      "lab_name": "Preferred Networks (PFN)",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.preferred.jp/en/"
+    },
+    {
+      "lab_id": "preferred-networks",
+      "lab_name": "Preferred Networks (PFN)",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "github",
+      "field": "github",
+      "tag": "PRIMARY",
+      "url": "https://github.com/preferred-networks"
+    },
+    {
+      "lab_id": "preferred-networks",
+      "lab_name": "Preferred Networks (PFN)",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.preferred.jp/ja/company/cofounders"
+    },
+    {
+      "lab_id": "preferred-networks",
+      "lab_name": "Preferred Networks (PFN)",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.preferred.jp/en/news/pr20241223"
+    },
+    {
+      "lab_id": "preferred-networks",
+      "lab_name": "Preferred Networks (PFN)",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.preferred.jp/en/news/pr20250430"
+    },
+    {
+      "lab_id": "galixir",
+      "lab_name": "Galixir (星药科技)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://galixir.com/"
+    },
+    {
+      "lab_id": "galixir",
+      "lab_name": "Galixir (星药科技)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://tracxn.com/d/companies/galixir/__yJEXoDFzZ7p0YmO0zB-ACK2sTqjYGlRwKOSlnVWvj_0"
+    },
+    {
+      "lab_id": "galixir",
+      "lab_name": "Galixir (星药科技)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.yicaiglobal.com/news/chinese-ai-pharma-startup-galixir-closes-funding-round"
+    },
+    {
+      "lab_id": "galixir",
+      "lab_name": "Galixir (星药科技)",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.cn-healthcare.com/articlewm/20220620/content-1385566.html"
+    },
+    {
+      "lab_id": "odyssey-therapeutics",
+      "lab_name": "Odyssey Therapeutics",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://odysseytx.com/"
+    },
+    {
+      "lab_id": "odyssey-therapeutics",
+      "lab_name": "Odyssey Therapeutics",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.fiercebiotech.com/biotech/odyssey-therapeutics-heralds-213m-series-d-strengthen-clinical-portfolio"
+    },
+    {
+      "lab_id": "odyssey-therapeutics",
+      "lab_name": "Odyssey Therapeutics",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://odysseytx.com/odyssey-therapeutics-announces-oversubscribed-213-million-series-d-financing-to-advance-clinical-pipeline-for-autoimmune-diseases/"
+    },
+    {
+      "lab_id": "odyssey-therapeutics",
+      "lab_name": "Odyssey Therapeutics",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20250910622822/en/Odyssey-Therapeutics-Announces-Oversubscribed-%24213-Million-Series-D-Financing-to-Advance-Clinical-Pipeline-for-Autoimmune-Diseases"
+    },
+    {
+      "lab_id": "terray-therapeutics",
+      "lab_name": "Terray Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://terraytx.com/"
+    },
+    {
+      "lab_id": "terray-therapeutics",
+      "lab_name": "Terray Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.crunchbase.com/organization/terray-therapeutics"
+    },
+    {
+      "lab_id": "terray-therapeutics",
+      "lab_name": "Terray Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20241017147331/en/Terray-Therapeutics-Closes-Oversubscribed-%24120M-Series-B-to-Advance-Its-Generative-AI-Pipeline-of-Small-Molecule-Therapeutics-to-the-Clinic"
+    },
+    {
+      "lab_id": "terray-therapeutics",
+      "lab_name": "Terray Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.fiercebiotech.com/biotech/terray-therapeutics-doubles-series-money-raking-120m-push-programs-clinic"
+    },
+    {
+      "lab_id": "terray-therapeutics",
+      "lab_name": "Terray Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "team_size",
+      "tag": "VERIFIED",
+      "url": "https://www.genengnews.com/topics/artificial-intelligence/terrays-ai-platform-finds-drugs-in-unseen-chemical-space-achieves-bms-milestone/"
+    },
+    {
+      "lab_id": "outpace-bio",
+      "lab_name": "Outpace Bio",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.outpacebio.com/"
+    },
+    {
+      "lab_id": "outpace-bio",
+      "lab_name": "Outpace Bio",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.outpacebio.com/our-story"
+    },
+    {
+      "lab_id": "outpace-bio",
+      "lab_name": "Outpace Bio",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.outpacebio.com/news/a-pair-of-lyell-founders-look-to-shift-the-cell-therapy-paradigm-and-theyve-got-30m-to-get-their-plan-off-the-ground"
+    },
+    {
+      "lab_id": "outpace-bio",
+      "lab_name": "Outpace Bio",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.outpacebio.com/news/outpace-bio-announces-144m-oversubscribed-series-b-financing-to-advance-ai-powered-cell-therapies-into-clinical-development"
+    },
+    {
+      "lab_id": "outpace-bio",
+      "lab_name": "Outpace Bio",
+      "categories": [
+        "protein-design",
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://endpoints.news/with-144m-series-b-outpace-bio-beats-funding-goal-for-solid-tumor-cell-therapies/"
+    },
+    {
+      "lab_id": "cyrus-biotechnology",
+      "lab_name": "Cyrus Biotechnology",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://cyrusbio.com/"
+    },
+    {
+      "lab_id": "cyrus-biotechnology",
+      "lab_name": "Cyrus Biotechnology",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://cyrusbio.com/about/"
+    },
+    {
+      "lab_id": "cyrus-biotechnology",
+      "lab_name": "Cyrus Biotechnology",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.ipd.uw.edu/2015/06/cyrus-biotechnology-launches-2/"
+    },
+    {
+      "lab_id": "cyrus-biotechnology",
+      "lab_name": "Cyrus Biotechnology",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20240611967134/en/Cyrus-Biotechnology-Spins-out-Levitate-Bio-a-Protein-AI-Bioinformatics-and-Rosetta-Service-Provider-to-Bring-Automated-Customized-AI-Solutions-to-Biopharma-Drug-Discovery"
+    },
+    {
+      "lab_id": "cyrus-biotechnology",
+      "lab_name": "Cyrus Biotechnology",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20211206005139/en/Cyrus-Biotechnology-Announces-%2418M-Financing-and-Acquisition-of-Orthogonal-Biologics-to-Form-an-Integrated-Software-Driven-Pre-Clinical-Stage-Drug-Discovery-Firm"
+    },
+    {
+      "lab_id": "spring-discovery",
+      "lab_name": "Spring Discovery (Spring Science)",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.springdiscovery.com/"
+    },
+    {
+      "lab_id": "spring-discovery",
+      "lab_name": "Spring Discovery (Spring Science)",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://longevitylist.com/company/spring-discovery/"
+    },
+    {
+      "lab_id": "spring-discovery",
+      "lab_name": "Spring Discovery (Spring Science)",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.cbinsights.com/company/spring-discovery"
+    },
+    {
+      "lab_id": "spring-discovery",
+      "lab_name": "Spring Discovery (Spring Science)",
+      "categories": [
+        "ai-drug-discovery",
+        "single-cell"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://medium.com/spring-discovery/spring-adds-32m-bolsters-exec-team-8151bc215237"
+    },
+    {
+      "lab_id": "nimbus-therapeutics",
+      "lab_name": "Nimbus Therapeutics",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.nimbustx.com/"
+    },
+    {
+      "lab_id": "nimbus-therapeutics",
+      "lab_name": "Nimbus Therapeutics",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://centuryofbio.com/p/nimbus"
+    },
+    {
+      "lab_id": "nimbus-therapeutics",
+      "lab_name": "Nimbus Therapeutics",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.nimbustx.com/2025/02/25/nimbus-therapeutics-achieves-research-milestone-in-collaboration-with-lilly/"
+    },
+    {
+      "lab_id": "nimbus-therapeutics",
+      "lab_name": "Nimbus Therapeutics",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20230906187005/en/Nimbus-Therapeutics-Secures-%24210M-Private-Financing-to-Advance-Next-Wave-of-Tech-Enabled-Small-Molecule-Medicines"
+    },
+    {
+      "lab_id": "anagenex",
+      "lab_name": "Anagenex",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.anagenex.com/"
+    },
+    {
+      "lab_id": "anagenex",
+      "lab_name": "Anagenex",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://tracxn.com/d/companies/anagenex/__bUpmaBZClmFJL0ls12rD56PgWbGqFM1nmI27ex8juTQ"
+    },
+    {
+      "lab_id": "anagenex",
+      "lab_name": "Anagenex",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.cbinsights.com/company/anagenex"
+    },
+    {
+      "lab_id": "anagenex",
+      "lab_name": "Anagenex",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20240717849755/en/Anagenex-Announces-First-Programs-in-Synthetic-Lethal-Oncology-Franchise"
+    },
+    {
+      "lab_id": "anagenex",
+      "lab_name": "Anagenex",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20220608005405/en/Anagenex-Closes-%2430-Million-Series-A-Round-led-by-Catalio-to-Advance-Small-Molecule-Drug-Discovery-with-a-Novel-Directed-Evolution-Platform"
+    },
+    {
+      "lab_id": "morphic-therapeutic",
+      "lab_name": "Morphic Therapeutic",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.morphictx.com/"
+    },
+    {
+      "lab_id": "morphic-therapeutic",
+      "lab_name": "Morphic Therapeutic",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "MORF-627 αvβ6 integrin inhibitor — J Med Chem 2024"
+    },
+    {
+      "lab_id": "morphic-therapeutic",
+      "lab_name": "Morphic Therapeutic",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://cen.acs.org/business/mergers-&-acquisitions/Lilly-pay-32-billion-Springer/102/web/2024/07"
+    },
+    {
+      "lab_id": "morphic-therapeutic",
+      "lab_name": "Morphic Therapeutic",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.prnewswire.com/news-releases/lilly-completes-acquisition-of-morphic-to-improve-outcomes-and-expand-options-for-people-living-with-inflammatory-bowel-disease-302224347.html"
+    },
+    {
+      "lab_id": "morphic-therapeutic",
+      "lab_name": "Morphic Therapeutic",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.globenewswire.com/news-release/2024/02/22/2833526/0/en/Morphic-Announces-Corporate-Highlights-and-Financial-Results-for-the-Full-Year-2023.html"
+    },
+    {
+      "lab_id": "calico-labs",
+      "lab_name": "Calico Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://www.calicolabs.com/"
+    },
+    {
+      "lab_id": "calico-labs",
+      "lab_name": "Calico Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "C. elegans aging atlas — Cell Reports (2024)"
+    },
+    {
+      "lab_id": "calico-labs",
+      "lab_name": "Calico Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.calicolabs.com/press/calico-appoints-philip-r-kym-ph-d-as-head-of-drug-discovery/"
+    },
+    {
+      "lab_id": "calico-labs",
+      "lab_name": "Calico Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.calicolabs.com/story/nature-reviews-drug-discovery-on-calicos-independent-future-and-maturing-pipeline/"
+    },
+    {
+      "lab_id": "calico-labs",
+      "lab_name": "Calico Labs",
+      "categories": [
+        "ai-drug-discovery",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.nature.com/articles/d41573-025-00205-9"
+    },
+    {
+      "lab_id": "formation-bio",
+      "lab_name": "Formation Bio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.formation.bio/"
+    },
+    {
+      "lab_id": "formation-bio",
+      "lab_name": "Formation Bio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://a16z.com/announcement/investing-in-formation-bio/"
+    },
+    {
+      "lab_id": "formation-bio",
+      "lab_name": "Formation Bio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/sanofi-backed-formation-bio-raises-372-million-late-stage-funding-round-2024-06-26/"
+    },
+    {
+      "lab_id": "formation-bio",
+      "lab_name": "Formation Bio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://techcrunch.com/2024/06/26/formation-bio-raises-372m-to-boost-drug-development-with-ai/"
+    },
+    {
+      "lab_id": "formation-bio",
+      "lab_name": "Formation Bio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "DERIVED",
+      "url": "https://www.formation.bio/about-us"
+    },
+    {
+      "lab_id": "inceptive",
+      "lab_name": "Inceptive",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://inceptive.com/"
+    },
+    {
+      "lab_id": "inceptive",
+      "lab_name": "Inceptive",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.fiercebiotech.com/biotech/alnylam-pays-inceptive-30m-transform-sirna-design-ai-pioneer"
+    },
+    {
+      "lab_id": "inceptive",
+      "lab_name": "Inceptive",
+      "categories": [
+        "dna-rna-molecule"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://pitchbook.com/profiles/company/495561-34"
+    },
+    {
+      "lab_id": "iambic-therapeutics",
+      "lab_name": "Iambic Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.iambic.ai/"
+    },
+    {
+      "lab_id": "iambic-therapeutics",
+      "lab_name": "Iambic Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Enchant whitepaper — 'Breaking the data wall between lab and clinic' (Oct 2024)"
+    },
+    {
+      "lab_id": "iambic-therapeutics",
+      "lab_name": "Iambic Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://endpoints.news/how-two-academic-chemists-turned-san-diego-startup-iambic-into-an-ai-force/"
+    },
+    {
+      "lab_id": "iambic-therapeutics",
+      "lab_name": "Iambic Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://endpoints.news/ai-biotech-iambic-raises-100m-from-ark-regeneron/"
+    },
+    {
+      "lab_id": "iambic-therapeutics",
+      "lab_name": "Iambic Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.reuters.com/technology/artificial-intelligence/nvidia-backed-ai-firm-iambic-unveils-drug-discovery-breakthrough-2024-10-29/"
+    },
+    {
+      "lab_id": "iambic-therapeutics",
+      "lab_name": "Iambic Therapeutics",
+      "categories": [
+        "ai-drug-discovery",
+        "protein-structure"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.fiercebiotech.com/biotech/busy-ai-driven-iambic-therapeutics-raises-over-100m-oversubscribed-funding-round"
+    },
+    {
+      "lab_id": "enveda-biosciences",
+      "lab_name": "Enveda Biosciences",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.enveda.com/"
+    },
+    {
+      "lab_id": "enveda-biosciences",
+      "lab_name": "Enveda Biosciences",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://www.technologynetworks.com/drug-discovery/blog/exploiting-the-therapeutic-potential-of-plants-346125"
+    },
+    {
+      "lab_id": "enveda-biosciences",
+      "lab_name": "Enveda Biosciences",
+      "categories": [
+        "ai-drug-discovery",
+        "automated-lab"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.intelligence360.news/enveda-raises-150m-series-d-funding-to-reach-unicorn-status-enrolls-first-patient-in-lead-program-and-adds-mikael-dolsten-to-board-of-directors/"
+    },
+    {
+      "lab_id": "nabla-bio",
+      "lab_name": "Nabla Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://nabla.bio/"
+    },
+    {
+      "lab_id": "nabla-bio",
+      "lab_name": "Nabla Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "publication",
+      "field": "key_publication",
+      "tag": "PRIMARY",
+      "url": "Protein language models — Nature Methods / Nature Biotechnology series"
+    },
+    {
+      "lab_id": "nabla-bio",
+      "lab_name": "Nabla Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://cen.acs.org/pharmaceuticals/AI-based-protein-discovery-startstrikes/103/web/2025/10"
+    },
+    {
+      "lab_id": "nabla-bio",
+      "lab_name": "Nabla Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://endpoints.news/nabla-bio-moves-closer-to-ai-created-antibodies/"
+    },
+    {
+      "lab_id": "nabla-bio",
+      "lab_name": "Nabla Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20251014934240/en/Nabla-Bio-Signs-Second-Takeda-Collaboration-to-Advance-AI-Driven-Design-of-Protein-Therapeutics"
+    },
+    {
+      "lab_id": "nabla-bio",
+      "lab_name": "Nabla Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20240514763517/en/Nabla-Bio-Secures-%2426M-Series-A-Financing-and-Collaborations-with-AstraZeneca-Bristol-Myers-Squibb-and-Takeda-for-Generative-Protein-Design"
+    },
+    {
+      "lab_id": "pangea-bio",
+      "lab_name": "Pangea Bio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.pangeabio.com/"
+    },
+    {
+      "lab_id": "pangea-bio",
+      "lab_name": "Pangea Bio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://theorg.com/org/pangea-bio/org-chart/lars-christian-wilde"
+    },
+    {
+      "lab_id": "pangea-bio",
+      "lab_name": "Pangea Bio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.maddyness.com/uk/2024/06/20/pangea-bio-accelerating-drug-discovery-with-nature-inspired-science/"
+    },
+    {
+      "lab_id": "pangea-bio",
+      "lab_name": "Pangea Bio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.pangeabio.com/news/pangea-bio-receives-grant-from-the-michael-j-fox-foundation"
+    },
+    {
+      "lab_id": "pangea-bio",
+      "lab_name": "Pangea Bio",
+      "categories": [
+        "ai-drug-discovery"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://linkedin.com/company/pangea-bio"
+    },
+    {
+      "lab_id": "ordaos-bio",
+      "lab_name": "Ordaōs Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://ordaos.bio/"
+    },
+    {
+      "lab_id": "ordaos-bio",
+      "lab_name": "Ordaōs Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://ordaos.bio/team"
+    },
+    {
+      "lab_id": "ordaos-bio",
+      "lab_name": "Ordaōs Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.cbinsights.com/company/ordaos"
+    },
+    {
+      "lab_id": "ordaos-bio",
+      "lab_name": "Ordaōs Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.linkedin.com/company/ordaosbio"
+    },
+    {
+      "lab_id": "ordaos-bio",
+      "lab_name": "Ordaōs Bio",
+      "categories": [
+        "protein-design"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://lunchpailventures.com/ordaos/"
+    },
+    {
+      "lab_id": "tamarind-bio",
+      "lab_name": "Tamarind Bio",
+      "categories": [
+        "foundation-platform"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.tamarind.bio/"
+    },
+    {
+      "lab_id": "tamarind-bio",
+      "lab_name": "Tamarind Bio",
+      "categories": [
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://www.ycombinator.com/companies/tamarind-bio"
+    },
+    {
+      "lab_id": "tamarind-bio",
+      "lab_name": "Tamarind Bio",
+      "categories": [
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.genengnews.com/topics/artificial-intelligence/tamarind-bio-secures-13-6m-series-a-to-make-ai-more-accessible-for-biology/"
+    },
+    {
+      "lab_id": "tamarind-bio",
+      "lab_name": "Tamarind Bio",
+      "categories": [
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.biopharmatrend.com/news/tamarind-bio-raises-136m-to-run-200-ai-and-simulation-models-in-a-no-code-platform-for-bench-scientists-1505/"
+    },
+    {
+      "lab_id": "latent-labs",
+      "lab_name": "Latent Labs",
+      "categories": [
+        "protein-design",
+        "foundation-platform"
+      ],
+      "kind": "website",
+      "field": "website",
+      "tag": "PRIMARY",
+      "url": "https://www.latentlabs.com/"
+    },
+    {
+      "lab_id": "latent-labs",
+      "lab_name": "Latent Labs",
+      "categories": [
+        "protein-design",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founders",
+      "tag": "VERIFIED",
+      "url": "https://techcrunch.com/2025/02/12/founded-by-deepmind-alumnus-latent-labs-launches-with-50m-to-make-biology-programmable/"
+    },
+    {
+      "lab_id": "latent-labs",
+      "lab_name": "Latent Labs",
+      "categories": [
+        "protein-design",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "founded",
+      "tag": "VERIFIED",
+      "url": "https://endpoints.news/ex-deepmind-scientist-launches-ai-biotech-latent-labs-with-50m/"
+    },
+    {
+      "lab_id": "latent-labs",
+      "lab_name": "Latent Labs",
+      "categories": [
+        "protein-design",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "representative_outputs",
+      "tag": "VERIFIED",
+      "url": "https://www.businesswire.com/news/home/20250213198098/en/Latent-Labs-Secures-%2450M-in-Funding-to-Realize-the-Potential-of-AI-Powered-Programmable-Biology"
+    },
+    {
+      "lab_id": "latent-labs",
+      "lab_name": "Latent Labs",
+      "categories": [
+        "protein-design",
+        "foundation-platform"
+      ],
+      "kind": "provenance",
+      "field": "funding_stage",
+      "tag": "VERIFIED",
+      "url": "https://www.latentlabs.com/press-release/latent-labs-secures-50m-in-funding/"
+    }
+  ]
+}

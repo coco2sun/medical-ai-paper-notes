@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img">
+    <rect width="960" height="560" rx="0" fill="#f7fbf9"/>
+    <circle cx="820" cy="88" r="120" fill="#dfeee9"/>
+    <circle cx="110" cy="470" r="90" fill="#dfeee9"/>
+    <text x="54" y="72" font-size="18" font-weight="850" fill="#2f6f63">Google DeepMind Science</text>
+    <text x="54" y="116" font-size="34" font-weight="850" fill="#17212b">从序列到复合物结构</text>
+    <text x="54" y="150" font-size="16" fill="#536172">AlphaFold 及后续多分子结构预测</text>
+    <rect x="54" y="186" width="850" height="190" rx="20" fill="#dfeee9" stroke="#dbe4ea"/>
+    <g>
+      <rect x="70" y="236" width="160" height="76" rx="14" fill="#fff" stroke="#2f6f63" stroke-width="2"/>
+      <text x="150" y="266" text-anchor="middle" font-size="15" font-weight="800" fill="#2f6f63">序列/复合物</text>
+      <text x="150" y="292" text-anchor="middle" font-size="12" fill="#657386">Step 1</text>
+      <path d="M238 274 L272 274" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/><path d="M272 274 L260 266 M272 274 L260 282" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/>
+    </g><g>
+      <rect x="285" y="236" width="160" height="76" rx="14" fill="#fff" stroke="#2f6f63" stroke-width="2"/>
+      <text x="365" y="266" text-anchor="middle" font-size="15" font-weight="800" fill="#2f6f63">结构预测</text>
+      <text x="365" y="292" text-anchor="middle" font-size="12" fill="#657386">Step 2</text>
+      <path d="M453 274 L487 274" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/><path d="M487 274 L475 266 M487 274 L475 282" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/>
+    </g><g>
+      <rect x="500" y="236" width="160" height="76" rx="14" fill="#fff" stroke="#2f6f63" stroke-width="2"/>
+      <text x="580" y="266" text-anchor="middle" font-size="15" font-weight="800" fill="#2f6f63">置信度评估</text>
+      <text x="580" y="292" text-anchor="middle" font-size="12" fill="#657386">Step 3</text>
+      <path d="M668 274 L702 274" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/><path d="M702 274 L690 266 M702 274 L690 282" stroke="#2f6f63" stroke-width="4" stroke-linecap="round"/>
+    </g><g>
+      <rect x="715" y="236" width="160" height="76" rx="14" fill="#fff" stroke="#2f6f63" stroke-width="2"/>
+      <text x="795" y="266" text-anchor="middle" font-size="15" font-weight="800" fill="#2f6f63">实验/对接</text>
+      <text x="795" y="292" text-anchor="middle" font-size="12" fill="#657386">Step 4</text>
+      
+    </g>
+    <rect x="54" y="414" width="850" height="86" rx="16" fill="#fff" stroke="#dbe4ea"/>
+    <text x="78" y="448" font-size="15" font-weight="800" fill="#2f6f63">关键判断</text>
+    <text x="78" y="478" font-size="18" font-weight="800" fill="#17212b">结构模型是入口，功能验证才是终点</text>
+  </svg>
