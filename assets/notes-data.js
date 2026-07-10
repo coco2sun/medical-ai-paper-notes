@@ -1,5 +1,20 @@
 window.NOTES = [
   {
+    "title": "SP-Mind：把空间蛋白组分析变成可编排的Agent工作流",
+    "type": "单篇",
+    "date": "2026-07-10",
+    "url": "notes/spmind-paper-note/",
+    "summary": "把大语言模型的任务理解、代码执行、领域技能和容器化空间成像工具连接起来，让研究者可以用自然语言驱动从多轮图像到细胞表型发现的分析流程。",
+    "tags": [
+      "Spatial Proteomics",
+      "AI Agents",
+      "ReAct Reasoning",
+      "Bioinformatics Workflow Automation",
+      "SP-Bench"
+    ],
+    "accent": true
+  },
+  {
     "title": "AI Biology Labs 全景：从模型能力到证据责任",
     "type": "调研",
     "date": "2026-07-08",
