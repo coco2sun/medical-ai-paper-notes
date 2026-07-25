@@ -2,7 +2,7 @@ window.NOTES = [
   {
     "title": "Biomni：让 AI 从回答问题走向执行生物医学研究",
     "type": "单篇",
-    "date": "2026-07-10",
+    "date": "2026-07-25",
     "url": "notes/biomni-paper-note/",
     "summary": "Biomni把文献、数据库、专业工具、科学软件与代码执行组织成统一行动空间， 让研究者从一个自然语言问题出发，获得可追踪的计划、分析产物、候选假设与实验协议。",
     "tags": [
