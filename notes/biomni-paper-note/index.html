@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Science 2026 Biomni 论文深度笔记：统一生物医学行动空间、代码式 Agent、Biomni-Eval1、真实案例、开放模型与代码安全审计。">
+  <meta name="theme-color" content="#173b62">
+  <title>Biomni：让 AI 从回答问题走向执行生物医学研究</title>
+  <link rel="icon" href="assets/biomni-logo.png" type="image/png">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到正文</a>
+
+  <main class="page" id="main-content">
+    <header class="hero">
+      <img class="hero-logo" src="assets/biomni-logo.png" alt="Biomni 官方标志">
+      <div class="hero-copy">
+        <p class="eyebrow">AUTONOMOUS BIOMEDICAL RESEARCH</p>
+        <h1>Biomni：让 AI 从回答问题<br>走向执行生物医学研究</h1>
+        <p class="hero-lede">
+          Biomni 把文献、数据库、专业工具、科学软件与代码执行组织成统一行动空间，
+          让研究者从一个自然语言问题出发，获得可追踪的计划、分析产物、候选假设与实验协议。
+        </p>
+        <div class="paper-citation" aria-label="正式论文信息">
+          <p><strong>Autonomous biomedical research with an artificial intelligence agent</strong></p>
+          <p>Kexin Huang, Serena Zhang, Hanchen Wang, Yuanhao Qu, Yingzhou Lu, Ryan Li <i>et al.</i> · <cite>Science</cite> (2026)</p>
+        </div>
+        <div class="hero-meta" aria-label="论文核心信息">
+          <span>Science · 2026-07-09</span>
+          <span>DOI 10.1126/science.adz4351</span>
+          <span>443 queries / 10 tasks</span>
+          <span>150 tools · 105 software · 59 databases</span>
+          <span>5 real-world cases</span>
+        </div>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://doi.org/10.1126/science.adz4351" target="_blank" rel="noopener noreferrer">Science 正式论文 ↗</a>
+          <a class="button button-ghost" href="https://pubmed.ncbi.nlm.nih.gov/42424436/" target="_blank" rel="noopener noreferrer">PubMed ↗</a>
+          <a class="button button-ghost" href="https://github.com/snap-stanford/Biomni" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </div>
+        <aside class="hero-thesis" aria-label="一句话判断">
+          <p class="mini-label">ONE-LINE TAKE</p>
+          <p>Biomni 的关键创新不是“更会答生物题”，而是把研究所需的行动空间、执行链和反馈场做成可扩展基础设施。</p>
+        </aside>
+      </div>
+    </header>
+
+    <nav class="top-nav" aria-label="章节导航">
+      <a href="#overview">01 核心贡献</a>
+      <a href="#environment">02 行动空间</a>
+      <a href="#method">03 Agent 方法</a>
+      <a href="#evaluation">04 最新评测</a>
+      <a href="#cases">05 真实案例</a>
+      <a href="#training">06 开放模型</a>
+      <a href="#code">07 代码深读</a>
+      <a href="#critique">08 安全与批判</a>
+      <a href="#takeaway">09 总结启示</a>
+    </nav>
+
+    <section id="overview">
+      <div class="section-heading">
+        <span class="section-index">01</span>
+        <div>
+          <p class="section-kicker">RESEARCH QUESTION &amp; CONTRIBUTIONS</p>
+          <h2>研究问题与核心贡献</h2>
+        </div>
+      </div>
+
+      <div class="lead-grid">
+        <article class="card card-large">
+          <p class="card-label">研究定位</p>
+          <h3>把“知道怎么做”推进到“真的执行出来”</h3>
+          <p>
+            生物医学研究的问题并不只是知识不足。文献、数据库、模型、R/Python 包、CLI 软件和实验协议分散在不同系统中，
+            很多复杂工作需要研究者反复查找、转换格式、写胶水代码并检查中间结果。Biomni 将目标定义为：
+            <strong>让一个通用 Agent 能检索、组合并执行这些行动</strong>，而不是为每类任务手写固定流程。
+          </p>
+          <p>
+            这使 Biomni 更接近“可执行研究操作系统”而非问答机器人：它读取问题、选择资源、维护计划、运行代码、
+            观察输出并修正下一步，最终交付报告、图表、序列、协议或代码产物。<sup><a href="#ref-1">[1]</a></sup>
+          </p>
+        </article>
+
+        <div class="stack">
+          <article class="card accent-card">
+            <p class="card-label">真正的瓶颈</p>
+            <p>数据与工具增长速度超过专家可用时间；大量分析机会因工作流碎片化而被搁置。</p>
+          </article>
+          <article class="card">
+            <p class="card-label">论文边界</p>
+            <p>“Autonomous”主要指任务分解和工作流执行，不代表系统能独立判断什么科学问题最重要或最终结论是否可信。</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="contribution-grid" aria-label="四项核心贡献">
+        <article class="contribution">
+          <span class="contribution-number">E1</span>
+          <h3>统一行动空间</h3>
+          <p>把 150 个专用工具、105 个软件包与 59 个数据库放进一个 Agent 可理解、可调用的环境。</p>
+        </article>
+        <article class="contribution">
+          <span class="contribution-number">A1</span>
+          <h3>通用执行 Agent</h3>
+          <p>以资源检索、代码式规划和交互执行动态组织工作流，不依赖任务专用模板。</p>
+        </article>
+        <article class="contribution">
+          <span class="contribution-number">EVAL</span>
+          <h3>跨域评测</h3>
+          <p>Biomni-Eval1 用 443 个查询覆盖 10 类研究任务，并加入多个专家准确率与耗时对照。</p>
+        </article>
+        <article class="contribution">
+          <span class="contribution-number">R0</span>
+          <h3>开放推理模型</h3>
+          <p>利用 Agent 交互轨迹进行强化学习，说明行动环境也能成为训练专用生物推理模型的反馈场。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="environment" class="section-tint">
+      <div class="section-heading">
+        <span class="section-index">02</span>
+        <div>
+          <p class="section-kicker">BIOMNI-E1</p>
+          <h2>从文献中构建统一生物医学行动空间</h2>
+        </div>
+      </div>
+
+      <div class="pipeline discovery-pipeline" aria-label="行动空间构建流程">
+        <div class="pipeline-step">
+          <span class="step-tag">INPUT</span>
+          <strong>25 个领域</strong>
+          <small>bioRxiv 学科分类</small>
+        </div>
+        <span class="pipeline-arrow" aria-hidden="true">→</span>
+        <div class="pipeline-step">
+          <span class="step-tag">CORPUS</span>
+          <strong>2,500 篇论文</strong>
+          <small>每领域 100 篇近期论文</small>
+        </div>
+        <span class="pipeline-arrow" aria-hidden="true">→</span>
+        <div class="pipeline-step highlighted">
+          <span class="step-tag">DISCOVERY</span>
+          <strong>Action Agent</strong>
+          <small>抽取任务、软件、数据库</small>
+        </div>
+        <span class="pipeline-arrow" aria-hidden="true">→</span>
+        <div class="pipeline-step">
+          <span class="step-tag">CURATION</span>
+          <strong>专家筛选与测试</strong>
+          <small>去重、非平凡性、测试用例</small>
+        </div>
+      </div>
+
+      <div class="resource-grid">
+        <article class="resource-card tools">
+          <span class="resource-count">150</span>
+          <h3>Specialized Tools</h3>
+          <p>序列分析、CRISPR 设计、细胞注释、药物靶点、蛋白结构、实验协议等封装函数。</p>
+        </article>
+        <article class="resource-card databases">
+          <span class="resource-count">59</span>
+          <h3>Databases</h3>
+          <p>ClinVar、OpenTargets、PDB、CellxGene、Reactome 等远程 API 与本地结构化数据湖。</p>
+        </article>
+        <article class="resource-card software">
+          <span class="resource-count">105</span>
+          <h3>Scientific Software</h3>
+          <p>Scanpy、DESeq2、PLINK、AlphaFold、PySCENIC 及 Python/R/CLI 分析生态。</p>
+        </article>
+      </div>
+
+      <figure class="paper-figure">
+        <img
+          src="assets/figure-action-space.png"
+          width="2674"
+          height="1242"
+          alt="Biomni Figure 1：行动发现流程、统一生物医学行动空间与观察驱动的 Agent 执行链"
+          loading="lazy"
+          decoding="async">
+        <figcaption>
+          <strong>历史架构图｜</strong>行动发现、Biomni-E1 环境与 Biomni-A1 执行链。
+          图像来自 2025 bioRxiv 预印本 Figure 1（CC-BY 4.0）；本文的评测结论仍以 Science 2026 正式论文为准。
+        </figcaption>
+      </figure>
+
+      <div class="analysis-grid">
+        <article class="card">
+          <p class="card-label">为什么要分三类资源？</p>
+          <ul class="clean-list">
+            <li><strong>函数工具</strong>有明确输入输出，适合标准化调用。</li>
+            <li><strong>数据库与数据湖</strong>提供外部事实和大规模结构化数据。</li>
+            <li><strong>科学软件</strong>保留完整编程能力，适合无法压缩成单次函数调用的流程。</li>
+          </ul>
+        </article>
+        <article class="card warning-card">
+          <p class="card-label">覆盖面不等于完备性</p>
+          <p>“近期论文优先”有利于覆盖新方法，却可能低估经典方法；数据库、软件版本和许可持续变化，行动空间需要长期维护而不是一次性收集。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="section-heading">
+        <span class="section-index">03</span>
+        <div>
+          <p class="section-kicker">BIOMNI-A1</p>
+          <h2>检索增强、代码式规划与观察驱动执行</h2>
+        </div>
+      </div>
+
+      <figure class="agent-flow-figure" aria-labelledby="agent-flow-caption">
+        <div class="flow-sequence">
+          <article class="flow-node intent-node">
+            <div class="flow-node-top"><span>01</span><small>RESEARCH INTENT</small></div>
+            <h3>Understand</h3>
+            <p>解析问题、数据位置、输出约束与可验证目标。</p>
+          </article>
+          <article class="flow-node context-node">
+            <div class="flow-node-top"><span>02</span><small>CONTEXT</small></div>
+            <h3>Retrieve</h3>
+            <p>从工具、数据湖、软件与 Know-How 中选择资源。</p>
+          </article>
+          <article class="flow-node reasoning-node">
+            <div class="flow-node-top"><span>03</span><small>REASONING</small></div>
+            <h3>Plan</h3>
+            <p>建立分步计划，显式维护完成、失败与新增步骤。</p>
+          </article>
+          <article class="flow-node action-node">
+            <div class="flow-node-top"><span>04</span><small>ACTION</small></div>
+            <h3>Execute</h3>
+            <p>生成 Python、R 或 Bash，组合控制流与多工具数据流。</p>
+          </article>
+          <article class="flow-node feedback-node">
+            <div class="flow-node-top"><span>05</span><small>FEEDBACK</small></div>
+            <h3>Observe</h3>
+            <p>读取 stdout、错误、文件、图表与数据库结果。</p>
+          </article>
+          <article class="flow-node evidence-node">
+            <div class="flow-node-top"><span>06</span><small>EVIDENCE</small></div>
+            <h3>Deliver</h3>
+            <p>交付结论、引用、研究日志与可检查的中间产物。</p>
+          </article>
+        </div>
+        <div class="feedback-rail">
+          <span>OBSERVATION-DRIVEN CONTROL LOOP</span>
+          <p><b>Observe</b> 将真实运行结果写回上下文；若证据不足或执行失败，Agent 返回 <b>Plan</b> 修订路径，而不是沿固定工作流继续。</p>
+        </div>
+        <figcaption id="agent-flow-caption">
+          Biomni-A1 的执行闭环：资源选择缩小行动空间，代码执行产生环境观察，观察再驱动重规划与最终证据交付。
+        </figcaption>
+      </figure>
+
+      <div class="method-thesis">
+        <div>
+          <p class="card-label">方法核心</p>
+          <h3>两阶段推理 + 一个可执行反馈环</h3>
+        </div>
+        <p>
+          第一阶段由资源检索器把庞大的 Biomni-E1 行动空间压缩成任务相关子集；第二阶段由执行 Agent
+          在这个子环境中维护计划、生成代码并读取观察。方法的关键不在某个单独工具，而在于
+          <strong>“选择资源—组合动作—观察结果—修订计划”</strong>可以反复循环。<sup><a href="#ref-1">[1]</a></sup>
+        </p>
+      </div>
+
+      <h3 class="subsection-title">3.1 两阶段上下文构建：先检索资源，再生成任务提示</h3>
+      <div class="retrieval-explainer">
+        <div class="resource-universe">
+          <p class="card-label">完整资源目录</p>
+          <div><span>TOOLS</span><strong>函数工具与数据库接口</strong></div>
+          <div><span>DATA LAKE</span><strong>本地结构化数据与索引</strong></div>
+          <div><span>LIBRARIES</span><strong>Python / R / CLI 软件</strong></div>
+          <div><span>KNOW-HOW</span><strong>协议、最佳实践与排错文档</strong></div>
+        </div>
+        <div class="retrieval-arrow" aria-hidden="true">
+          <span>Retriever LLM</span>
+          <b>→</b>
+          <small>返回各类别索引</small>
+        </div>
+        <div class="selected-context">
+          <p class="card-label">任务专用上下文</p>
+          <strong>只注入被选中的资源描述</strong>
+          <ul class="clean-list">
+            <li>工具名称、用途、参数与导入路径</li>
+            <li>可用数据集及其内容说明</li>
+            <li>软件库能力与运行方式</li>
+            <li>相关实验协议和 troubleshooting</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="method-split">
+        <article class="card">
+          <p class="card-label">Retriever 实际做了什么？</p>
+          <h3>这是 LLM 选择器，不是传统向量检索</h3>
+          <p>
+            论文用独立 LLM 根据用户问题挑选工具、数据与软件。当前仓库把全部候选资源的
+            <em>名称 + 描述</em>编号后写入提示，要求模型按 <code>TOOLS</code>、<code>DATA_LAKE</code>、
+            <code>LIBRARIES</code>、<code>KNOW_HOW</code>返回索引列表，再据此重建执行 Agent 的系统提示。
+            <sup><a href="#ref-6">[6]</a></sup>
+          </p>
+          <p class="micro-note">
+            检索提示强调“be generous”，优先纳入数据库、文献搜索和分子生物学工具：这提高召回率，
+            但也意味着上下文压缩依赖另一个 LLM 的启发式判断，而不是可验证的最优检索。
+          </p>
+        </article>
+        <article class="card">
+          <p class="card-label">为什么不能直接暴露全部工具？</p>
+          <h3>上下文长度只是表层问题，选择复杂度更关键</h3>
+          <p>
+            资源目录越大，模型需要比较的相似工具越多，错误参数、错误数据库和不必要调用也随之增加。
+            检索层把“在哪些资源中工作”与“如何完成任务”拆开，让主 Agent 把上下文预算留给数据、
+            中间观察和研究计划。正式论文将资源检索视为 A1 泛化能力的重要组成，而不是单纯节省 token。
+          </p>
+          <p class="micro-note">
+            失败模式也很明确：漏检会让正确资源完全不可见；当前仓库在检索异常时可退回全部工具，
+            但这种降级会重新引入上下文拥挤。
+          </p>
+        </article>
+      </div>
+
+      <h3 class="subsection-title">3.2 计划不是一次性提示，而是外显的任务状态</h3>
+      <div class="plan-board">
+        <div class="plan-example">
+          <p class="card-label">PLAN STATE</p>
+          <ol>
+            <li class="done"><span>✓</span>检查输入文件、列名与缺失值</li>
+            <li class="done"><span>✓</span>选择分析工具并建立数据对象</li>
+            <li class="failed"><span>×</span>原参数运行失败：样本量不足</li>
+            <li class="active"><span>→</span>修改过滤阈值并重新估计</li>
+            <li><span>○</span>用替代数据库交叉验证结论</li>
+          </ol>
+        </div>
+        <div class="plan-analysis">
+          <h3>计划承担三种功能</h3>
+          <dl>
+            <div><dt>分解</dt><dd>把开放问题转换为有依赖关系的可执行步骤。</dd></div>
+            <div><dt>记忆</dt><dd>记录已完成、失败与新增步骤，避免长轨迹中重复工作。</dd></div>
+            <div><dt>审计</dt><dd>让研究者看到 Agent 当前假设、下一步动作和偏离原计划的原因。</dd></div>
+          </dl>
+          <p>
+            当前系统提示要求使用编号 checklist，并在每轮执行后显示更新计划。它不是独立的符号规划器，
+            也不保证依赖关系形式正确；本质上仍是语言模型维护的文本状态。
+          </p>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">3.3 CodeAct：把代码作为跨资源的通用动作语言</h3>
+      <div class="method-split codeact-split">
+        <article class="card">
+          <p class="card-label">为什么不用固定 function calling？</p>
+          <h3>生物医学工作流需要控制流与共享变量</h3>
+          <p>
+            固定函数调用适合边界清晰的单次动作，却难以表达按样本循环、根据统计结果分支、
+            并行处理多个队列、把数据库结果传给 R 包、再用 CLI 生成下游文件。代码同时承担
+            <strong>控制流、数据转换和工具编排</strong>，因此可动态组合此前没有硬编码的流程。
+          </p>
+          <div class="code-chips" aria-label="支持的执行语言">
+            <code>Python</code><code>Rscript</code><code>Bash / CLI</code><code>Tool APIs</code>
+          </div>
+        </article>
+        <article class="code-contract" aria-label="Biomni CodeAct 执行协议">
+          <div class="contract-line">
+            <span>MODEL</span>
+            <code>&lt;execute&gt; result = tool(data); print(result) &lt;/execute&gt;</code>
+          </div>
+          <div class="contract-arrow">↓ parser · route · run</div>
+          <div class="contract-line observation-line">
+            <span>ENV</span>
+            <code>&lt;observation&gt; stdout / error / file path / plot &lt;/observation&gt;</code>
+          </div>
+          <div class="contract-arrow">↺ append to message state</div>
+          <div class="contract-line solution-line">
+            <span>MODEL</span>
+            <code>&lt;solution&gt; result, evidence and limitations &lt;/solution&gt;</code>
+          </div>
+          <p>
+            每轮只能选择执行或结束；环境观察被写回消息历史，使下一轮推理能依据真实输出而不是想象中的结果。
+          </p>
+        </article>
+      </div>
+
+      <h3 class="subsection-title">3.4 状态机如何把生成、执行与恢复串起来</h3>
+      <div class="state-machine" aria-label="Biomni-A1 状态机">
+        <article>
+          <span>START</span>
+          <h4>Generate</h4>
+          <p>读取问题、计划与历史观察，生成下一段推理及一个动作标签。</p>
+        </article>
+        <b aria-hidden="true">→</b>
+        <article>
+          <span>ROUTER</span>
+          <h4>Parse</h4>
+          <p><code>&lt;execute&gt;</code>进入运行节点；<code>&lt;solution&gt;</code>结束；格式错误则要求重写。</p>
+        </article>
+        <b aria-hidden="true">→</b>
+        <article class="state-active">
+          <span>ACTION</span>
+          <h4>Execute</h4>
+          <p>按标记分派 Python、R 或 Bash，并捕获 stdout、异常、图像和文件路径。</p>
+        </article>
+        <b aria-hidden="true">→</b>
+        <article>
+          <span>FEEDBACK</span>
+          <h4>Observe</h4>
+          <p>把结果包装为 observation 写回状态，再返回 Generate 形成闭环。</p>
+        </article>
+      </div>
+
+      <div class="trace">
+        <div><span>PLAN UPDATE</span><p>成功步骤打勾；失败步骤标记原因并插入替代路径</p></div>
+        <div><span>RUNTIME ERROR</span><p>异常文本成为 observation，模型可修改参数、输入格式或工具</p></div>
+        <div><span>PARSING ERROR</span><p>缺少动作标签时请求重新生成；连续失败后终止，避免无限循环</p></div>
+        <div><span>OPTIONAL CRITIC</span><p>测试时可在候选解之后加入自我批评，再执行额外改进轮次</p></div>
+      </div>
+
+      <h3 class="subsection-title">3.5 上下文、运行时与产物如何被管理</h3>
+      <div class="mechanism-table" role="region" aria-label="Biomni-A1 方法机制与边界" tabindex="0">
+        <table>
+          <thead>
+            <tr><th>机制</th><th>解决的问题</th><th>当前公开实现</th><th>方法边界</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>资源压缩</td>
+              <td>避免完整资源目录占满上下文</td>
+              <td>Retriever 返回四类资源索引，再重建系统提示</td>
+              <td>选择本身可能漏召回或过召回</td>
+            </tr>
+            <tr>
+              <td>持久执行状态</td>
+              <td>跨步骤复用变量、数据对象与中间结果</td>
+              <td>Python REPL 保留命名空间；R/Bash 通过独立运行路径</td>
+              <td>状态污染会让复现依赖执行顺序</td>
+            </tr>
+            <tr>
+              <td>观察压缩</td>
+              <td>控制超长 stdout 对后续推理的挤占</td>
+              <td>当前仓库将超过 10,000 字符的输出截断后写回</td>
+              <td>关键警告可能位于被截断部分</td>
+            </tr>
+            <tr>
+              <td>轨迹记录</td>
+              <td>保存动作、结果与可视化产物</td>
+              <td>消息状态、执行时间戳、捕获图像和报告导出</td>
+              <td>可追踪不等于结果已被独立验证</td>
+            </tr>
+            <tr>
+              <td>终止判定</td>
+              <td>从迭代执行切换到最终回答</td>
+              <td>模型输出 <code>&lt;solution&gt;</code>即结束，可选 self-critic</td>
+              <td>缺乏通用的生物学正确性验证器</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="method-evidence">
+        <div>
+          <p class="card-label">方法证据如何理解</p>
+          <h3>消融支持“架构组合有效”，但不能隔离每一个因果贡献</h3>
+        </div>
+        <p>
+          论文通过基础 LLM、通用 coding agent、相同行动环境下的 coding agent，以及不同规划方式进行比较，
+          说明专业环境、资源检索和代码式规划共同贡献性能。HLE-Bio 中多个底座接入 scaffold 后均提升，
+          进一步表明增益不完全依赖单一模型。由于这些组件同时改变提示、可见资源、执行轨迹和错误恢复，
+          结果更适合解释为<strong>系统级消融</strong>，而不是每个模块的纯净因果效应。
+        </p>
+      </div>
+
+      <div class="method-boundary">
+        <strong>最容易被忽略的方法边界</strong>
+        <p>
+          Biomni 的“验证”主要指检查程序输出、数据库证据或任务评分；当模型自行输出
+          <code>&lt;solution&gt;</code>时，并不存在一个通用科学真值模块。运行成功、答案符合 benchmark、
+          生物学结论成立和实验可重复，是四个不同层级。
+        </p>
+      </div>
+    </section>
+
+    <section id="evaluation" class="section-dark">
+      <div class="section-heading light-heading">
+        <span class="section-index">04</span>
+        <div>
+          <p class="section-kicker">LATEST EVALUATION</p>
+          <h2>从 443 道任务到人类专家效率对照</h2>
+        </div>
+      </div>
+
+      <div class="metric-hero">
+        <div><strong>443</strong><span>queries</span></div>
+        <div><strong>10</strong><span>task families</span></div>
+        <div><strong>56.6%</strong><span>Biomni average</span></div>
+        <div><strong>6–12 pp</strong><span>HLE-Bio scaffold gain</span></div>
+      </div>
+
+      <div class="benchmark-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="card-label">BIOMNI-EVAL1</p>
+            <h3>跨 10 类生物医学研究任务的平均表现</h3>
+          </div>
+          <span class="evidence-badge paper">论文基准</span>
+        </div>
+        <div class="bar-chart" aria-label="Biomni-Eval1 平均准确率比较">
+          <div class="bar-row">
+            <span class="bar-label">Biomni</span>
+            <div class="bar-track"><span class="bar-fill primary" style="--value: 56.6%"></span></div>
+            <strong>56.6%</strong>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Coding agent + E1</span>
+            <div class="bar-track"><span class="bar-fill blue" style="--value: 44.3%"></span></div>
+            <strong>44.3%</strong>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Claude Code</span>
+            <div class="bar-track"><span class="bar-fill blue" style="--value: 42.8%"></span></div>
+            <strong>42.8%</strong>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Base LLM</span>
+            <div class="bar-track"><span class="bar-fill muted" style="--value: 29.6%"></span></div>
+            <strong>29.6%</strong>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">TxAgent</span>
+            <div class="bar-track"><span class="bar-fill muted" style="--value: 25%"></span></div>
+            <strong>25.0%</strong>
+          </div>
+        </div>
+        <p class="chart-note">数值按 Science 正式论文报告整理；不同任务的原始评分规则仍需分别阅读，平均值不代表每个子领域都达到同一成熟度。</p>
+      </div>
+
+      <div class="hle-panel">
+        <div>
+          <p class="card-label">HLE-BIO</p>
+          <h3>同一个 scaffold，为多种底座带来约 6–12 个百分点绝对提升</h3>
+        </div>
+        <p>
+          将多个底座模型接入 Biomni 的资源检索、规划和执行框架后，生物医学难题表现均有提升。
+          这支持“环境与 scaffold 本身提供增益”，但不能据此把模型能力、工具覆盖和检索质量混成一个数字。
+        </p>
+        <div class="hle-take">
+          <strong>关键解释</strong>
+          <span>增益跨底座出现，不完全依赖单一闭源模型；绝对分数仍受底座、上下文和工具可用性影响。</span>
+        </div>
+      </div>
+
+      <div class="expert-grid">
+        <article class="expert-card">
+          <div class="panel-heading">
+            <div>
+              <p class="card-label">单细胞注释</p>
+              <h3>准确率处在人类专家区间内</h3>
+            </div>
+            <span class="evidence-badge expert">小规模专家对照</span>
+          </div>
+          <div class="accuracy-line">
+            <span>专家 A <strong>41%</strong></span>
+            <span class="agent-score">Biomni <strong>46%</strong></span>
+            <span>专家 B <strong>51%</strong></span>
+          </div>
+          <div class="time-compare">
+            <div><span>Biomni</span><b style="--time-width: 33%">约 75 min</b></div>
+            <div><span>专家平均</span><b class="human" style="--time-width: 100%">约 230 min</b></div>
+          </div>
+        </article>
+
+        <article class="expert-card">
+          <div class="panel-heading">
+            <div>
+              <p class="card-label">罕见病诊断</p>
+              <h3>接近专家准确率，耗时显著缩短</h3>
+            </div>
+            <span class="evidence-badge expert">小规模专家对照</span>
+          </div>
+          <div class="accuracy-line">
+            <span class="agent-score">Biomni <strong>60%</strong></span>
+            <span>专家范围 <strong>60–70%</strong></span>
+          </div>
+          <div class="time-compare">
+            <div><span>Biomni</span><b style="--time-width: 3%">约 3 min</b></div>
+            <div><span>专家</span><b class="human" style="--time-width: 100%">110+ min</b></div>
+          </div>
+        </article>
+
+        <article class="expert-card">
+          <div class="panel-heading">
+            <div>
+              <p class="card-label">GWAS 因果基因识别</p>
+              <h3>接近专家区间，单个位点约 4 分钟</h3>
+            </div>
+            <span class="evidence-badge expert">两名专家对照</span>
+          </div>
+          <div class="accuracy-line">
+            <span class="agent-score">Biomni <strong>80%</strong></span>
+            <span>专家范围 <strong>70–80%</strong></span>
+          </div>
+          <div class="time-compare">
+            <div><span>Biomni</span><b style="--time-width: 7%">约 4 min</b></div>
+            <div><span>专家</span><b class="human" style="--time-width: 100%">约 60–112 min</b></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="metric-caution">
+        <strong>阅读指标时要保留三条分界：</strong>
+        <span>分类准确率 ≠ 排序质量；语义匹配 ≠ 完整生物学解释；专家评分 ≠ 独立实验复现。</span>
+      </div>
+    </section>
+
+    <section id="cases">
+      <div class="section-heading">
+        <span class="section-index">05</span>
+        <div>
+          <p class="section-kicker">REAL-WORLD CASES</p>
+          <h2>五类案例：证据强度并不相同</h2>
+        </div>
+      </div>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <div class="case-top">
+            <span class="case-number">CASE 01</span>
+            <span class="evidence-badge estimate">团队估计</span>
+          </div>
+          <h3>穿戴设备数据分析</h3>
+          <p>对 450 余个 CGM、饮食和活动文件进行清洗、对齐、可视化和假设生成。</p>
+          <div class="case-stat"><strong>约 40 min</strong><span>对照人工估计 60+ hours</span></div>
+          <p class="case-boundary">价值在于把异构原始数据快速变成可检查结果；时间差来自 Stanford 团队估计，并非随机对照效率实验。</p>
+        </article>
+
+        <article class="case-card">
+          <div class="case-top">
+            <span class="case-number">CASE 02</span>
+            <span class="evidence-badge analysis">人工复核</span>
+          </div>
+          <h3>多模态骨骼发育组学</h3>
+          <p>组合 snRNA-seq、snATAC-seq 与空间/发育信息，运行 GRNBoost2、cisTarget、AUCell 并筛选调控网络。</p>
+          <div class="case-stat"><strong>336k+</strong><span>nuclei / 10-stage workflow</span></div>
+          <p class="case-boundary">生成 AUTS2、ZFHX3、PBX1 等候选调控因子；轨迹与代码经过人工检查，但候选机制仍需独立实验验证。</p>
+        </article>
+
+        <article class="case-card">
+          <div class="case-top">
+            <span class="case-number">CASE 03</span>
+            <span class="evidence-badge wetlab">单次湿实验</span>
+          </div>
+          <h3>B2M sgRNA 分子克隆</h3>
+          <p>完成靶点设计、BsmBI overhang、Golden Gate 协议、转化步骤、测序引物和最终质粒图。</p>
+          <div class="case-stat"><strong>2 / 2</strong><span>挑取克隆测序匹配</span></div>
+          <p class="case-boundary">证明协议能够落地，但任务成熟、规则清晰，且验证规模很小，不能外推到开放式湿实验设计。</p>
+        </article>
+
+        <article class="case-card">
+          <div class="case-top">
+            <span class="case-number">CASE 04</span>
+            <span class="evidence-badge prediction">计算预测</span>
+          </div>
+          <h3>蛋白热稳定性优化</h3>
+          <p>组合 AlphaFold2、ThermoMPNN 与同源蛋白文献，迭代评估 Q83I、C66F、C110F 三个候选突变。</p>
+          <div class="case-stat"><strong>-4.108 kcal/mol</strong><span>预测累计 ΔΔG；98% 序列一致</span></div>
+          <p class="case-boundary">这是 in-silico 稳定性预测，不是实测熔解温度、表达量或功能保持证据。</p>
+        </article>
+
+        <article class="case-card wide-case">
+          <div class="case-top">
+            <span class="case-number">CASE 05</span>
+            <span class="evidence-badge robot">设备编排</span>
+          </div>
+          <div class="wide-case-content">
+            <div>
+              <h3>Hamilton STAR 实验室自动化</h3>
+              <p>Biomni 选择 PyLabRobot，把自然语言实验要求转换为含 deck 配置、移液、异常处理与资源清理的可执行代码。</p>
+            </div>
+            <div class="robot-protocol" aria-label="自动化实验规模">
+              <span><strong>8</strong> compounds</span>
+              <i>×</i>
+              <span><strong>12</strong> dilution points</span>
+              <i>×</i>
+              <span><strong>3</strong> replicates</span>
+            </div>
+          </div>
+          <p class="case-boundary">它验证了“研究意图 → 机器人动作”的编排能力，但没有展示 Agent 根据实验读数自主选择下一轮实验的闭环。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="training" class="section-tint">
+      <div class="section-heading">
+        <span class="section-index">06</span>
+        <div>
+          <p class="section-kicker">OPEN REASONING MODEL</p>
+          <h2>从 Agent 交互轨迹到 Biomni-R0</h2>
+        </div>
+      </div>
+
+      <div class="training-intro">
+        <article class="card card-large">
+          <p class="card-label">训练信号的变化</p>
+          <h3>让模型因“完成研究任务”而获得奖励</h3>
+          <p>
+            Biomni 的行动环境不仅能服务闭源模型，也能产生可评估的交互轨迹。强化学习把工具选择、
+            代码执行、错误修复和最终任务得分连接起来，使开放模型学习如何在环境中完成多步研究任务，
+            而不是只模仿自然语言答案。<sup><a href="#ref-7">[7]</a></sup>
+          </p>
+        </article>
+        <div class="rl-flow" aria-label="强化学习流程">
+          <span>Biomedical query</span><b>→</b><span>Plan &amp; act</span><b>→</b><span>Environment feedback</span><b>→</b><span>Task reward</span>
+        </div>
+      </div>
+
+      <div class="rl-grid">
+        <article class="rl-card">
+          <p>8B model</p>
+          <div class="score-change"><span>0.318</span><b>→</b><strong>0.588</strong></div>
+          <small>Agent RL 后</small>
+        </article>
+        <article class="rl-card">
+          <p>32B model</p>
+          <div class="score-change"><span>0.346</span><b>→</b><strong>0.669</strong></div>
+          <small>Agent RL 后</small>
+        </article>
+        <article class="rl-card reference-card">
+          <p>Claude Sonnet 4</p>
+          <div class="score-change"><strong>0.557</strong></div>
+          <small>论文中的教师/闭源参考</small>
+        </article>
+      </div>
+
+      <div class="evolution-table" role="region" aria-label="Biomni 能力演进" tabindex="0">
+        <table>
+          <thead>
+            <tr><th>层级</th><th>论文核心</th><th>当前公开实现中的演进</th><th>阅读提示</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Reasoning</td><td>A1 + CodeAct</td><td>Biomni-R0、自定义模型端点、多供应商</td><td>模型与 Agent scaffold 应分开评估</td></tr>
+            <tr><td>Knowledge</td><td>工具 / 数据湖 / 软件</td><td>Know-How Library、协议资源</td><td>程序性知识仍需版本和许可管理</td></tr>
+            <tr><td>Integration</td><td>内置 Python 工具</td><td>MCP 输入与对外工具服务</td><td>扩展能力也扩大信任边界</td></tr>
+            <tr><td>Governance</td><td>学术环境</td><td>commercial_mode 过滤部分数据</td><td>代码许可不等于数据可商用</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="code">
+      <div class="section-heading">
+        <span class="section-index">07</span>
+        <div>
+          <p class="section-kicker">CODE DEEP DIVE</p>
+          <h2>公开仓库如何把论文架构落到代码</h2>
+        </div>
+      </div>
+
+      <div class="snapshot-banner">
+        <div>
+          <span>分析快照</span>
+          <strong>snap-stanford/Biomni · main</strong>
+        </div>
+        <code>400c1f366b96a35ca253e13c9b06c5076af41d65</code>
+        <a href="https://github.com/snap-stanford/Biomni/tree/400c1f366b96a35ca253e13c9b06c5076af41d65" target="_blank" rel="noopener noreferrer">固定提交 ↗</a>
+      </div>
+
+      <figure class="repository-map" aria-labelledby="repository-map-caption">
+        <div class="repo-root">
+          <div>
+            <span>REPOSITORY ROOT</span>
+            <strong>Biomni/</strong>
+          </div>
+          <code>Python package · runtime environment · evaluation · documentation</code>
+        </div>
+        <div class="repo-branches">
+          <article class="repo-branch core-branch">
+            <div class="branch-heading">
+              <span>CORE PACKAGE</span>
+              <code>biomni/</code>
+            </div>
+            <div class="tree-list">
+              <div class="tree-row primary-row"><code>agent/</code><span><b>a1.py</b> · react.py · qa_llm.py</span></div>
+              <div class="tree-row primary-row"><code>model/</code><span><b>retriever.py</b></span></div>
+              <div class="tree-row"><code>tool/</code><span>领域工具实现 · tool_registry.py</span></div>
+              <div class="tree-row nested-row"><code>└ tool_description/</code><span>工具声明与参数描述</span></div>
+              <div class="tree-row nested-row"><code>└ schema_db/</code><span>数据库查询 schema</span></div>
+              <div class="tree-row"><code>know_how/</code><span>协议、最佳实践与排错知识</span></div>
+              <div class="tree-row"><code>eval/</code><span>biomni_eval1.py</span></div>
+              <div class="tree-row"><code>config.py · env_desc.py</code><span>配置与环境目录</span></div>
+            </div>
+          </article>
+
+          <article class="repo-branch environment-branch">
+            <div class="branch-heading">
+              <span>EXECUTION ENVIRONMENT</span>
+              <code>biomni_env/</code>
+            </div>
+            <div class="tree-list compact-tree">
+              <div class="tree-row primary-row"><code>setup.sh</code><span>统一安装入口</span></div>
+              <div class="tree-row"><code>bio_env*.yml</code><span>Conda 依赖与版本</span></div>
+              <div class="tree-row"><code>install_cli_tools.sh</code><span>CLI 软件安装</span></div>
+              <div class="tree-row"><code>install_r_packages.R</code><span>R 运行环境</span></div>
+              <div class="tree-row"><code>cli_tools_config.json</code><span>外部工具配置</span></div>
+            </div>
+          </article>
+
+          <article class="repo-branch support-branch">
+            <div class="branch-heading">
+              <span>INTERFACES &amp; GOVERNANCE</span>
+              <code>root/</code>
+            </div>
+            <div class="tree-list compact-tree">
+              <div class="tree-row"><code>tutorials/</code><span>Notebook 与 MCP 示例</span></div>
+              <div class="tree-row"><code>docs/</code><span>配置、冲突与接口文档</span></div>
+              <div class="tree-row"><code>pyproject.toml</code><span>Python 包与依赖元数据</span></div>
+              <div class="tree-row"><code>license_info.md</code><span>第三方许可记录</span></div>
+              <div class="tree-row"><code>README.md</code><span>安装、Eval1 与版本声明</span></div>
+            </div>
+          </article>
+        </div>
+        <figcaption id="repository-map-caption">
+          当前主分支的代码拓扑：<code>biomni/</code>承载 Agent 与资源层，<code>biomni_env/</code>负责庞大的执行环境，
+          评测、教程、文档和许可信息位于独立模块；颜色加深的文件是论文架构的主要落点。
+        </figcaption>
+      </figure>
+
+      <div class="code-architecture">
+        <div class="architecture-column">
+          <p class="column-title">入口与状态</p>
+          <article><code>biomni.agent.A1</code><span>配置、数据下载、会话、Gradio、报告</span></article>
+          <article><code>AgentState</code><span>messages · next_step · execution results</span></article>
+        </div>
+        <div class="architecture-connector" aria-hidden="true">↕</div>
+        <div class="architecture-column focus-column">
+          <p class="column-title">推理与资源</p>
+          <article><code>ToolRetriever</code><span>选择 tools · data lake · libraries · know-how</span></article>
+          <article><code>system prompt</code><span>计划清单 · &lt;execute&gt; · &lt;solution&gt;</span></article>
+        </div>
+        <div class="architecture-connector" aria-hidden="true">↕</div>
+        <div class="architecture-column">
+          <p class="column-title">执行与产物</p>
+          <article><code>run_python_repl</code><span>持久命名空间中的 Python exec</span></article>
+          <article><code>R / Bash / MCP</code><span>子进程、外部服务、文件与网络</span></article>
+        </div>
+      </div>
+
+      <div class="module-grid">
+        <article class="module-card">
+          <code>agent/a1.py</code>
+          <h3>主执行器</h3>
+          <p>生成系统提示、构建状态图、解析执行标签、路由 Python/R/Bash、保存消息与图像产物。</p>
+          <a href="https://github.com/snap-stanford/Biomni/blob/400c1f366b96a35ca253e13c9b06c5076af41d65/biomni/agent/a1.py" target="_blank" rel="noopener noreferrer">查看代码 ↗</a>
+        </article>
+        <article class="module-card">
+          <code>model/retriever.py</code>
+          <h3>资源检索器</h3>
+          <p>把所有候选资源写入选择提示，要求 LLM 返回工具、数据湖、软件与 Know-How 索引。</p>
+          <a href="https://github.com/snap-stanford/Biomni/blob/400c1f366b96a35ca253e13c9b06c5076af41d65/biomni/model/retriever.py" target="_blank" rel="noopener noreferrer">查看代码 ↗</a>
+        </article>
+        <article class="module-card">
+          <code>tool/tool_description/</code>
+          <h3>声明与实现分离</h3>
+          <p>工具 schema 单独描述名称、参数与用途；运行时再映射到各生物领域 Python 模块。</p>
+          <a href="https://github.com/snap-stanford/Biomni/tree/400c1f366b96a35ca253e13c9b06c5076af41d65/biomni/tool/tool_description" target="_blank" rel="noopener noreferrer">查看目录 ↗</a>
+        </article>
+        <article class="module-card">
+          <code>tool/schema_db/</code>
+          <h3>数据库结构</h3>
+          <p>保存 ClinVar、ChEMBL、Ensembl、GEO、gnomAD、PDB 等数据库的查询 schema。</p>
+          <a href="https://github.com/snap-stanford/Biomni/tree/400c1f366b96a35ca253e13c9b06c5076af41d65/biomni/tool/schema_db" target="_blank" rel="noopener noreferrer">查看目录 ↗</a>
+        </article>
+      </div>
+
+      <div class="execution-walkthrough">
+        <div><b>1</b><span><strong>A1 初始化</strong>创建 <code>biomni_data/</code> 并按配置下载数据湖与 benchmark。</span></div>
+        <div><b>2</b><span><strong>检索资源</strong>从注册工具、已下载数据、软件描述和 Know-How 中选择子集。</span></div>
+        <div><b>3</b><span><strong>重建提示</strong>只暴露被选中的资源及其调用说明，要求先维护研究计划。</span></div>
+        <div><b>4</b><span><strong>解析动作</strong><code>&lt;execute&gt;</code> 进入运行节点；<code>&lt;solution&gt;</code> 结束任务。</span></div>
+        <div><b>5</b><span><strong>回写观察</strong>stdout、错误和图像进入消息状态，继续下一轮生成。</span></div>
+      </div>
+
+      <div class="code-warning">
+        <strong>版本差异</strong>
+        <p>
+          仓库 README 明确指出，论文复现发布冻结于 2025-04-15，与持续迭代的线上平台和当前主分支不同。
+          Science 正式论文报告 443 条 Eval1 查询，而本页检查的当前仓库与 Hugging Face README 为 433 条验证实例；
+          这类样本数差异应连同提交、数据集 revision 与评分脚本一起记录。直接运行最新版不能视为严格复现 Science 实验。
+        </p>
+      </div>
+    </section>
+
+    <section id="critique" class="section-critique">
+      <div class="section-heading">
+        <span class="section-index">08</span>
+        <div>
+          <p class="section-kicker">REPRODUCIBILITY, SAFETY &amp; CRITIQUE</p>
+          <h2>复现、安全与证据边界</h2>
+        </div>
+      </div>
+
+      <div class="risk-grid">
+        <article>
+          <span class="risk-level high">HIGH</span>
+          <h3>任意代码执行</h3>
+          <p>当前实现会在持久命名空间中直接 <code>exec</code> 模型生成的 Python，并允许运行 R、Bash、网络和文件操作。</p>
+        </article>
+        <article>
+          <span class="risk-level high">HIGH</span>
+          <h3>超时不是可靠隔离</h3>
+          <p>线程超时使用异步注入异常尝试终止执行，注释本身承认该方式危险且并非 100% 可靠。</p>
+        </article>
+        <article>
+          <span class="risk-level medium">MEDIUM</span>
+          <h3>环境与许可漂移</h3>
+          <p>约 11GB 数据湖、Conda/R/CLI 冲突、API 与数据库版本都会改变结果；Apache-2.0 不覆盖所有第三方资源。</p>
+        </article>
+        <article>
+          <span class="risk-level medium">MEDIUM</span>
+          <h3>评测独立性</h3>
+          <p>Biomni-Eval1 和部分真实任务由作者团队设计，专家样本有限，仍需预注册和外部团队持续维护的评测。</p>
+        </article>
+      </div>
+
+      <div class="trust-boundary">
+        <div class="trust-safe">
+          <p class="card-label">推荐部署边界</p>
+          <ul class="clean-list">
+            <li>只读输入目录与独立输出目录</li>
+            <li>短期凭据、域名白名单和网络代理</li>
+            <li>容器 / VM 隔离与 CPU、内存、时长限制</li>
+            <li>危险 Shell、外发数据和机器人动作需人工审批</li>
+            <li>记录模型、提示、工具版本、参数和全部产物哈希</li>
+          </ul>
+        </div>
+        <div class="trust-arrow" aria-hidden="true">→</div>
+        <div class="trust-danger">
+          <p class="card-label">不应直接暴露</p>
+          <p>生产凭据、患者隐私数据、共享文件系统、实验设备的无限制控制权，以及不可逆或高成本动作。</p>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">评价“自主科研”时，应拆成三个层级</h3>
+      <figure class="evidence-ladder" aria-labelledby="evidence-ladder-caption">
+        <div class="evidence-axis" aria-hidden="true">
+          <span>证据要求</span>
+          <b>↑</b>
+        </div>
+        <div class="evidence-levels">
+          <article class="evidence-level level-three">
+            <div class="level-id"><span>LEVEL 3</span><small>AGENDA</small></div>
+            <div class="level-copy">
+              <h4>科研议程自主性</h4>
+              <p>识别关键混杂，提出有区分力的实验，并能依据失败结果改变研究方向。</p>
+            </div>
+            <div class="level-status pending"><span>证据状态</span><strong>尚未充分证明</strong></div>
+          </article>
+          <article class="evidence-level level-two">
+            <div class="level-id"><span>LEVEL 2</span><small>VALIDITY</small></div>
+            <div class="level-copy">
+              <h4>科学结论有效性</h4>
+              <p>统计结果、机制解释与候选假设经过专家复核、外部数据或湿实验验证。</p>
+            </div>
+            <div class="level-status partial"><span>证据状态</span><strong>已有小规模案例</strong></div>
+          </article>
+          <article class="evidence-level level-one">
+            <div class="level-id"><span>LEVEL 1</span><small>EXECUTION</small></div>
+            <div class="level-copy">
+              <h4>工作流执行可靠性</h4>
+              <p>代码能够运行，文件、格式与路径正确，工具调用产生可检查的中间产物。</p>
+            </div>
+            <div class="level-status strong"><span>证据状态</span><strong>Biomni 证据最强</strong></div>
+          </article>
+        </div>
+        <figcaption id="evidence-ladder-caption">
+          越向上，评价对象越从工程执行转向科学判断，所需的独立验证、长期实验和责任机制也越严格。
+        </figcaption>
+      </figure>
+
+      <div class="critique-grid">
+        <article class="critique-card">
+          <h3>覆盖广，但开放性有限</h3>
+          <p>443 道题显著扩大覆盖面，但多数仍有可定义答案或评分函数，不能代表目标模糊、数据脏乱且没有金标准的前沿研究。</p>
+        </article>
+        <article class="critique-card">
+          <h3>专家级是局部结论</h3>
+          <p>单细胞、罕见病与 GWAS 任务表现进入小规模专家区间，不能表述为跨生物医学领域“全面超过专家”。</p>
+        </article>
+        <article class="critique-card">
+          <h3>预测改进不是实验改进</h3>
+          <p>蛋白稳定性案例展示了合理的工具组合和候选生成，但关键 ΔΔG 来自模型预测，缺少熔解温度和功能实验。</p>
+        </article>
+        <article class="critique-card">
+          <h3>自动化还未闭环</h3>
+          <p>Hamilton STAR 证明代码能驱动设备；真正闭环还需根据传感器和实验读数选择下一轮条件，并处理失败与安全联锁。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="takeaway">
+      <div class="section-heading">
+        <span class="section-index">09</span>
+        <div>
+          <p class="section-kicker">TAKEAWAYS</p>
+          <h2>总结与研究启示</h2>
+        </div>
+      </div>
+
+      <div class="final-thesis">
+        <p class="card-label">核心判断</p>
+        <blockquote>
+          Biomni 最重要的意义，不是让 AI 看起来更像会聊天的科学家，而是把生物医学 Agent
+          的行动空间、执行链、评测场和训练反馈统一成一种可扩展基础设施。
+        </blockquote>
+      </div>
+
+      <div class="takeaway-grid">
+        <article>
+          <p class="takeaway-label">CURRENT DELEGATION SCOPE</p>
+          <h3>当前可委托的研究任务</h3>
+          <ul class="clean-list">
+            <li>文献、数据库与结构化事实的联合检索</li>
+            <li>定义清楚的多步生物信息分析</li>
+            <li>候选基因、药物、突变与实验协议的初筛</li>
+            <li>批量数据整理、可视化和研究日志生成</li>
+          </ul>
+        </article>
+        <article>
+          <p class="takeaway-label">HUMAN DECISION RIGHTS</p>
+          <h3>必须保留的人类决策权</h3>
+          <ul class="clean-list">
+            <li>判断问题是否重要以及证据是否足够</li>
+            <li>识别混杂、数据偏差和不合理生物假设</li>
+            <li>批准高风险、高成本或不可逆动作</li>
+            <li>设计独立验证并承担科研与临床责任</li>
+          </ul>
+        </article>
+        <article>
+          <p class="takeaway-label">CLOSED-LOOP READINESS</p>
+          <h3>迈向闭环科研的基础能力</h3>
+          <ul class="clean-list">
+            <li>强沙箱、分级权限与实验设备安全联锁</li>
+            <li>从成功轨迹合成并验证新技能</li>
+            <li>跨实验室、预注册、抗污染的持续评测</li>
+            <li>从观察结果自动重设计下一轮实验的闭环</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="source-index">
+        <div class="source-heading">
+          <p class="section-kicker">SOURCES</p>
+          <h3>资料与版本索引</h3>
+        </div>
+        <ol>
+          <li id="ref-1"><a href="https://doi.org/10.1126/science.adz4351" target="_blank" rel="noopener noreferrer">Huang et al. Autonomous biomedical research with an artificial intelligence agent. Science, 2026.</a></li>
+          <li id="ref-2"><a href="https://pubmed.ncbi.nlm.nih.gov/42424436/" target="_blank" rel="noopener noreferrer">PubMed PMID 42424436：正式论文元数据与摘要。</a></li>
+          <li id="ref-3"><a href="https://www.eurekalert.org/news-releases/1135025" target="_blank" rel="noopener noreferrer">Stanford University：Meet Biomni – an AI-powered biomedical co-scientist.</a></li>
+          <li id="ref-4"><a href="https://www.eurekalert.org/news-releases/1134718" target="_blank" rel="noopener noreferrer">AAAS / Science：New AI system helps automate biomedical research workflows.</a></li>
+          <li id="ref-5"><a href="https://biomni.stanford.edu/" target="_blank" rel="noopener noreferrer">Biomni 官方网站与环境目录。</a></li>
+          <li id="ref-6"><a href="https://github.com/snap-stanford/Biomni" target="_blank" rel="noopener noreferrer">snap-stanford/Biomni 当前公开代码。</a></li>
+          <li id="ref-7"><a href="https://huggingface.co/biomni/Biomni-R0-32B-Preview" target="_blank" rel="noopener noreferrer">Biomni-R0-32B-Preview 官方模型卡：开放权重、Agent 强化学习与运行要求。</a></li>
+          <li id="ref-8"><a href="https://huggingface.co/datasets/biomni/Eval1" target="_blank" rel="noopener noreferrer">Biomni-Eval1 当前公开数据集；README 快照为 433 条验证实例，正式论文报告 443 条查询。</a></li>
+          <li id="ref-9"><a href="https://www.biorxiv.org/content/10.1101/2025.05.30.656746v1.full" target="_blank" rel="noopener noreferrer">2025 bioRxiv v1：研究历史版本与 CC-BY 图像来源。</a></li>
+        </ol>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>AI-assisted paper analysis · Science 2026 edition · Curation by CocoSun</p>
+      <p>Research notes compiled from the paper, official sources and public code · 2026-07-25</p>
+    </footer>
+  </main>
+
+  <button class="back-to-top" type="button" aria-label="返回页面顶部" title="返回顶部">↑</button>
+<!-- sun-blog-home-link:start -->
+<a class="sun-blog-home-link" href="../../" aria-label="返回主页">← 首页</a>
+<style>
+  .sun-blog-home-link {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 2147483647;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 8px 13px;
+    border: 1px solid rgba(23, 32, 51, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 10px 26px rgba(23, 32, 51, 0.16);
+    color: #174a7c;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+  }
+
+  .sun-blog-home-link:hover {
+    color: #8f2444;
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    .sun-blog-home-link {
+      top: 12px;
+      left: 12px;
+      min-height: 34px;
+      padding: 7px 11px;
+      font-size: 13px;
+    }
+  }
+</style>
+<!-- sun-blog-home-link:end -->
+</body>
+</html>
