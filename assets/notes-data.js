@@ -10,7 +10,7 @@ window.NOTES = [
       "Autonomous Biomedical Research",
       "Biomedical Workflow Automation"
     ],
-    "accent": true
+    "accent": false
   },
   {
     "title": "SP-Mind：把空间蛋白组分析变成可编排的Agent工作流",
