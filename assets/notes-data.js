@@ -1,5 +1,17 @@
 window.NOTES = [
   {
+    "title": "OpenEvidence功能点详解",
+    "type": "调研",
+    "date": "2026-07-31",
+    "url": "notes/introduction2openevidence/",
+    "summary": "一份面向新用户和研发人员的产品全景笔记：从临床问答与证据链，到 Visits、工具生态、协作与合规边界。",
+    "tags": [
+      "OpenEvidence",
+      "研发逻辑拆解"
+    ],
+    "accent": true
+  },
+  {
     "title": "Biomni：让 AI 从回答问题走向执行生物医学研究",
     "type": "单篇",
     "date": "2026-07-25",

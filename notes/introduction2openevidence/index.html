@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenEvidence 功能点详解｜实测笔记</title>
+  <meta name="description" content="基于登录态实测的 OpenEvidence 功能全景、案例结果与产品逻辑拆解。">
+  <style>
+    :root{
+      --ink:#152126;--muted:#5f6e73;--paper:#f7f8f3;--card:#fff;--line:#dfe5df;
+      --green:#0f766e;--green2:#134e4a;--mint:#dff5ee;--orange:#e76f51;--blue:#2563eb;
+      --shadow:0 18px 50px rgba(26,54,54,.10);--radius:22px;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;color:var(--ink);background:var(--paper);font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+    a{color:var(--green);text-decoration:none} a:hover{text-decoration:underline} img{max-width:100%;display:block}
+    .hero{position:relative;overflow:hidden;padding:72px 24px 58px;color:white;background:linear-gradient(135deg,#0d3d3a,#0f766e 62%,#18a58f)}
+    .hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.18;background:white}.hero:before{width:460px;height:460px;right:-120px;top:-250px}.hero:after{width:220px;height:220px;left:-70px;bottom:-130px}
+    .wrap{width:min(1180px,calc(100% - 40px));margin:auto}.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;opacity:.85}.hero h1{font-size:clamp(38px,6vw,78px);line-height:1.03;letter-spacing:-.045em;margin:12px 0 18px;max-width:900px}.hero .lead{font-size:clamp(17px,2vw,22px);max-width:860px;opacity:.9}.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.chip{padding:7px 12px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(255,255,255,.10);font-size:13px}
+    .layout{display:grid;grid-template-columns:260px 1fr;gap:38px;align-items:start;padding:38px 0 88px}.toc{position:sticky;top:20px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 12px 34px rgba(20,60,56,.06)}.toc strong{display:block;margin:0 0 9px}.toc a{display:block;color:#425359;padding:7px 10px;border-radius:9px;font-size:14px}.toc a:hover{background:var(--mint);text-decoration:none}.content{min-width:0}
+    section{scroll-margin-top:24px;margin-bottom:56px}.section-kicker{font:800 12px/1 var(--mono);letter-spacing:.13em;color:var(--green);text-transform:uppercase}.section-title{font-size:clamp(28px,4vw,46px);line-height:1.12;letter-spacing:-.035em;margin:10px 0 14px}.section-intro{font-size:18px;color:var(--muted);max-width:850px}.grid{display:grid;gap:18px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:0 8px 30px rgba(26,54,54,.055)}.card h3{font-size:20px;line-height:1.3;margin:0 0 9px}.card h4{margin:22px 0 8px}.card p:last-child{margin-bottom:0}.num{font-size:42px;font-weight:900;line-height:1;color:var(--green)}.label{color:var(--muted);font-size:13px}.callout{padding:20px 22px;border-left:5px solid var(--orange);border-radius:12px;background:#fff1ea;margin:22px 0}.callout.green{border-color:var(--green);background:var(--mint)}.quote{font-size:18px;font-weight:700;line-height:1.5}.small{font-size:13px;color:var(--muted)}
+    .shot{margin:22px 0;background:white;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}.shot img{width:100%;cursor:zoom-in}.shot figcaption{padding:12px 16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.shot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.shot-grid .shot{margin:0}
+    .tag{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:var(--mint);color:var(--green2);font-size:12px;font-weight:800}.tag.orange{background:#fff0e8;color:#a33b22}.tag.blue{background:#e8f0ff;color:#1f4ba5}.stack{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.case{border-top:5px solid var(--green)}.case .prompt{font-family:var(--mono);font-size:13px;background:#f3f6f3;border-radius:12px;padding:14px;white-space:normal}.result{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}.result ul{margin-bottom:0}
+    table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:14px}th,td{text-align:left;vertical-align:top;padding:13px 14px;border-bottom:1px solid var(--line)}th{background:#edf6f2;color:#174f49;font-size:12px;letter-spacing:.04em}tr:last-child td{border-bottom:0}.table-wrap{overflow:auto;border-radius:16px}
+    .flow{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:22px;align-items:stretch;margin:24px 0}.flow .node{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;min-height:148px}.flow .node:not(:last-child):after{content:"→";position:absolute;right:-19px;top:50%;transform:translateY(-50%);color:var(--green);font-size:24px;font-weight:900}.flow b{display:block;margin-bottom:6px}.flow span{font-size:13px;color:var(--muted)}
+    details{background:#fff;border:1px solid var(--line);border-radius:14px;margin:10px 0;padding:0 16px}summary{cursor:pointer;padding:14px 0;font-weight:800}details>div{padding:0 0 16px;color:#425359}.footer{background:#102d2b;color:#dceae6;padding:38px 24px}.footer a{color:#9ae2d4}.kbd{font:12px var(--mono);border:1px solid #aab8b3;border-bottom-width:2px;border-radius:5px;padding:2px 5px;background:#fff;color:#354540}
+    #lightbox{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:rgba(4,19,18,.92);padding:28px}#lightbox.open{display:flex}#lightbox img{max-height:92vh;max-width:96vw;object-fit:contain;border-radius:10px}#lightbox button{position:absolute;right:24px;top:20px;border:0;background:transparent;color:#fff;font-size:34px;cursor:pointer}
+    .backtop{position:fixed;right:20px;bottom:20px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow);display:grid;place-items:center;font-weight:900;z-index:10}
+    @media(max-width:980px){.layout{grid-template-columns:1fr}.toc{position:relative;top:auto}.flow{grid-template-columns:1fr}.flow .node:not(:last-child):after{content:"↓";right:auto;left:50%;top:auto;bottom:-25px;transform:translateX(-50%)}.grid.three{grid-template-columns:1fr 1fr}}
+    @media(max-width:680px){.wrap{width:min(100% - 24px,1180px)}.hero{padding:48px 12px}.grid.two,.grid.three,.shot-grid{grid-template-columns:1fr}.card{padding:19px}.section-title{font-size:32px}th,td{min-width:150px}}
+    @media print{.toc,.backtop,#lightbox{display:none!important}.layout{display:block}.hero{background:#174f49!important;-webkit-print-color-adjust:exact}.card,.shot{break-inside:avoid;box-shadow:none}.shot img{max-height:520px;object-fit:contain}}
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div class="eyebrow">Product teardown · logged-in hands-on test</div>
+      <h1>OpenEvidence<br>功能点详解</h1>
+      <p class="lead">一份面向新用户和研发人员的产品全景笔记：从临床问答与证据链，到 Visits、工具生态、协作与合规边界，全部来自 2026‑07‑31 登录态实测。</p>
+      <div class="chips"><span class="chip">功能详解</span><span class="chip">研发逻辑拆解</span></div>
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <aside class="toc" aria-label="目录">
+      <strong>目录</strong>
+      <a href="#summary">01. 一页读懂</a><a href="#map">02. 产品功能地图</a><a href="#ask">03. Ask 与证据回答</a><a href="#cases">04. 实测案例</a><a href="#visits">05. Visits 临床工作流</a><a href="#tools">06. 工具与扩展能力</a><a href="#knowledge">07. 知识、教育与社区</a><a href="#logic">08. 研发视角整体逻辑</a><a href="#matrix">09. 功能矩阵</a><a href="#safety">10. 隐私与操作边界</a><a href="#findings">11. 实测发现与限制</a>
+    </aside>
+
+    <main class="content">
+      <section id="summary">
+        <div class="section-kicker">01 · Executive summary</div>
+        <h2 class="section-title">它不是“医学版聊天框”，而是一套临床工作台</h2>
+        <p class="section-intro">OpenEvidence 的核心是一个会调度医学检索、指南、计算器、许可内容和工作流工具的临床任务入口。问答只是表层，背后还有患者上下文、Visit 文书、计费、CME、团队协作和患者通信。</p>
+        <div class="grid three">
+          <div class="card"><div class="num">213</div><div class="label">实测计算器目录数量</div><p>可独立运行，也可由问答自动识别、预填并解释结果。</p></div>
+          <div class="card"><div class="num">30</div><div class="label">Deep Consult 案例参考文献</div><p>输出 8 个章节、比较表、证据局限和病人级建议。</p></div>
+          <div class="card"><div class="num">13</div><div class="label">临床试验案例匹配</div><p>自然语言检索后按疾病、阶段、招募状态与地点展示。</p></div>
+        </div>
+        <div class="callout green"><b>结论：</b>产品真正的护城河是“医学任务编排 + 许可知识源 + 可交互工具 + 临床上下文 + 输出落地”，而不只是生成一段文字。</div>
+        <figure class="shot"><img src="assets/01-home-dashboard.png" alt="OpenEvidence 登录后主页" loading="lazy"><figcaption>图 1｜登录后主页：左侧导航、患者/Visit 入口、Deep Consult、输入方式和五种任务模式集中在一个工作台。</figcaption></figure>
+      </section>
+
+      <section id="map">
+        <div class="section-kicker">02 · Product map</div><h2 class="section-title">产品功能地图</h2>
+        <div class="grid three">
+          <div class="card"><span class="tag">ASK</span><h3>医学问答与决策支持</h3><p>标准问答、Deep Consult、指南、药物安全、Paperwork、计算器、附件、语音、随访问题。</p></div>
+          <div class="card"><span class="tag blue">VISITS</span><h3>就诊与文书工作流</h3><p>录音/转录、Pre-chart、SOAP/AVS 模板、患者上下文、计费编码、历史、排程与团队。</p></div>
+          <div class="card"><span class="tag orange">TOOLS</span><h3>可复用工具生态</h3><p>Calculators、Collections、Clinical Trials、Dotflows、Messaging、Fax。</p></div>
+          <div class="card"><span class="tag">EVIDENCE</span><h3>证据呈现层</h3><p>指南卡片、许可图表、学会出版物、证据类型标签、EvidenceGrade、参考文献与来源摘要。</p></div>
+          <div class="card"><span class="tag blue">LEARN</span><h3>教育与成长</h3><p>CME/CE、MOC、USMLE Prep、医学教育、动态生成练习题。</p></div>
+          <div class="card"><span class="tag orange">COLLAB</span><h3>协作与患者触达</h3><p>私密/公开分享、Collections、Care Teams、社区、Dialer、短信和传真。</p></div>
+        </div>
+        <figure class="shot"><img src="assets/02-tools-menu.png" alt="OpenEvidence Tools 菜单" loading="lazy"><figcaption>图 2｜Tools 折叠菜单：每项均可固定到侧栏；包含 Calculators、Collections、Clinical Trials、Dotflows、Patient Messaging、Fax。</figcaption></figure>
+      </section>
+
+      <section id="ask">
+        <div class="section-kicker">03 · Ask</div><h2 class="section-title">Ask：从一句问题到可核查的临床答案</h2>
+        <div class="grid two">
+          <div class="card"><h3>输入层</h3><ul><li>文本问题与自然语言病例</li><li>录音输入与双向 Voice Mode</li><li>PDF、图像、化验单等附件</li><li>患者选择后继承既往问题、Visit 与上下文</li><li>快捷建议题，降低空白页启动成本</li></ul></div>
+          <div class="card"><h3>任务模式</h3><ul><li><b>Clinical Decision Support</b>：默认综合问答</li><li><b>Paperwork</b>：先授权、保险申诉、患者材料</li><li><b>Calculators</b>：量表、评分、剂量与公式</li><li><b>Guidelines</b>：学会指南和更新摘要</li><li><b>Drug Safety</b>：相互作用、剂量、禁忌与不良反应</li></ul></div>
+          <div class="card"><h3>标准回答的组成</h3><p>查询分析状态 → 证据检索 → 结论 → 指南/研究证据 → 可交互计算器或图表 → 关键不确定性 → 参考文献 → 推荐追问。</p></div>
+          <div class="card"><h3>Deep Consult 的组成</h3><p>较长的后台研究过程，最终生成分章节报告、比较表、量化证据、冲突证据、证据强度/局限、患者级建议与大规模参考文献。</p></div>
+        </div>
+        <div class="shot-grid">
+          <figure class="shot"><img src="assets/04-deep-consult-toggle.png" alt="Deep Consult 开关" loading="lazy"><figcaption>Deep Consult 开启后，占位文案变为“comprehensive report”，明确提示更深的研究型输出。</figcaption></figure>
+          <figure class="shot"><img src="assets/20-query-modes.png" alt="Drug Safety 模式" loading="lazy"><figcaption>五个模式是提示与任务路由层：切换后会替换推荐案例，帮助用户构造合适问题。</figcaption></figure>
+        </div>
+        <h3>答案后的折叠与可选功能</h3>
+        <div class="grid two">
+          <div class="card"><h3>内容操作</h3><p>Helpful / Not helpful、复制文本、复制为图片、加入 Collection；表格支持 Export，图像支持全屏查看与反馈。</p></div>
+          <div class="card"><h3>继续工作</h3><p>推荐 Follow-up Questions；输入区 More options 可重新挂载附件或 Dotflow；可切换语音/录音。</p></div>
+          <div class="card"><h3>证据下钻</h3><p>References 可展开/折叠；单篇文献有 Summary；来源标注 Guideline、RCT、SR、Review、Opinion、Recent 等类型。</p></div>
+          <div class="card"><h3>分享权限</h3><p>默认 Private，可按人名/邮箱授权；Public 允许持链接者访问，并显著提示先确认没有 PHI 或敏感医疗信息。</p></div>
+        </div>
+        <details><summary>EvidenceGrade™ 是什么？</summary><div>官方 User Guide 说明：答案顶部的 EvidenceGrade 提供证据强度的快速判断，点击后展示为什么升/降级的依据。它位于“结论”和“参考文献”之间，承担证据质量解释层。</div></details>
+        <details><summary>Voice Mode 与普通录音有什么区别？</summary><div>普通 Record 更像语音转文字输入；Voice Mode 是实时双向对话，会把简洁、适合听取的证据型答案朗读出来，同时保留完整文字记录与引用。</div></details>
+      </section>
+
+      <section id="cases">
+        <div class="section-kicker">04 · Test cases</div><h2 class="section-title">四个虚构案例，验证四种产品能力</h2>
+        <div class="card case">
+          <div class="stack"><span class="tag">标准问答</span><span class="tag blue">自动计算器</span><span class="tag orange">指南</span></div>
+          <h3>案例 A：房颤患者抗凝评估</h3>
+          <p class="prompt">58 岁女性，非瓣膜性房颤、高血压，无卒中/TIA、糖尿病或血管病，肾功能正常。计算 CHA₂DS₂‑VASc，并解释是否考虑抗凝。</p>
+          <div class="result"><b>实测结果：</b><ul><li>系统识别年龄、性别、高血压等变量，自动运行并展示可交互 CHA₂DS₂‑VASc 计算器。</li><li>得分 2；给出约 2.2% 缺血性卒中年风险和 2.9% 卒中/TIA/系统栓塞风险。</li><li>结合 2023 ACC/AHA/ACCP/HRS 指南说明女性性别是风险修饰因素；把患者归于中间风险，建议共同决策。</li><li>继续补充图表、关键不确定性、3+ 篇参考文献和来源标签。</li></ul></div>
+          <figure class="shot"><img src="assets/03-standard-case-result.png" alt="CHA2DS2-VASc 标准问答结果" loading="lazy"><figcaption>标准模式能把“病例叙述”转成结构化计算输入，并把计算结果重新送回证据型回答。</figcaption></figure>
+        </div>
+        <div class="card case">
+          <div class="stack"><span class="tag">Deep Consult</span><span class="tag blue">30 references</span><span class="tag orange">8 sections</span></div>
+          <h3>案例 B：RA 患者围手术期用药</h3>
+          <p class="prompt">62 岁 RA 女性，使用每周甲氨蝶呤和每两周阿达木单抗，计划全膝关节置换；要求分析停/启药、感染与复发权衡、肾损伤/活动性感染变化，以及证据局限。</p>
+          <div class="result"><b>实测结果：</b><ul><li>后台先显示“Researching medical literature”，耗时明显长于标准模式。</li><li>报告分 8 节：范围、逐药建议、感染/复发权衡、肾功能、活动性感染、指南差异、证据局限、患者建议。</li><li>输出多张比较表：甲氨蝶呤继续；阿达木单抗按给药周期停用，最后一针后第 3 周手术，约术后 14 天且伤口愈合再启。</li><li>引用 ACR/AAHKS、澳大利亚指南、Cochrane、RCT、观察研究和 FDA 标签，共 30 条；主动指出“生物制剂无 RCT、Meta 分析结论冲突”等局限。</li></ul></div>
+          <figure class="shot"><img src="assets/22-deep-consult-result.png" alt="Deep Consult 结果" loading="lazy"><figcaption>Deep Consult 更像“带证据审计的专题报告生成器”，而非一轮更长的普通回答。</figcaption></figure>
+        </div>
+        <div class="card case">
+          <div class="stack"><span class="tag">Drug Safety</span><span class="tag blue">机制 + 严重度</span></div>
+          <h3>案例 C：Paxlovid 与心血管用药相互作用</h3>
+          <p class="prompt">68 岁房颤患者使用 apixaban 5 mg bid、atorvastatin 40 mg，CKD 3 期，拟用 nirmatrelvir/ritonavir。</p>
+          <div class="result"><b>实测结果：</b><ul><li>把问题拆成 apixaban、atorvastatin 两个高价值相互作用和 Paxlovid 肾功能剂量。</li><li>解释 CYP3A4/P‑gp 机制；给出 apixaban 暂减至 2.5 mg bid、statin 暂停/降剂量等具体管理路径。</li><li>引用 JACC 综述、FDA 标签和房颤指南，并插入心血管药物相互作用图。</li></ul></div>
+          <figure class="shot"><img src="assets/21-drug-safety-result.png" alt="Drug Safety 结果" loading="lazy"><figcaption>Drug Safety 模式保持同一回答框架，但优先组织“相互作用—机制—严重度—可执行方案”。</figcaption></figure>
+        </div>
+        <div class="card case">
+          <div class="stack"><span class="tag">Clinical Trials</span><span class="tag blue">地图</span><span class="tag orange">自然语言筛选</span></div>
+          <h3>案例 D：加州转移性胰腺癌 Phase 3 试验</h3>
+          <p class="prompt">phase 3 trials for metastatic pancreatic cancer in California</p>
+          <div class="result"><b>实测结果：</b><ul><li>检索过程显示数据库搜索、站点识别、过滤与排序进度。</li><li>返回 13 项；卡片展示匹配原因、招募状态、阶段、Sponsor 与更新时间。</li><li>同时提供 Sort、Filters、地图站点和详情入口；自然语言条件会被拆成疾病、阶段、位置。</li></ul></div>
+          <figure class="shot"><img src="assets/13-clinical-trials-result.png" alt="Clinical Trials 结果" loading="lazy"><figcaption>试验检索把结构化 registry 数据包装成“自然语言条件 → 排序卡片 + 地图”的任务工具。</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="visits">
+        <div class="section-kicker">05 · Visits</div><h2 class="section-title">Visits：把“问证据”延伸到整次就诊</h2>
+        <p class="section-intro">Visits 的核心对象不是对话，而是 Patient × Visit × Note。系统在同一屏完成采集、文书、证据问答、患者摘要和编码建议。</p>
+        <div class="flow">
+          <div class="node"><b>1. 选患者 / 排程</b><span>患者保存长期上下文；日历可 Today、Schedule Visit、Subscribe。</span></div>
+          <div class="node"><b>2. 会前准备</b><span>Pre-chart、选择 SOAP 与 AVS 模板、Voice、Telehealth。</span></div>
+          <div class="node"><b>3. 采集就诊</b><span>Record / Transcribe、Running Notes、Raw Transcript、问答建议。</span></div>
+          <div class="node"><b>4. 生成与编辑</b><span>结构化 Note、富文本、逐节复制、修改模板、AVS。</span></div>
+          <div class="node"><b>5. 落地与复用</b><span>CPT / E&M / ICD‑10、历史、患者上下文、Care Team。</span></div>
+        </div>
+        <div class="grid two">
+          <div class="card"><h3>Visits Home</h3><p>四个 Tab：Calendar、Patients、Templates、Visit History；另有 Visit settings。Patients 支持搜索、排序、置顶、网格/列表。</p></div>
+          <div class="card"><h3>Patient 作为上下文容器</h3><p>页面明确说明：在患者选中状态下发起的问题和 Visit 都能访问该患者的全部上下文，实现跨时间连续性。</p></div>
+          <div class="card"><h3>模板系统</h3><p>默认 SOAP、AVS、H&P、ED Note、Consult Note；富文本编辑器支持标题、列表、任务、表格。<code>[]</code> 是 AI 填充占位，<code>@@...@@</code> 保留原文，<code>()</code> 写局部指令。</p></div>
+          <div class="card"><h3>Voices</h3><p>Specialty Focused、Detailed、Concise、Narrative 四种内置风格，也可 New Style。它控制生成文书的语气、颗粒度和筛选范围。</p></div>
+          <div class="card"><h3>Visit 内置 Ask</h3><p>能基于当前 Visit 询问“还有什么问题要问”“检查计划禁忌”“用证据增强计划”；History 保留本次就诊内问题。</p></div>
+          <div class="card"><h3>Billing 与 AVS</h3><p>文书完成后生成 E/M、CPT、ICD‑10 和 MDM 理由；AVS 以患者友好语言生成，可编辑、分享并有独立默认模板。</p></div>
+          <div class="card"><h3>Care Teams</h3><p>共享患者、Visits 与文档；Personal 空间仍私有。Clinician 可录音和签署，Care Coordinator 无需 NPI、负责外围流程，Owner/Admin 管权限并保留审计逻辑。</p></div>
+          <div class="card"><h3>同意与远程医疗</h3><p>开始采集前明确提示依法律取得录音同意/告知；Telehealth 是可选开关。录音/麦克风属于权限敏感动作。</p></div>
+        </div>
+        <div class="shot-grid">
+          <figure class="shot"><img src="assets/05-visits-home.png" alt="Visits Home" loading="lazy"><figcaption>Visits Home：日历、患者、模板、历史四个对象被统一管理。</figcaption></figure>
+          <figure class="shot"><img src="assets/07-new-visit.png" alt="新建 Visit" loading="lazy"><figcaption>新 Visit：模板、AVS、Voice、Transcribe/Pre-chart 与证据 Ask 同屏。</figcaption></figure>
+          <figure class="shot"><img src="assets/08-visit-options.png" alt="Visit Voice 选项" loading="lazy"><figcaption>Voice 风格是可配置的“生成策略”，不是简单字体/样式。</figcaption></figure>
+          <figure class="shot"><img src="assets/09-prechart.png" alt="Pre-chart 后的 Note" loading="lazy"><figcaption>Pre-chart 后进入完整 Note 编辑态，含逐节复制、Raw Transcript、AVS 与 Billing。</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="tools">
+        <div class="section-kicker">06 · Tools</div><h2 class="section-title">工具与扩展能力</h2>
+        <div class="grid two">
+          <div class="card"><h3>Medical Calculators</h3><p>目录显示 213 个计算器，支持搜索；计算器自身可交互，并提供“Ask OpenEvidence to interpret this”把结构化结果送入问答。</p></div>
+          <div class="card"><h3>Collections</h3><p>把问题归组；支持搜索、新建和在答案操作区直接加入。它是个人知识整理层，不改变原始对话。</p></div>
+          <div class="card"><h3>Clinical Trials</h3><p>自然语言解析 condition / phase / location，搜索美国活跃试验；提供卡片、地图、排序、筛选和详情。</p></div>
+          <div class="card"><h3>Dotflows</h3><p>类似 EHR dot phrase，但不是粘贴静态文本，而是把保存的自然语言指令送给模型；输入 <span class="kbd">.</span> 触发，也可设为默认。</p></div>
+          <div class="card"><h3>Patient Messaging / Dialer</h3><p>移动端用医院/诊所号码呼叫，Web/移动端发送短信并可允许回复；隐藏个人号码。首次使用需接受 Telehealth Policy 并完成 opt-in。</p></div>
+          <div class="card"><h3>Fax</h3><p>专属 OpenEvidence 传真号码，可上传、扫描或拍照发送并收件；同属 Dialer opt-in，未开通前停留在 Get started 门槛。</p></div>
+        </div>
+        <h3>Dotflows 实测教程给出的四类用途</h3>
+        <div class="table-wrap"><table><thead><tr><th>用途</th><th>产品解释</th><th>内置示例</th></tr></thead><tbody>
+          <tr><td>结构化工作流</td><td>把反复发生的格式和步骤封装成指令</td><td><code>.avs</code>、<code>.discharge</code>、<code>.prior_auth</code>、<code>.fmla</code></td></tr>
+          <tr><td>调整回答风格</td><td>表格、要点、简洁或详细</td><td><code>.succinct</code></td></tr>
+          <tr><td>添加临床上下文</td><td>儿科、住院、初级保健等人群/场景</td><td><code>.patient_context_pediatrics</code></td></tr>
+          <tr><td>Visits 内处理</td><td>询问患者、重排或润色文书</td><td>当前 Visit 上下文 + Dotflow</td></tr>
+        </tbody></table></div>
+        <div class="shot-grid" style="margin-top:18px">
+          <figure class="shot"><img src="assets/10-calculators.png" alt="213 个计算器" loading="lazy"><figcaption>计算器目录与右侧即时计算面板。</figcaption></figure>
+          <figure class="shot"><img src="assets/14-dotflows.png" alt="Dotflows" loading="lazy"><figcaption>社区 Dotflows 提供可直接复用的临床提示模板。</figcaption></figure>
+          <figure class="shot"><img src="assets/15-patient-messaging.png" alt="Patient Messaging" loading="lazy"><figcaption>Dialer 统一承载呼叫、短信与传真；首次使用需要 opt-in。</figcaption></figure>
+          <figure class="shot"><img src="assets/11-collections.png" alt="Collections" loading="lazy"><figcaption>Collections 是轻量的问答分组与个人知识库入口。</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="knowledge">
+        <div class="section-kicker">07 · Knowledge & learning</div><h2 class="section-title">知识管理、教育与社区</h2>
+        <div class="grid two">
+          <div class="card"><h3>History</h3><p>侧栏展示最近条目，完整页支持搜索、批量选择、打开与 Conversation actions。历史同时收纳 Ask 和 Visit 类型。</p></div>
+          <div class="card"><h3>CME / CE / MOC</h3><p>根据过去问题生成 0.5 credit 的 board topics；支持 Available/Claimed、年份、Transcript 下载、学员档案、Accreditation 和 Review/Claim 流程。</p></div>
+          <div class="card"><h3>USMLE Prep（Beta）</h3><p>创建 Study Session，选择 Step 1 / Step 2 CK / Step 3、Main Topic 和 Subtopic，动态生成练习题。</p></div>
+          <div class="card"><h3>Community</h3><p>需先建医生资料：显示名、Credentials、Specialty、头像、简介；可配置“允许别人消息”和“邮件通知”。资料完成后才能被搜索和协作。</p></div>
+          <div class="card"><h3>Inbox Management</h3><p>官方用例覆盖化验结果回复和患者消息草拟；结合 Open inbox、Messaging 与患者上下文，形成临床收件箱处理场景。</p></div>
+          <div class="card"><h3>User Guide / What’s New</h3><p>指南将 Ask、Visits、Dialer 分域；更新记录显示 Dotflows、Coding Intelligence、Voices、Messages、Fax 等近年功能。</p></div>
+        </div>
+        <div class="shot-grid">
+          <figure class="shot"><img src="assets/18-cme.png" alt="CME 页面" loading="lazy"><figcaption>CME 把“曾经问过的问题”再加工成可申领的学习主题。</figcaption></figure>
+          <figure class="shot"><img src="assets/24-usmle.png" alt="USMLE Prep" loading="lazy"><figcaption>USMLE Prep 以 Step、主主题、子主题组织动态学习会话。</figcaption></figure>
+          <figure class="shot"><img src="assets/17-community.png" alt="Community profile setup" loading="lazy"><figcaption>Community 首次进入需要完成专业身份和消息隐私设置。</figcaption></figure>
+          <figure class="shot"><img src="assets/25-user-guide.png" alt="User Guide" loading="lazy"><figcaption>User Guide 的信息架构同样验证了 Ask / Visits / Dialer 三大产品域。</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="logic">
+        <div class="section-kicker">08 · Product logic</div><h2 class="section-title">研发视角：一次任务怎样流经系统</h2>
+        <div class="flow">
+          <div class="node"><b>上下文装配</b><span>账户、患者、Visit、附件、历史、选择的模式/Dotflow。</span></div>
+          <div class="node"><b>意图与任务路由</b><span>临床问答、指南、药安、文书、计算器、试验、Deep Consult。</span></div>
+          <div class="node"><b>检索与工具调度</b><span>许可全文、指南、PubMed/FDA、计算器、registry、地图数据。</span></div>
+          <div class="node"><b>证据合成</b><span>结论、量化结果、冲突、局限、参考文献、EvidenceGrade。</span></div>
+          <div class="node"><b>结果落地</b><span>追问、导出、Collection、Note/AVS、Billing、CME、分享。</span></div>
+        </div>
+        <div class="grid two">
+          <div class="card"><h3>1. “模式”更像路由提示，不是五个独立聊天机器人</h3><p>同一输入框和回答框架不变，但推荐案例、工具优先级、答案结构发生改变；Drug Safety 会优先组织机制/严重度/管理，Paperwork 会优先输出文书。</p></div>
+          <div class="card"><h3>2. 计算器是模型可调用工具</h3><p>房颤案例证明模型能从自由文本抽取变量、回填计算器、展示可编辑状态，再引用结果进行指南解释。这是“LLM → tool → LLM”的闭环。</p></div>
+          <div class="card"><h3>3. Deep Consult 是异步研究管线</h3><p>先进入独立“Researching medical literature”状态，完成后一次性呈现分节报告和大量来源；与标准流式回答的耗时、规模和证据审计深度不同。</p></div>
+          <div class="card"><h3>4. Patient 与 Visit 是长周期状态</h3><p>对话是短周期任务；患者保存跨对话上下文，Visit 聚合某次就诊的录音、Note、AVS、编码和问答。团队则在此之上增加共享边界和角色。</p></div>
+          <div class="card"><h3>5. 输出组件是结构化的</h3><p>答案里的表格、图、学会材料、引用、来源类型、按钮都不是纯 Markdown 文本，而是可交互 UI 组件，便于导出、下钻和反馈。</p></div>
+          <div class="card"><h3>6. 教育与增长复用同一数据</h3><p>历史问题被转成 CME 主题；社区 Dotflows 和 Visit 模板反过来降低任务输入成本，形成“使用 → 沉淀 → 复用 → 教育”的循环。</p></div>
+        </div>
+        <div class="callout"><b>可推断的核心领域模型：</b> User / Clinician、Patient、Conversation、Visit、Template、Voice、Dotflow、Collection、Evidence Source、Calculator Run、Trial、CME Topic、Team、Message/Fax。它们通过权限、上下文和任务执行记录关联。</div>
+      </section>
+
+      <section id="matrix">
+        <div class="section-kicker">09 · Matrix</div><h2 class="section-title">功能矩阵：入口、作用与实测状态</h2>
+        <div class="table-wrap"><table>
+          <thead><tr><th>分类</th><th>功能点</th><th>入口</th><th>实测结论</th><th>研发逻辑</th></tr></thead>
+          <tbody>
+            <tr><td>Ask</td><td>Clinical Decision Support</td><td>主页默认模式</td><td>已生成指南型病例回答</td><td>通用临床任务路由</td></tr>
+            <tr><td>Ask</td><td>Deep Consult</td><td>输入框上方开关</td><td>完成 8 节、30 引用报告</td><td>异步深度检索/长报告</td></tr>
+            <tr><td>Ask</td><td>Paperwork</td><td>模式按钮</td><td>展示 prior auth、患者材料案例</td><td>文书模板 + 临床证据</td></tr>
+            <tr><td>Ask</td><td>Guidelines</td><td>模式按钮</td><td>按学会/年份提供推荐题</td><td>指南优先检索与摘要</td></tr>
+            <tr><td>Ask</td><td>Drug Safety</td><td>模式按钮</td><td>相互作用案例完成</td><td>药物知识图谱/标签 + 证据</td></tr>
+            <tr><td>Ask</td><td>附件 / Dotflows</td><td>More options</td><td>折叠菜单可见</td><td>输入增强器</td></tr>
+            <tr><td>Ask</td><td>分享</td><td>回答页顶部</td><td>Private / 指定人 / Public</td><td>对象级 ACL + 公网链接</td></tr>
+            <tr><td>Visits</td><td>Patient</td><td>Visits → Patients</td><td>搜索/排序/视图/长期上下文</td><td>患者级上下文容器</td></tr>
+            <tr><td>Visits</td><td>Templates</td><td>Visits → Templates</td><td>6 个默认/自定义模板</td><td>富文本结构 + AI 占位语义</td></tr>
+            <tr><td>Visits</td><td>Voice</td><td>New Visit</td><td>4 内置风格 + New Style</td><td>生成参数配置</td></tr>
+            <tr><td>Visits</td><td>Billing</td><td>Visit 右侧 Tab</td><td>完成 Note 后生成代码</td><td>文书 → 编码推断</td></tr>
+            <tr><td>Visits</td><td>Care Teams</td><td>Visits / Guide</td><td>角色、共享空间、权限说明已核对</td><td>Team workspace + RBAC</td></tr>
+            <tr><td>Tools</td><td>Calculators</td><td>Tools / 首页模式</td><td>213 项；支持自动调用</td><td>结构化工具注册表</td></tr>
+            <tr><td>Tools</td><td>Clinical Trials</td><td>Tools</td><td>案例匹配 13 项</td><td>NL 查询解析 + registry + 地图</td></tr>
+            <tr><td>Tools</td><td>Dotflows</td><td>Tools / 输入“.”</td><td>7 个 Editor's Pick 示例</td><td>可复用提示对象</td></tr>
+            <tr><td>Tools</td><td>Collections</td><td>Tools / 回答操作</td><td>创建、搜索、收纳</td><td>用户知识整理对象</td></tr>
+            <tr><td>Dialer</td><td>Calls / Messages / Fax</td><td>Tools / 移动端</td><td>功能介绍与 opt-in 门槛已确认</td><td>通信服务 + 专属号码 + 合规同意</td></tr>
+            <tr><td>Learn</td><td>CME / USMLE</td><td>侧栏 / 全局菜单</td><td>6.0 credits；USMLE Beta</td><td>历史问题再加工 + 动态题目</td></tr>
+            <tr><td>Community</td><td>Provider profile</td><td>侧栏 Community</td><td>需完成身份/消息设置</td><td>专业身份与可发现性</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="safety">
+        <div class="section-kicker">10 · Safety & privacy</div><h2 class="section-title">隐私、同意与高风险动作边界</h2>
+        <div class="grid two">
+          <div class="card"><h3>默认最小暴露</h3><p>对话默认 Private。公开分享前明确提醒：任何拿到链接的人都能查看，必须先移除 PHI 和敏感医疗信息。</p></div>
+          <div class="card"><h3>录音需要法律同意</h3><p>Visit 页面在 Transcribe/Pre-chart 附近持续显示同意提示；麦克风授权、真实录音和患者信息处理都应由用户主动确认。</p></div>
+          <div class="card"><h3>通信需要 opt-in</h3><p>Messaging/Fax 的 Get started 会接受 Telehealth Policy 并可能开通专属号码，这是账户层外部能力，不应在探索阶段替用户点击。</p></div>
+          <div class="card"><h3>角色与边界</h3><p>Care Coordinator 可以支撑流程，但不能录制或签署临床文书；Clinician、Owner/Admin 拥有不同权限。</p></div>
+        </div>
+        <figure class="shot"><img src="assets/16-fax.png" alt="Dialer opt-in 对话框" loading="lazy"><figcaption>Fax 首次进入停在 Dialer opt-in；本次仅确认功能与门槛，没有接受政策或开通外部通信服务。</figcaption></figure>
+      </section>
+
+      <section id="findings">
+        <div class="section-kicker">11 · Findings</div><h2 class="section-title">实测发现、未执行动作与使用建议</h2>
+        <div class="callout green"><b>测试影响：</b>本次创建了 3 个虚构案例对话，并因点击 Pre-chart 产生一条空的“Visit on Jul 31”记录；没有发送短信/传真、没有公开分享、没有申领 CME、没有创建团队或患者。</div>
+        <div class="grid two">
+          <div class="card"><h3>表现亮点</h3><ul><li>自由文本到计算器的自动工具调用自然、可核对</li><li>参考文献类型、指南卡片与许可图表非常丰富</li><li>Deep Consult 会主动陈述证据冲突和局限</li><li>问答、Visit、CME、模板与团队形成闭环</li></ul></div>
+          <div class="card"><h3>需要留意</h3><ul><li>Deep Consult 明显更慢，应提供进度、取消与后台完成通知</li><li>功能入口多，Tools、全局菜单、主页模式存在分散</li><li>Community、Dialer/Fax 首次进入有独立 setup/opt-in</li><li>CME Claimed 实测出现 1/1/1970 日期，可能是占位或数据异常，值得研发核查</li></ul></div>
+          <div class="card"><h3>新用户上手顺序</h3><ol><li>先用标准 Clinical Decision Support 问一个具体病例</li><li>展开 References 和 Summary 学会核查</li><li>再试 Calculator / Guideline / Drug Safety 模式</li><li>复杂争议问题才使用 Deep Consult</li><li>高频格式沉淀为 Dotflow；患者连续工作转入 Visits</li></ol></div>
+          <div class="card"><h3>本次没有实做的功能</h3><p>真实录音/Voice Session、真实附件上传、短信/电话/传真、CME Claim、Community Complete Setup、Care Team 邀请、公开分享。这些动作会涉及权限、外部发送、身份展示或账户状态变化。</p></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer"><div class="wrap"><b>OpenEvidence 功能点详解</b><br><span class="small" style="color:#b8d0ca">实测日期：2026‑07‑31 · 仅供产品研究、新用户培训与研发拆解。产品入口：<a href="https://www.openevidence.com/">openevidence.com</a></span><br><span class="small" style="color:#9ae2d4">AI-assisted website analysis · Curation by CocoSun</span></div></footer>
+  <a class="backtop" href="#top" aria-label="返回顶部">↑</a>
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="截图预览"><button aria-label="关闭">×</button><img alt="放大截图"></div>
+  <script>
+    const box=document.getElementById('lightbox'), big=box.querySelector('img');
+    document.querySelectorAll('.shot img').forEach(img=>img.addEventListener('click',()=>{big.src=img.src;big.alt=img.alt;box.classList.add('open')}));
+    box.addEventListener('click',e=>{if(e.target!==big)box.classList.remove('open')});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')box.classList.remove('open')});
+  </script>
+<!-- sun-blog-home-link:start -->
+<a class="sun-blog-home-link" href="../../" aria-label="返回主页">← 首页</a>
+<style>
+  .sun-blog-home-link {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 2147483647;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 8px 13px;
+    border: 1px solid rgba(23, 32, 51, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 10px 26px rgba(23, 32, 51, 0.16);
+    color: #174a7c;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+  }
+
+  .sun-blog-home-link:hover {
+    color: #8f2444;
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    .sun-blog-home-link {
+      top: 12px;
+      left: 12px;
+      min-height: 34px;
+      padding: 7px 11px;
+      font-size: 13px;
+    }
+  }
+</style>
+<!-- sun-blog-home-link:end -->
+</body>
+</html>
